@@ -13,8 +13,7 @@ import javax.swing.JMenuItem;
  * 
  * @author Nicolas Gambarini
  * 
- * yabadou badouuuuuuu
- * bouh
+ * esssssaaiiii
  * 
  */
 public class Menu {
