@@ -8,8 +8,9 @@ package figures;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.Observable;
 
-public class FigureGeom {
+public class FigureGeom extends Observable {
 
 	private Color couleur;
 	private boolean plein;
@@ -20,7 +21,6 @@ public class FigureGeom {
 	private int nbSaisie;
 
 	public FigureGeom() {
-		this.couleur = Color.BLACK;
 		this.plein = false;
 		this.selection = true;
 	}
