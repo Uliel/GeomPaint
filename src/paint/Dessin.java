@@ -163,11 +163,17 @@ public class Dessin extends JPanel {
 					int rayon = distance(x0, y0, x1, y1);
 					g.drawOval(x0 - rayon, y0 - rayon, rayon * 2, rayon * 2);
 					
-					//Si la figure est selectionnee, on dessine les points de selection (et pas les points de memorisation attention...)
-					if (tabFigures[i].getSelection()) {
-						g.drawRect(x0 - 3, y0 - 3, 6, 6);
-						g.drawRect(x1 - 3, y1 - 3, 6, 6);
-					}
+					// Remplissage du tableau de points de memorisation
+					tabFigures[i].ajouterMemo(0, x0, y0);
+					tabFigures[i].ajouterMemo(1, x0 + rayon, y0);
+				}
+							
+				
+				//Si la figure est selectionnee, on dessine les points de selection (et pas les points de memorisation
+				// je pense qu'il y a une faute dans l'enonce, a discuter)
+				if (tabFigures[i].getSelection()) {
+					g.drawRect(positions[0].x - 3, positions[0].y - 3, 6, 6);
+					g.drawRect(positions[1].x - 3, positions[1].y - 3, 6, 6);
 				}
 			}
 		}
@@ -178,5 +184,7 @@ public class Dessin extends JPanel {
 	public int distance(int x1, int y1, int x2, int y2) {
 		return (int)Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
 	}
+		
+	
 
 }
