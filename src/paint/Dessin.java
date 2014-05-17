@@ -29,8 +29,7 @@ public class Dessin extends JPanel {
 		this.tabFigures = new FigureGeom[Dessin.MAXTAILLE];
 		this.boutons = new Menu();
 		this.setLayout(new BorderLayout());
-		this.add(boutons, BorderLayout.NORTH);
-
+		this.add(boutons,BorderLayout.NORTH);
 		this.nbFigures = 0;
 		this.nbClics = 0;
 
@@ -39,9 +38,9 @@ public class Dessin extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 				Graphics g = getGraphics();
 				g.setColor(Color.BLACK);
-				//On ne dessine que si un bouton dessin est appuyé
+				//On ne dessine que si un bouton dessin est appuyï¿½
 				if (boutons.getDessiner()) {
-					//Si on clique pour la première fois, on crée la figure et on déselectionne la précédente
+					//Si on clique pour la premiï¿½re fois, on crï¿½e la figure et on dï¿½selectionne la prï¿½cï¿½dente
 					if (nbClics == 0) {
 						tabFigures[nbFigures] = new Cercle();
 						tabFigures[nbFigures].setCouleur(g.getColor());
@@ -50,15 +49,15 @@ public class Dessin extends JPanel {
 								tabFigures[i].selectionner();
 						}
 					}
-					//On remplit le tableau de points et on incrémente le nombre de clics
-					if (nbClics < tabFigures[nbFigures].getTabPoints().length - 1) {
-						tabFigures[nbFigures].ajouterPoint(nbClics, e.getX(),
+					//On remplit le tableau de points et on incrï¿½mente le nombre de clics
+					if (nbClics < tabFigures[nbFigures].getTabSaisie().length - 1) {
+						tabFigures[nbFigures].ajouterSaisie(nbClics, e.getX(),
 								e.getY());
 						nbClics++;
 					} 
-					//Dernier clic : on réinitialise le nb de clics et on incrémente le nb de figures
+					//Dernier clic : on rï¿½initialise le nb de clics et on incrï¿½mente le nb de figures
 					else {
-						tabFigures[nbFigures].ajouterPoint(nbClics, e.getX(),
+						tabFigures[nbFigures].ajouterSaisie(nbClics, e.getX(),
 								e.getY());
 						nbClics = 0;
 						nbFigures++;
@@ -88,9 +87,9 @@ public class Dessin extends JPanel {
 
 			public void mouseMoved(MouseEvent e) {
 				if (boutons.getDessiner() && nbClics > 0) {
-					//Tentative pour dessiner avec le mouvement de la souris (loupé)
+					//Tentative pour dessiner avec le mouvement de la souris (loupï¿½)
 					Graphics g = getGraphics();
-					tabFigures[nbFigures].ajouterPoint(nbClics, e.getX(), e.getY());
+					tabFigures[nbFigures].ajouterSaisie(nbClics, e.getX(), e.getY());
 //					Point[] positions = tabFigures[nbFigures].getTabPoints();
 //					g.drawRect(positions[0].x - 3, positions[0].y - 3, 6, 6);
 //					int diametre = ((int) Math.sqrt((positions[0].x - e.getX())
@@ -119,9 +118,9 @@ public class Dessin extends JPanel {
 		if (nbFigures > 0) {
 			for (int i = 0; i < nbFigures; i++) {
 				g.setColor(tabFigures[i].getCouleur());
-				Point[] positions = tabFigures[i].getTabPoints();
+				Point[] positions = tabFigures[i].getTabSaisie();
 				// Dessin d'un cercle
-				// Calcul de la distance à faire ailleurs
+				// Calcul de la distance ï¿½ faire ailleurs
 				int diametre = ((int) Math
 						.sqrt((positions[0].x - positions[1].x)
 								* (positions[0].x - positions[1].x)
@@ -129,7 +128,7 @@ public class Dessin extends JPanel {
 								* (positions[0].y - positions[1].y))) * 2;
 				g.drawOval(positions[0].x - diametre / 2, positions[0].y
 						- diametre / 2, diametre, diametre);
-				//Si la figure est sélectionnée, on dessine les points de sélection
+				//Si la figure est sï¿½lectionnï¿½e, on dessine les points de sï¿½lection
 				if (tabFigures[i].getSelection()) {
 					g.drawRect(positions[0].x - 3, positions[0].y - 3, 6, 6);
 					g.drawRect(positions[0].x + diametre / 2 - 3,
