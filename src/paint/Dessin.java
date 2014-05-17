@@ -211,7 +211,8 @@ public class Dessin extends JPanel {
 					g.drawLine(x1, y1, x1, y0);
 					g.drawLine(x1, y0, x0, y0);					
 				}
-							
+						
+				// Testtttttt
 				
 				//Si la figure est selectionnee, on dessine les points de selection (et pas les points de memorisation
 				// je pense qu'il y a une faute dans l'enonce, a discuter)
