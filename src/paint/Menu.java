@@ -9,68 +9,56 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import figures.Cercle;
 
-/**
- * Classe Menu qui permet de choisir la couleur et la taille du plateau
- * 
- * @author Nicolas Gambarini
- * 
- * esssssaaiiii
- * 
- */
-public class Menu extends JPanel{
-	/**
-	 * Attribut Dessin auquel est associé le menu
-	 */
-	private Dessin d;
+public class Menu extends JPanel {
+	
+	// ATTRIBUTS
 	private boolean dessiner;
 	private JToolBar formes=new JToolBar("Formes");
+	private String numFigCourante;
 
+	
+	// CONSTRUCTEUR
 	/**
-	 * Constructeur qui permet d'initialiser le plateau de jeu
-	 * 
-	 * @param pl
+	 * Constructeur initialisant le menu
 	 */
 	public Menu() {
+		// Creation des boutons de selection de forme et stockage dans un tableau
 		formes.setLayout(new GridLayout(2,4));
-		JButton cercle = new JButton(new ImageIcon("images/cercle.jpg"));
-		JButton rectangle = new JButton(new ImageIcon("images/rectangle.jpg"));
-		JButton carre = new JButton(new ImageIcon("images/carre.jpg"));
-		JButton triangle = new JButton(new ImageIcon("images/triangle.jpg"));
-		JButton elipse = new JButton(new ImageIcon("images/ovale.jpg"));
-		JButton polygone = new JButton(new ImageIcon("images/polygone.jpg"));
-		JButton losange = new JButton(new ImageIcon("images/losange.jpg"));
-		JButton trait = new JButton(new ImageIcon("images/trait.jpg"));
+		JButton cercle = new JButton("1", new ImageIcon("images/cercle.jpg"));
+		JButton rectangle = new JButton("2", new ImageIcon("images/rectangle.jpg"));
+		JButton carre = new JButton("3", new ImageIcon("images/carre.jpg"));
+		JButton triangle = new JButton("4", new ImageIcon("images/triangle.jpg"));
+		JButton ellipse = new JButton("5", new ImageIcon("images/ovale.jpg"));
+		JButton polygone = new JButton("6", new ImageIcon("images/polygone.jpg"));
+		JButton losange = new JButton("7", new ImageIcon("images/losange.jpg"));
+		JButton trait = new JButton("8", new ImageIcon("images/trait.jpg"));
+		JButton[] tabBoutonsFormes = {cercle, rectangle, carre, triangle, ellipse, polygone, losange, trait};
 		
-		cercle.setBackground(Color.white);
-		rectangle.setBackground(Color.white);
-		carre.setBackground(Color.white);
-		triangle.setBackground(Color.white);
-		elipse.setBackground(Color.white);
-		polygone.setBackground(Color.white);
-		losange.setBackground(Color.white);
-		trait.setBackground(Color.white);
-		
-		ActionListener dessinCercle = new ActionListener() {
-			
+		// Creation d'un auditeur commun a tous les boutons
+		ActionListener selectionForme = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dessiner = true;
+				numFigCourante = ((JButton)(e.getSource())).getText();
 			}
 		};
 		
-		cercle.addActionListener(dessinCercle);
-		formes.add(cercle);	
-		formes.add(rectangle);
-		formes.add(triangle);
-		formes.add(carre);
-		formes.add(elipse);
-		formes.add(polygone);
-		formes.add(losange);
-		formes.add(trait);
-		this.add(formes);
+		/* Pour tous les boutons :
+		 *  - Affectation de l'auditeur
+		 *  - Coloration du background
+		 *  - Attachement à la ToolBar
+		 */
+		for (int i = 0 ; i < tabBoutonsFormes.length ; i++) {
+			tabBoutonsFormes[i].setBackground(Color.white);
+			tabBoutonsFormes[i].addActionListener(selectionForme);
+			formes.add(tabBoutonsFormes[i]);
 		}
+		
+		this.add(formes);
+	}
 	
+	
+	// ACCESSEURS
 	public boolean getDessiner() {
 		return this.dessiner;
 	}
@@ -79,4 +67,7 @@ public class Menu extends JPanel{
 		this.dessiner = d;
 	}
 
+	public int getNumFigCourante() {
+		return Integer.parseInt(this.numFigCourante);
+	}
 }
