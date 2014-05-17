@@ -167,13 +167,35 @@ public class Dessin extends JPanel {
 					tabFigures[i].ajouterMemo(0, x0, y0);
 					tabFigures[i].ajouterMemo(1, x0 + rayon, y0);
 				}
+				
+				
+				// Cas du triange
+				if(tabFigures[i] instanceof Triangle) {
+					// Recuperation des coordonnees
+					int x0 = positions[0].x;
+					int y0 = positions[0].y;
+					int x1 = positions[1].x;
+					int y1 = positions[1].y;
+					int x2 = positions[2].x;
+					int y2 = positions[2].y;
+										
+					// Remplissage du tableau de points de memorisation
+					tabFigures[i].ajouterMemo(0, x0, y0);
+					tabFigures[i].ajouterMemo(1, x1, y1);
+					tabFigures[i].ajouterMemo(2, x2, y2);
+				
+					// Dessin
+					g.drawLine(x0, y0, x1, y1);
+					g.drawLine(x1, y1, x2, y2);
+					g.drawLine(x0, y0, x2, y2);
+				}
 							
 				
 				//Si la figure est selectionnee, on dessine les points de selection (et pas les points de memorisation
 				// je pense qu'il y a une faute dans l'enonce, a discuter)
 				if (tabFigures[i].getSelection()) {
-					g.drawRect(positions[0].x - 3, positions[0].y - 3, 6, 6);
-					g.drawRect(positions[1].x - 3, positions[1].y - 3, 6, 6);
+					for (int j = 0 ; j < positions.length ; j++)
+						g.drawRect(positions[j].x - 3, positions[j].y - 3, 6, 6);
 				}
 			}
 		}
