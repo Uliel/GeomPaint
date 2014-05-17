@@ -169,7 +169,7 @@ public class Dessin extends JPanel {
 				}
 				
 				
-				// Cas du triange
+				// Cas du triangle
 				if(tabFigures[i] instanceof Triangle) {
 					// Recuperation des coordonnees
 					int x0 = positions[0].x;
@@ -188,6 +188,28 @@ public class Dessin extends JPanel {
 					g.drawLine(x0, y0, x1, y1);
 					g.drawLine(x1, y1, x2, y2);
 					g.drawLine(x0, y0, x2, y2);
+				}
+				
+				
+				// Cas du rectangle
+				if(tabFigures[i] instanceof Rectangle) {
+					// Recuperation des coordonnees
+					int x0 = positions[0].x;
+					int y0 = positions[0].y;
+					int x1 = positions[1].x;
+					int y1 = positions[1].y;
+					
+					// Remplissage du tableau de points de memorisation
+					tabFigures[i].ajouterMemo(0, x0, y0);
+					tabFigures[i].ajouterMemo(1, x0, y1);
+					tabFigures[i].ajouterMemo(2, x1, y1);
+					tabFigures[i].ajouterMemo(3, x1, y0);
+					
+					// Dessin
+					g.drawLine(x0, y0, x0, y1);
+					g.drawLine(x0, y1, x1, y1);
+					g.drawLine(x1, y1, x1, y0);
+					g.drawLine(x1, y0, x0, y0);					
 				}
 							
 				
