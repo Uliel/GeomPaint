@@ -3,14 +3,14 @@ package paint;
 import javax.swing.*;
 
 public class Bouton extends JToggleButton {
-	private String valeur;
+	private int valeur;
 	
-	public Bouton (String s,ImageIcon i) {
+	public Bouton (int n,ImageIcon i) {
 		super(i);
-		valeur = s;
+		valeur = n;
 	}
 
-	public String getValeur() {
+	public int getValeur() {
 		return valeur;
 	}
 
