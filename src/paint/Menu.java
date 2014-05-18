@@ -15,6 +15,7 @@ public class Menu extends JPanel {
 	// ATTRIBUTS
 	private boolean dessiner;
 	private JToolBar formes = new JToolBar("Formes");
+	private JToolBar outils = new JToolBar("Outils");
 	private int numFigCourante;
 
 	// CONSTRUCTEUR
@@ -25,15 +26,15 @@ public class Menu extends JPanel {
 		// Creation des boutons de selection de forme et stockage dans un
 		// tableau
 		formes.setLayout(new GridLayout(2, 4, 2, 2));
-		Bouton cercle = new Bouton(1, new ImageIcon("images/cercle.jpg"));
+		Bouton cercle = new Bouton(1, new ImageIcon("images/cercle.png"));
 		Bouton rectangle = new Bouton(2,
-				new ImageIcon("images/rectangle.jpg"));
-		Bouton carre = new Bouton(3, new ImageIcon("images/carre.jpg"));
-		Bouton triangle = new Bouton(4, new ImageIcon("images/triangle.jpg"));
-		Bouton ellipse = new Bouton(5, new ImageIcon("images/ovale.jpg"));
-		Bouton polygone = new Bouton(6, new ImageIcon("images/polygone.jpg"));
-		Bouton losange = new Bouton(7, new ImageIcon("images/losange.jpg"));
-		Bouton trait = new Bouton(8, new ImageIcon("images/trait.jpg"));
+				new ImageIcon("images/rectangle.png"));
+		Bouton carre = new Bouton(3, new ImageIcon("images/carre.png"));
+		Bouton triangle = new Bouton(4, new ImageIcon("images/triangle.png"));
+		Bouton ellipse = new Bouton(5, new ImageIcon("images/ovale.png"));
+		Bouton polygone = new Bouton(6, new ImageIcon("images/polygone.png"));
+		Bouton losange = new Bouton(7, new ImageIcon("images/losange.png"));
+		Bouton trait = new Bouton(8, new ImageIcon("images/trait.png"));
 		final Bouton[] tabBoutonsFormes = { cercle, rectangle, carre, triangle,
 				ellipse, polygone, losange, trait };
 		// Creation d'un auditeur commun a tous les boutons
@@ -60,6 +61,11 @@ public class Menu extends JPanel {
 		this.add(formes);
 	}
 
+	//Boutons de la boîte à outils
+	Bouton supprimer = new Bouton(1, new ImageIcon("images/supprimer.png"));
+	Bouton selectionner = new Bouton(2, new ImageIcon("images/selectionner.png"));
+	Bouton remplir = new Bouton(3, new ImageIcon("images/remplir.png"));
+	
 	// ACCESSEURS
 	public boolean getDessiner() {
 		return this.dessiner;
