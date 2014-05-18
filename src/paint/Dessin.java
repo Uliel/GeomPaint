@@ -21,6 +21,7 @@ import figures.Rectangle;
 
 public class Dessin extends JPanel {
 
+	// ATTRIBUTS
 	private final static int MAXTAILLE = 100;
 	private FigureGeom[] tabFigures;
 	private Menu boutons;
@@ -29,6 +30,8 @@ public class Dessin extends JPanel {
 	private int nbPoints;
 	private ArrayList<UnPoint> listePoints = new ArrayList<UnPoint>();
 
+	
+	// CONSTRUCTEURS
 	public Dessin() {
 		this.setPreferredSize(new Dimension(1000, 600));
 		this.setBackground(Color.WHITE);
@@ -68,9 +71,6 @@ public class Dessin extends JPanel {
 							break;
 						case(5) :
 //							tabFigures[nbFigures] = new Ovale();
-//							break;
-//						case(6) :
-//							ArrayList listePoints = new ArrayList();
 //							break;
 //						case(7) :
 //							tabFigures[nbFigures] = new Losange();
@@ -130,7 +130,27 @@ public class Dessin extends JPanel {
 					}
 					// Si on est en présence d'un polygone
 					else {
-						
+						UnPoint nouveauPoint = new UnPoint(e.getX(), e.getY());
+						// Le premier point est automatiquement ajouté à l'ArrayList
+						if(nbClics == 0) {
+							listePoints.add(nouveauPoint);
+							nbClics++;
+						}
+						// Gestion des points suivants
+						else {
+							// Si le nouveau point est positionné au voisinage du premier point, le polygone est considéré comme fini
+							if(estVoisin(20, nouveauPoint, listePoints.get(0))) {
+								tabFigures[nbFigures] = new Polygone(listePoints);
+								listePoints.clear();
+								nbClics = 0;
+								nbFigures++;
+							}
+							// Sinon, on incrémente l'ArrayList
+							else {
+								listePoints.add(nouveauPoint);
+								nbClics++;
+							}
+						}						
 					}
 				}
 				repaint();
@@ -182,6 +202,9 @@ public class Dessin extends JPanel {
 
 	}
 
+	
+	// METHODES
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		//Dessin du tableau de figures
@@ -190,7 +213,7 @@ public class Dessin extends JPanel {
 				g.setColor(tabFigures[i].getCouleur());
 				Point[] positions = tabFigures[i].getTabSaisie();
 				
-				// Cas du cercle
+				// Cas du cercle (ne marche pas)
 				if(tabFigures[i] instanceof Cercle) {
 					// Recuperation des coordonnees
 					int x0 = positions[0].x;
@@ -243,5 +266,12 @@ public class Dessin extends JPanel {
 	public void dessinLigne(Graphics g, UnPoint p1, UnPoint p2) {
 		g.drawLine(p1.x, p1.y, p2.x, p2.y);
 	}
-
+	
+	// Methode qui teste si un point se trouve à moins d'une certaine distance d'un autre point
+	public boolean estVoisin(int distance, UnPoint p1, UnPoint p2) {
+		boolean res = false;
+		if(p1.distance(p2) < distance)
+			res = true;
+		return res;
+	}
 }
