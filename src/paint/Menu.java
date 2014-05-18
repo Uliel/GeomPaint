@@ -16,6 +16,7 @@ public class Menu extends JPanel {
 	private boolean dessiner;
 	private JToolBar formes = new JToolBar("Formes");
 	private JToolBar outils = new JToolBar("Outils");
+	private JToolBar col = new JToolBar("Couleurs");
 	private int numFigCourante;
 	// Creation des boutons de selection de forme et stockage dans un
 	// tableau
@@ -32,6 +33,8 @@ public class Menu extends JPanel {
 	private Bouton trait = new Bouton(8, new ImageIcon("images/trait.png"));
 	private Bouton[] tabBoutonsFormes = { cercle, rectangle, carre, triangle,
 			ellipse, polygone, losange, trait };
+	// tableau de boutons de couleur
+	private Bouton[] couleurs = new Bouton[30];
 	private Dessin dessin;
 
 	// Boutons de la boîte à outils
@@ -44,16 +47,19 @@ public class Menu extends JPanel {
 			"images/exporter_jpg2.png"));
 	private Bouton exporterPNG = new Bouton(5, new ImageIcon(
 			"images/exporter_png2.png"));
-	private Bouton[] tabBoutonsOutils = { supprimer, selectionner, remplir,exporterJPG,exporterPNG };
-	
+	private Bouton[] tabBoutonsOutils = { supprimer, selectionner, remplir,
+			exporterJPG, exporterPNG };
 
 	// CONSTRUCTEUR
 	/**
 	 * Constructeur initialisant le menu
 	 */
 	public Menu(Dessin d) {
+		this.setLayout(new BorderLayout(4,4));
 		formes.setLayout(new GridLayout(2, 4, 2, 2));
-		dessin=d;
+		outils.setLayout(new GridLayout(2, 3, 2, 2));
+		col.setLayout(new GridLayout(3, 10));
+		dessin = d;
 		// Creation d'un auditeur commun a tous les boutons de forme
 		ActionListener selectionForme = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -63,8 +69,8 @@ public class Menu extends JPanel {
 				if (((Bouton) (e.getSource())).isSelected()) {
 					desactiverFormes();
 					((Bouton) (e.getSource())).setSelected(true);
-				}
-				else 
+					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2, false));
+				} else
 					desactiverFormes();
 
 			}
@@ -88,16 +94,17 @@ public class Menu extends JPanel {
 				if (((Bouton) (e.getSource())).isSelected()
 						&& ((Bouton) (e.getSource())).getValeur() == 2) {
 					((Bouton) (e.getSource())).setSelected(true);
-					
-				}
-				else {
-					if (((Bouton) (e.getSource())).getValeur()==4)
+					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2, false));
+
+
+				} else {
+					if (((Bouton) (e.getSource())).getValeur() == 4)
 						dessin.exporter("jpg");
-					else if (((Bouton) (e.getSource())).getValeur()==5)
+					else if (((Bouton) (e.getSource())).getValeur() == 5)
 						dessin.exporter("png");
 					((Bouton) (e.getSource())).setSelected(false);
 				}
-				
+
 			}
 		};
 
@@ -108,8 +115,17 @@ public class Menu extends JPanel {
 			tabBoutonsOutils[i].addActionListener(selectionOutils);
 		}
 
-		this.add(outils);
-		this.add(formes);
+		// Ajout des différentes couleurs
+
+		col.setPreferredSize(new Dimension(230,70));
+		for (int i = 0; i < couleurs.length; i++) {
+			col.add(new Bouton(Color.white));
+		}
+		formes.setPreferredSize(new Dimension(120,60));
+		outils.setPreferredSize(new Dimension(140,60));
+		this.add(col,BorderLayout.WEST);
+		this.add(outils,BorderLayout.EAST);
+		this.add(formes,BorderLayout.CENTER);
 	}
 
 	// ACCESSEURS
@@ -125,16 +141,20 @@ public class Menu extends JPanel {
 		return this.numFigCourante;
 	}
 
-	//methodes pour deselectionner les boutons
+	// methodes pour deselectionner les boutons
 	public void desactiverFormes() {
 		for (int i = 0; i < tabBoutonsFormes.length; i++) {
 			tabBoutonsFormes[i].setSelected(false);
+			tabBoutonsFormes[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+			
 		}
 	}
 
 	public void desactiverOutils() {
 		for (int i = 0; i < tabBoutonsOutils.length; i++) {
 			tabBoutonsOutils[i].setSelected(false);
+			tabBoutonsOutils[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+
 		}
 	}
 }

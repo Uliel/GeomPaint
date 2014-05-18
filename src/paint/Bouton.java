@@ -1,18 +1,32 @@
 package paint;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Bouton extends JToggleButton implements MouseListener{
 	private int valeur;
+	private Border bord;
 	
 	public Bouton (int n,ImageIcon i) {
 		super(i);
+		UIManager.put("ToggleButton.select", Color.WHITE);
+		SwingUtilities.updateComponentTreeUI(this);
 		valeur = n;
+		this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+		bord=this.getBorder();
 		this.addMouseListener(this);
-
+	}
+	
+	public Bouton (java.awt.Color c) {
+		super();
+		this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+		this.addMouseListener(this);
+		this.setBackground(c);
+		bord=this.getBorder();
 	}
 
 	public int getValeur() {
@@ -28,19 +42,21 @@ public class Bouton extends JToggleButton implements MouseListener{
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Stub de la méthode généré automatiquement
-		this.setBackground(new Color(191,239,255));
+		if (!this.isSelected())
+		this.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Stub de la méthode généré automatiquement
-		this.setBackground(Color.white);
-
+		if (!this.isSelected())
+			this.setBorder(bord);
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Stub de la méthode généré automatiquement
+
 	}
 
 	@Override
