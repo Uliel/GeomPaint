@@ -258,6 +258,14 @@ public class Dessin extends JPanel {
 		// Affichage des points d'une ArrayList si existante
 		g.setColor(Color.black);
 		if (!listePoints.isEmpty()) {
+			if (boutons.getNumFigCourante() == 6) {
+				g.fillRect(listePoints.get(0).x - 3, listePoints.get(0).y - 3,
+						6, 6);
+				for (int i = 0; i < listePoints.size(); i++)
+					g.drawRect(listePoints.get(i).x - 3, listePoints.get(i).y - 3,
+							6, 6);
+			}
+			else
 			for (int j = 0; j < listePoints.size(); j++) {
 				g.drawRect(listePoints.get(j).x - 3, listePoints.get(j).y - 3,
 						6, 6);
