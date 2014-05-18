@@ -24,22 +24,22 @@ public class Menu extends JPanel {
 	 */
 	public Menu() {
 		// Creation des boutons de selection de forme et stockage dans un tableau
-		formes.setLayout(new GridLayout(2,4));
-		JButton cercle = new JButton("1", new ImageIcon("images/cercle.jpg"));
-		JButton rectangle = new JButton("2", new ImageIcon("images/rectangle.jpg"));
-		JButton carre = new JButton("3", new ImageIcon("images/carre.jpg"));
-		JButton triangle = new JButton("4", new ImageIcon("images/triangle.jpg"));
-		JButton ellipse = new JButton("5", new ImageIcon("images/ovale.jpg"));
-		JButton polygone = new JButton("6", new ImageIcon("images/polygone.jpg"));
-		JButton losange = new JButton("7", new ImageIcon("images/losange.jpg"));
-		JButton trait = new JButton("8", new ImageIcon("images/trait.jpg"));
-		JButton[] tabBoutonsFormes = {cercle, rectangle, carre, triangle, ellipse, polygone, losange, trait};
+		formes.setLayout(new GridLayout(2,4,2,2));
+		Bouton cercle = new Bouton("1", new ImageIcon("images/cercle.jpg"));
+		Bouton rectangle = new Bouton("2", new ImageIcon("images/rectangle.jpg"));
+		Bouton carre = new Bouton("3", new ImageIcon("images/carre.jpg"));
+		Bouton triangle = new Bouton("4", new ImageIcon("images/triangle.jpg"));
+		Bouton ellipse = new Bouton("5", new ImageIcon("images/ovale.jpg"));
+		Bouton polygone = new Bouton("6", new ImageIcon("images/polygone.jpg"));
+		Bouton losange = new Bouton("7", new ImageIcon("images/losange.jpg"));
+		Bouton trait = new Bouton("8", new ImageIcon("images/trait.jpg"));
+		Bouton[] tabBoutonsFormes = {cercle, rectangle, carre, triangle, ellipse, polygone, losange, trait};
 		
 		// Creation d'un auditeur commun a tous les boutons
 		ActionListener selectionForme = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dessiner = true;
-				numFigCourante = ((JButton)(e.getSource())).getText();
+				numFigCourante = ((Bouton)(e.getSource())).getValeur();
 			}
 		};
 		
