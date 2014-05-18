@@ -15,10 +15,12 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.jar.Attributes.Name;
 
 import figures.*;
 // Rq : laisser l'import de figures.Rectangle qui permet a eclipse de ne pas confondre avec une classe java existante java.awt.rectangle
@@ -59,10 +61,10 @@ public class Dessin extends JPanel {
 						// - Recuperation du nombre de points de selection de la
 						// figure desiree
 						switch (boutons.getNumFigCourante()) {
-						 case(1) :
-						 // Cercle
-						 nbPoints = 2;
-						 break;
+						// case(1) :
+						// // Cercle
+						// nbPoints = 2;
+						// break;
 						case (2):
 							// Rectangle
 							nbPoints = 2;
@@ -97,7 +99,7 @@ public class Dessin extends JPanel {
 					if (boutons.getNumFigCourante() != 6) {
 						// Tant que l'on a pas le nombre de points requis pour
 						// la figure, on incrémente une ArrayList
-						if (nbClics < nbPoints-1) {
+						if (nbClics < nbPoints - 1) {
 							listePoints.add(new UnPoint(e.getX(), e.getY()));
 							nbClics++;
 						}
@@ -106,11 +108,10 @@ public class Dessin extends JPanel {
 						else {
 							listePoints.add(new UnPoint(e.getX(), e.getY()));
 							switch (boutons.getNumFigCourante()) {
-							 case(1) :
-							 // Cercle
-//							 nbPoints = 2;
-//							 tabFigures[nbFigures] = new Cercle(listePoints);
-							 break;
+							// case(1) :
+							// // Cercle
+							// nbPoints = 2;
+							// break;
 							case (2):
 								// Rectangle
 								tabFigures[nbFigures] = new Rectangle(
@@ -268,14 +269,13 @@ public class Dessin extends JPanel {
 				g.fillRect(listePoints.get(0).x - 3, listePoints.get(0).y - 3,
 						6, 6);
 				for (int i = 0; i < listePoints.size(); i++)
-					g.drawRect(listePoints.get(i).x - 3, listePoints.get(i).y - 3,
-							6, 6);
-			}
-			else
-			for (int j = 0; j < listePoints.size(); j++) {
-				g.drawRect(listePoints.get(j).x - 3, listePoints.get(j).y - 3,
-						6, 6);
-			}
+					g.drawRect(listePoints.get(i).x - 3,
+							listePoints.get(i).y - 3, 6, 6);
+			} else
+				for (int j = 0; j < listePoints.size(); j++) {
+					g.drawRect(listePoints.get(j).x - 3,
+							listePoints.get(j).y - 3, 6, 6);
+				}
 		}
 	}
 
@@ -297,18 +297,57 @@ public class Dessin extends JPanel {
 			res = true;
 		return res;
 	}
-	
-	//Fonction qui permet d'exporter une image
-	public void exporter (String format) {
-		GregorianCalendar intCal = new GregorianCalendar();
-		long tmp = intCal.getTimeInMillis();
-		BufferedImage img = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
-		Graphics2D g2 = img.createGraphics();
-		this.paint(g2);
-		try{
-			ImageIO.write(img, format, new File("Image"+tmp+"."+format));
-		} catch (Exception e1) {
-			e1.printStackTrace();
+
+	// Fonction qui permet d'exporter une image
+	public void exporter(String format) {
+		JFileChooser filechoose = new JFileChooser();
+		filechoose.setCurrentDirectory(new File(".")); /*
+														 * ouvrir la boite de
+														 * dialogue dans
+														 * répertoire courant
+														 */
+		filechoose.setDialogTitle("Exporter une image"); /*
+																	 * nom de la
+																	 * boite de
+																	 * dialogue
+																	 */
+
+		filechoose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); /*
+																		 * pour
+																		 * afficher
+																		 * seulement
+																		 * les
+																		 * répertoires
+																		 */
+
+		String approve = new String("Exporter"); /*
+													 * Le bouton pour valider
+													 */
+		int resultatEnregistrer = filechoose.showDialog(filechoose,approve);
+		if (resultatEnregistrer == JFileChooser.APPROVE_OPTION) { /*
+																 * Si
+																 * l’utilisateur
+																 * clique sur le
+																 * bouton
+																 * Exporter
+																 */
+			String chemin = filechoose.getSelectedFile().getAbsolutePath(); /* pour avoir le chemin absolu */
+			/*
+			 * on enregistre le fichier dans le repertoire desiré avec pour nom image + date en millisecondes
+			 */
+			GregorianCalendar intCal = new GregorianCalendar();
+			long tmp = intCal.getTimeInMillis();
+			BufferedImage img = new BufferedImage(this.getWidth(),
+					this.getHeight(), BufferedImage.TYPE_INT_RGB);
+			Graphics2D g2 = img.createGraphics();
+			this.paint(g2);
+			try {
+				ImageIO.write(img, format,
+						new File(chemin, "Image" + tmp + "."));
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
+
 	}
 }
