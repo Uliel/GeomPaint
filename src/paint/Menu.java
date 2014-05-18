@@ -17,6 +17,8 @@ public class Menu extends JPanel {
 	private JToolBar formes = new JToolBar("Formes");
 	private JToolBar outils = new JToolBar("Outils");
 	private int numFigCourante;
+	// Creation des boutons de selection de forme et stockage dans un
+	// tableau
 	private Bouton cercle = new Bouton(1, new ImageIcon("images/cercle.png"));
 	private Bouton rectangle = new Bouton(2, new ImageIcon(
 			"images/rectangle.png"));
@@ -38,15 +40,18 @@ public class Menu extends JPanel {
 	private Bouton selectionner = new Bouton(2, new ImageIcon(
 			"images/fleche.png"));
 	private Bouton remplir = new Bouton(3, new ImageIcon("images/peinture.png"));
-	private Bouton[] tabBoutonsOutils = { supprimer, selectionner, remplir };
+	private Bouton exporterJPG = new Bouton(4, new ImageIcon(
+			"images/exporter_jpg2.png"));
+	private Bouton exporterPNG = new Bouton(5, new ImageIcon(
+			"images/exporter_png2.png"));
+	private Bouton[] tabBoutonsOutils = { supprimer, selectionner, remplir,exporterJPG,exporterPNG };
+	
 
 	// CONSTRUCTEUR
 	/**
 	 * Constructeur initialisant le menu
 	 */
 	public Menu(Dessin d) {
-		// Creation des boutons de selection de forme et stockage dans un
-		// tableau
 		formes.setLayout(new GridLayout(2, 4, 2, 2));
 		dessin=d;
 		// Creation d'un auditeur commun a tous les boutons de forme
@@ -74,6 +79,7 @@ public class Menu extends JPanel {
 			formes.add(tabBoutonsFormes[i]);
 			tabBoutonsFormes[i].setFocusPainted(false);
 		}
+		// Creation d'un auditeur commun a tous les boutons outils
 
 		ActionListener selectionOutils = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -82,8 +88,13 @@ public class Menu extends JPanel {
 				if (((Bouton) (e.getSource())).isSelected()
 						&& ((Bouton) (e.getSource())).getValeur() == 2) {
 					((Bouton) (e.getSource())).setSelected(true);
+					
 				}
 				else {
+					if (((Bouton) (e.getSource())).getValeur()==4)
+						dessin.exporter("jpg");
+					else if (((Bouton) (e.getSource())).getValeur()==5)
+						dessin.exporter("png");
 					((Bouton) (e.getSource())).setSelected(false);
 				}
 				
@@ -114,6 +125,7 @@ public class Menu extends JPanel {
 		return this.numFigCourante;
 	}
 
+	//methodes pour deselectionner les boutons
 	public void desactiverFormes() {
 		for (int i = 0; i < tabBoutonsFormes.length; i++) {
 			tabBoutonsFormes[i].setSelected(false);
