@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 import javax.swing.*;
 
@@ -14,10 +15,14 @@ public class Menu extends JPanel {
 
 	// ATTRIBUTS
 	private boolean dessiner;
+	private Dessin dessin;
+	
 	private JToolBar formes = new JToolBar("Formes");
 	private JToolBar outils = new JToolBar("Outils");
 	private JToolBar col = new JToolBar("Couleurs");
+	
 	private int numFigCourante;
+	
 	// Creation des boutons de selection de forme et stockage dans un
 	// tableau
 	private Bouton cercle = new Bouton(1, new ImageIcon("images/cercle.png"));
@@ -33,9 +38,11 @@ public class Menu extends JPanel {
 	private Bouton trait = new Bouton(8, new ImageIcon("images/trait.png"));
 	private Bouton[] tabBoutonsFormes = { cercle, rectangle, carre, triangle,
 			ellipse, polygone, losange, trait };
+	
 	// tableau de boutons de couleur
 	private Bouton[] couleurs = new Bouton[30];
-	private Dessin dessin;
+	int nbCoul = 20;
+	private Bouton palette = new Bouton(1,new ImageIcon("images/palette.png"));
 
 	// Boutons de la boîte à outils
 	private Bouton supprimer = new Bouton(1, new ImageIcon(
@@ -58,13 +65,14 @@ public class Menu extends JPanel {
 		this.setLayout(new BorderLayout(4,4));
 		formes.setLayout(new GridLayout(2, 4, 2, 2));
 		outils.setLayout(new GridLayout(2, 3, 2, 2));
-		col.setLayout(new GridLayout(3, 10));
+		col.setLayout(new BorderLayout(2,2));
 		dessin = d;
 		// Creation d'un auditeur commun a tous les boutons de forme
 		ActionListener selectionForme = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dessiner = true;
 				desactiverOutils();
+				desactiverCoul();
 				numFigCourante = ((Bouton) (e.getSource())).getValeur();
 				if (((Bouton) (e.getSource())).isSelected()) {
 					desactiverFormes();
@@ -91,10 +99,11 @@ public class Menu extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				dessiner = false;
 				desactiverFormes();
+				desactiverCoul();
 				if (((Bouton) (e.getSource())).isSelected()
 						&& ((Bouton) (e.getSource())).getValeur() == 2) {
 					((Bouton) (e.getSource())).setSelected(true);
-					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2, false));
+					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
 
 
 				} else {
@@ -114,18 +123,83 @@ public class Menu extends JPanel {
 			tabBoutonsOutils[i].setFocusPainted(false);
 			tabBoutonsOutils[i].addActionListener(selectionOutils);
 		}
-
 		// Ajout des différentes couleurs
 
 		col.setPreferredSize(new Dimension(230,70));
-		for (int i = 0; i < couleurs.length; i++) {
-			col.add(new Bouton(Color.white));
+		final JPanel colors = new JPanel();
+		colors.setLayout(new GridLayout(3,10,2,2));
+		Color[] tabCouleurs= {Color.black,Color.darkGray,new Color(137,0,21),Color.red,new Color(255,227,39),
+				Color.yellow,Color.green,new Color(0,162,232),Color.blue,Color.magenta,new Color(163,73,164),
+				Color.lightGray,new Color(185,122,87),Color.pink,Color.orange,new Color(239,228,176),
+				new Color(181,230,29),Color.cyan,new Color(112,146,190),Color.gray
+				};
+		
+		//JLabel qui représente la couleur courante utilisée pour le dessin
+		final JLabel couleurCourante = new JLabel("            ");
+		couleurCourante.setBackground(Color.black);
+		couleurCourante.setOpaque(true);
+		
+		//ActionListener pour les différentes couleurs
+		final ActionListener selectionCouleur = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dessiner = false;
+				desactiverOutils();
+				desactiverFormes();
+				desactiverCoul();
+				((Bouton) (e.getSource())).setSelected(true);
+				((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
+				couleurCourante.setBackground(((Bouton) (e.getSource())).getCoul());
+			}
+		};
+		
+		for (int i = 0; i < tabCouleurs.length; i++) {
+			couleurs[i]=new Bouton(i,tabCouleurs[i]);
+			couleurs[i].addActionListener(selectionCouleur);
+			colors.add(couleurs[i]);
 		}
-		formes.setPreferredSize(new Dimension(120,60));
-		outils.setPreferredSize(new Dimension(140,60));
-		this.add(col,BorderLayout.WEST);
-		this.add(outils,BorderLayout.EAST);
+		for (int i=tabCouleurs.length;i<couleurs.length;i++) {
+			couleurs[i]=new Bouton(i,Color.white);
+			couleurs[i].setEnabled(false);
+			colors.add(couleurs[i]);
+			
+		}
+		
+		JColorChooser jc=new JColorChooser(Color.black);
+		MouseAdapter paletteListener = new java.awt.event.MouseAdapter() {
+	        public void mouseClicked(java.awt.event.MouseEvent evt) {
+	            Color background = JColorChooser.showDialog(null,
+	                    "JColorChooser Sample", null);
+	            if (background != null) {
+	            	couleurCourante.setBackground(background);
+	            	if (nbCoul<30) {
+	            		couleurs[nbCoul].setEnabled(true);
+	            		couleurs[nbCoul].setBackground(background);
+	            		couleurs[nbCoul].addActionListener(selectionCouleur);
+	            		couleurs[nbCoul].setCoul(background);
+	            		colors.add(couleurs[nbCoul]);
+	            		nbCoul++;
+	            	}
+	            	else {
+	            		nbCoul=20;
+	            		couleurs[20].setBackground(background);
+	            		colors.add(couleurs[nbCoul]);
+	            	}     
+	            }
+	        }
+		};
+		
+		palette.addMouseListener(paletteListener);
+		
+		col.add(colors,BorderLayout.CENTER);
+		col.add(palette,BorderLayout.WEST);
+		col.add(couleurCourante,BorderLayout.EAST);
+		formes.setPreferredSize(new Dimension(150,60));
+		outils.setPreferredSize(new Dimension(190,60));
+		col.setPreferredSize(new Dimension(400,60));
+		this.add(col,BorderLayout.EAST);
 		this.add(formes,BorderLayout.CENTER);
+		this.add(outils,BorderLayout.WEST);
+
 	}
 
 	// ACCESSEURS
@@ -154,6 +228,13 @@ public class Menu extends JPanel {
 		for (int i = 0; i < tabBoutonsOutils.length; i++) {
 			tabBoutonsOutils[i].setSelected(false);
 			tabBoutonsOutils[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+
+		}
+	}
+	public void desactiverCoul() {
+		for (int i = 0; i < couleurs.length; i++) {
+			couleurs[i].setSelected(false);
+			couleurs[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
 
 		}
 	}
