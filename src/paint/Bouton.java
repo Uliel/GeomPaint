@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 public class Bouton extends JToggleButton implements MouseListener{
 	private int valeur;
 	private Border bord;
+	private Color coul;
 	
 	public Bouton (int n,ImageIcon i) {
 		super(i);
@@ -21,8 +22,12 @@ public class Bouton extends JToggleButton implements MouseListener{
 		this.addMouseListener(this);
 	}
 	
-	public Bouton (java.awt.Color c) {
+	public Bouton (int n,java.awt.Color c) {
 		super();
+		valeur=n;
+		UIManager.put("ToggleButton.select",Color.TRANSLUCENT);
+		SwingUtilities.updateComponentTreeUI(this);
+		coul=c;
 		this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
 		this.addMouseListener(this);
 		this.setBackground(c);
@@ -31,6 +36,16 @@ public class Bouton extends JToggleButton implements MouseListener{
 
 	public int getValeur() {
 		return valeur;
+	}
+	
+	
+
+	public Color getCoul() {
+		return coul;
+	}
+	
+	public void setCoul(Color c) {
+		this.coul=c;
 	}
 
 	@Override
