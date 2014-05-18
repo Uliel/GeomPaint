@@ -56,15 +56,26 @@ public class Menu extends JPanel {
 			tabBoutonsFormes[i].setBackground(Color.white);
 			tabBoutonsFormes[i].addActionListener(selectionForme);
 			formes.add(tabBoutonsFormes[i]);
+			tabBoutonsFormes[i].setFocusPainted(false);
 		}
 
+		
+		//Boutons de la boîte à outils
+		Bouton supprimer = new Bouton(1, new ImageIcon("images/poubelle.png"));
+		Bouton selectionner = new Bouton(2, new ImageIcon("images/fleche.png"));
+		Bouton remplir = new Bouton(3, new ImageIcon("images/peinture.png"));
+		final Bouton[] tabBoutonsOutils = { supprimer,selectionner,remplir };
+		for (int i = 0; i < tabBoutonsOutils.length; i++) {
+			tabBoutonsOutils[i].setBackground(Color.white);
+			outils.add(tabBoutonsOutils[i]);
+			tabBoutonsOutils[i].setFocusPainted(false);
+		}
+		
+		this.add(outils);
 		this.add(formes);
 	}
 
-	//Boutons de la boîte à outils
-	Bouton supprimer = new Bouton(1, new ImageIcon("images/supprimer.png"));
-	Bouton selectionner = new Bouton(2, new ImageIcon("images/selectionner.png"));
-	Bouton remplir = new Bouton(3, new ImageIcon("images/remplir.png"));
+
 	
 	// ACCESSEURS
 	public boolean getDessiner() {
