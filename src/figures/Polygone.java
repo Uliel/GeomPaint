@@ -1,23 +1,27 @@
 /**
  * 
- * @authors Frédéric Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * @authors Frï¿½dï¿½ric Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
  *
  */
 
 package figures;
 
+import java.util.ArrayList;
+
 public class Polygone extends FigureGeom {
 	
+	// CONSTRUCTEURS
+		// Constructeur vide
 	public Polygone() {
 		super();
 	}
 	
-	public Polygone(int pts) {
-		super();
-		this.setNbSaisie(pts);
-		this.setNbMemo(pts);
-		this.setTabSaisie(this.getNbSaisie());
-		this.setTabMemo(this.getNbMemo());
+		// Constructeur prenant en paramÃ¨tre une ArrayList
+	public Polygone(ArrayList<UnPoint> listePoints) {
+		super(listePoints);
+		this.nbMemo = this.nbSaisie;
+		this.tabMemo = new UnPoint[this.nbMemo];
+		for(int i = 0 ; i < this.nbMemo ; i++)
+			this.tabMemo[i] = listePoints.get(i);
 	}
-
 }

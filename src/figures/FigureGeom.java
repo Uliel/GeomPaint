@@ -1,6 +1,6 @@
 /**
  * 
- * @authors Frédéric Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * @authors Frï¿½dï¿½ric Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
  *
  */
 
@@ -9,22 +9,40 @@ package figures;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.Observable;
+import java.util.ArrayList;
 
 public class FigureGeom extends Observable {
-
+	
+	// ATTRIBUTS
 	private Color couleur;
-	private boolean plein;
-	private boolean selection;
-	private UnPoint[] tabMemo;
-	private int nbMemo;
-	private UnPoint[] tabSaisie;
-	private int nbSaisie;
+	protected boolean plein;
+	protected boolean selection;
+	protected UnPoint[] tabMemo;
+	protected int nbMemo;
+	protected UnPoint[] tabSaisie;
+	protected int nbSaisie;
 
+	
+	// CONSTRUCTEURS
+		// Constructeur vide
 	public FigureGeom() {
 		this.plein = false;
 		this.selection = true;
 	}
-
+	
+		// Constructeur prenant en paramÃ¨tres une ArrayList
+	public FigureGeom(ArrayList<UnPoint> listePointsSaisie) {
+		this.plein = false;
+		this.selection = true;
+		this.nbSaisie = listePointsSaisie.size();
+		this.tabSaisie = new UnPoint[this.nbSaisie];
+		for(int i = 0 ; i < this.nbSaisie ; i++)
+			this.tabSaisie[i] = listePointsSaisie.get(i);
+	}
+	
+	
+	// ACCESSEURS
+	
 	public int getNbSaisie() {
 		return nbSaisie;
 	}
