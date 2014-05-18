@@ -30,6 +30,7 @@ public class Menu extends JPanel {
 	private Bouton trait = new Bouton(8, new ImageIcon("images/trait.png"));
 	private Bouton[] tabBoutonsFormes = { cercle, rectangle, carre, triangle,
 			ellipse, polygone, losange, trait };
+	private Dessin dessin;
 
 	// Boutons de la boîte à outils
 	private Bouton supprimer = new Bouton(1, new ImageIcon(
@@ -43,10 +44,11 @@ public class Menu extends JPanel {
 	/**
 	 * Constructeur initialisant le menu
 	 */
-	public Menu() {
+	public Menu(Dessin d) {
 		// Creation des boutons de selection de forme et stockage dans un
 		// tableau
 		formes.setLayout(new GridLayout(2, 4, 2, 2));
+		dessin=d;
 		// Creation d'un auditeur commun a tous les boutons de forme
 		ActionListener selectionForme = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -75,7 +77,7 @@ public class Menu extends JPanel {
 
 		ActionListener selectionOutils = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dessiner = true;
+				dessiner = false;
 				desactiverFormes();
 				if (((Bouton) (e.getSource())).isSelected()
 						&& ((Bouton) (e.getSource())).getValeur() == 2) {

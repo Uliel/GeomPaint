@@ -10,10 +10,15 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import figures.*;
 // Rq : laisser l'import de figures.Rectangle qui permet a eclipse de ne pas confondre avec une classe java existante java.awt.rectangle
@@ -35,7 +40,7 @@ public class Dessin extends JPanel {
 		this.setPreferredSize(new Dimension(1000, 600));
 		this.setBackground(Color.WHITE);
 		this.tabFigures = new FigureGeom[Dessin.MAXTAILLE];
-		this.boutons = new Menu();
+		this.boutons = new Menu(this);
 		this.setLayout(new BorderLayout());
 		this.add(boutons, BorderLayout.NORTH);
 		this.nbFigures = 0;
@@ -290,5 +295,19 @@ public class Dessin extends JPanel {
 		if (p1.distance(p2) < distance)
 			res = true;
 		return res;
+	}
+	
+	//Fonction qui permet d'exporter une image
+	public void exporter (String format) {
+		GregorianCalendar intCal = new GregorianCalendar();
+		long tmp = intCal.getTimeInMillis();
+		BufferedImage img = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2 = img.createGraphics();
+		this.paint(g2);
+		try{
+			ImageIO.write(img, format, new File("Image"+tmp+"."+format));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 }
