@@ -61,10 +61,10 @@ public class Dessin extends JPanel {
 						// - Recuperation du nombre de points de selection de la
 						// figure desiree
 						switch (boutons.getNumFigCourante()) {
-						// case(1) :
-						// // Cercle
-						// nbPoints = 2;
-						// break;
+						case(1) :
+							// Cercle
+							nbPoints = 2;
+							break;
 						case (2):
 							// Rectangle
 							nbPoints = 2;
@@ -108,10 +108,11 @@ public class Dessin extends JPanel {
 						else {
 							listePoints.add(new UnPoint(e.getX(), e.getY()));
 							switch (boutons.getNumFigCourante()) {
-							// case(1) :
-							// // Cercle
-							// nbPoints = 2;
-							// break;
+							case(1) :
+								// Cercle
+								tabFigures[nbFigures] = new Cercle(
+										listePoints);
+								break;
 							case (2):
 								// Rectangle
 								tabFigures[nbFigures] = new Rectangle(
@@ -226,23 +227,13 @@ public class Dessin extends JPanel {
 		if (nbFigures > 0) {
 			for (int i = 0; i < nbFigures; i++) {
 				g.setColor(tabFigures[i].getCouleur());
-				Point[] positions = tabFigures[i].getTabSaisie();
+				UnPoint[] positions = tabFigures[i].getTabSaisie();
 
-				// Cas du cercle (ne marche pas)
+				// Cas du cercle
 				if (tabFigures[i] instanceof Cercle) {
-					// Recuperation des coordonnees
-					int x0 = positions[0].x;
-					int y0 = positions[0].y;
-					int x1 = positions[1].x;
-					int y1 = positions[1].y;
-
 					// Calcul du rayon et dessin
-					int rayon = distance(x0, y0, x1, y1);
-					g.drawOval(x0 - rayon, y0 - rayon, rayon * 2, rayon * 2);
-
-					// Remplissage du tableau de points de memorisation
-					tabFigures[i].ajouterMemo(0, x0, y0);
-					tabFigures[i].ajouterMemo(1, x0 + rayon, y0);
+					int rayon = positions[0].dist(positions[1]);
+					g.drawOval(positions[0].x - rayon, positions[0].y - rayon, rayon * 2, rayon * 2);
 				}
 
 				// Cas des polygones
@@ -277,11 +268,6 @@ public class Dessin extends JPanel {
 							listePoints.get(j).y - 3, 6, 6);
 				}
 		}
-	}
-
-	// Methode de calcul de la distance entre 2 points
-	public int distance(int x1, int y1, int x2, int y2) {
-		return (int) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 	}
 
 	// Methode de dessin d'une ligne avec 2 paramètres de type UnPoint

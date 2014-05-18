@@ -1,5 +1,5 @@
 /**
- * @authors Frédéric Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * @authors Frï¿½dï¿½ric Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
  */
 
 package figures;
@@ -14,7 +14,7 @@ public class UnPoint extends Point {
 	 * @param x
 	 *            abscisse du point
 	 * @param y
-	 *            ordonnée du point
+	 *            ordonnï¿½e du point
 	 */
 	public UnPoint(int x, int y) {
 		super(x, y);
@@ -27,9 +27,9 @@ public class UnPoint extends Point {
 	 * 
 	 * @return la distance
 	 */
-	public int distance(UnPoint pt) {
-		return ((int) Math.sqrt((this.x - pt.x) * (this.x - pt.x)
-				+ (this.y - pt.y) * (this.y - pt.y))) * 2;
+	public int dist(UnPoint pt) {
+		return (int) Math.sqrt((this.x - pt.x) * (this.x - pt.x)
+				+ (this.y - pt.y) * (this.y - pt.y));
 	}
 
 }
