@@ -171,24 +171,30 @@ public class Dessin extends JPanel {
 					}
 				}
 				
+				// Si le bouton selectionner est choisi, on passe en mode selection
 				if(boutons.getSelect()) {
 					UnPoint ptCourant = new UnPoint(e.getX(), e.getY());
 					boolean trouve = false;
 					int j = 0;
 					int nbSommets;
-					for(int i = 0 ; i < nbFigures ; i++)
+					// Deselection de toutes les figures
+					for(int i = 0 ; i < nbFigures ; i++) {
 						tabFigures[i].setSelection(false);
+						System.out.println("fig déselect");
+					}
+					// Boucle sur toutes les figures pour savoir si l'une d'elle possede un segment a proximite du point courant
 					while(j < nbFigures && !trouve) {
 						nbSommets = tabFigures[j].getNbMemo();
-						System.out.println("ok");
+						System.out.println("figure etudiee");
 						for(int k = 0 ; k < tabFigures[j].getNbMemo() ; k++) {
-							if(ptCourant.estVoisinSegment(10, tabFigures[j].getTabMemo()[k], tabFigures[j].getTabMemo()[(k+1)%nbSommets])) {
+							System.out.println("cote etudie");
+							// Si c'est le cas, selection de cette figure
+							if(ptCourant.estVoisinSegment(1, tabFigures[j].getTabMemo()[k], tabFigures[j].getTabMemo()[(k+1)%nbSommets])) {
 								tabFigures[j].setSelection(true);
 								trouve = true;
 							}
 						}
-						j++;
-							
+						j++;			
 					}
 				}
 				repaint();
