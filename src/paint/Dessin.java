@@ -139,6 +139,7 @@ public class Dessin extends JPanel {
 								// break;
 							}
 							nbClics = 0;
+							tabFigures[nbFigures].setCouleur(couleur);
 							nbFigures++;
 							listePoints.clear();
 						}
@@ -161,6 +162,7 @@ public class Dessin extends JPanel {
 							if (estVoisin(20, nouveauPoint, listePoints.get(0))) {
 								tabFigures[nbFigures] = new Polygone(
 										listePoints);
+								tabFigures[nbFigures].setCouleur(couleur);
 								listePoints.clear();
 								nbClics = 0;
 								nbFigures++;
@@ -325,6 +327,10 @@ public class Dessin extends JPanel {
 				// selection (et pas les points de memorisation
 				// je pense qu'il y a une faute dans l'enonce, a discuter)
 				if (tabFigures[i].getSelection()) {
+					if (tabFigures[i].getPlein() && couleur.getRed() < 150 && couleur.getBlue() < 150 && couleur.getGreen() < 150)
+						g.setColor(Color.YELLOW);
+					else
+						g.setColor(Color.BLACK);
 					for (int j = 0; j < positions.length; j++)
 						g.drawRect(positions[j].x - 3, positions[j].y - 3, 6, 6);
 				}
