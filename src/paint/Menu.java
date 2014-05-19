@@ -15,6 +15,7 @@ public class Menu extends JPanel {
 
 	// ATTRIBUTS
 	private boolean select;
+	private boolean remplissage;
 	private boolean dessiner;
 	private Dessin dessin;
 	
@@ -176,7 +177,6 @@ public class Menu extends JPanel {
 					((Bouton) (e.getSource())).setSelected(true);
 					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
 
-
 				} else {
 					if (((Bouton) (e.getSource())).getValeur() == 4)
 						dessin.exporter("jpg");
@@ -184,7 +184,9 @@ public class Menu extends JPanel {
 						dessin.exporter("png");
 					((Bouton) (e.getSource())).setSelected(false);
 				}
-
+				if (((Bouton) (e.getSource())).getValeur() == 3 && select) {
+					remplissage = true;
+				}
 			}
 		};
 		
@@ -301,6 +303,14 @@ public class Menu extends JPanel {
 	
 	public void setSelect(boolean d) {
 		this.select = d;
+	}
+	
+	public boolean getRemplissage() {
+		return this.remplissage;
+	}
+	
+	public void setRemplissage(boolean d) {
+		this.remplissage = d;
 	}
 	
 	public int getNumFigCourante() {

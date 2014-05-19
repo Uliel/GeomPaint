@@ -30,6 +30,8 @@ public class Dessin extends JPanel {
 
 	// ATTRIBUTS
 	private final static int MAXTAILLE = 100;
+	private final int MARGE_SELECTION_POLY = 1;
+	private final int MARGE_SELECTION_CERCLE = 8;
 	private FigureGeom[] tabFigures;
 	private Menu boutons;
 	private int nbClics;
@@ -176,21 +178,34 @@ public class Dessin extends JPanel {
 					UnPoint ptCourant = new UnPoint(e.getX(), e.getY());
 					boolean trouve = false;
 					int j = 0;
-					int nbSommets;
 					// Deselection de toutes les figures
 					for(int i = 0 ; i < nbFigures ; i++) {
 						tabFigures[i].setSelection(false);
-						System.out.println("fig déselect");
 					}
 					// Boucle sur toutes les figures pour savoir si l'une d'elle possede un segment a proximite du point courant
 					while(j < nbFigures && !trouve) {
-						nbSommets = tabFigures[j].getNbMemo();
-						System.out.println("figure etudiee");
-						for(int k = 0 ; k < tabFigures[j].getNbMemo() ; k++) {
-							System.out.println("cote etudie");
-							// Si c'est le cas, selection de cette figure
-							if(ptCourant.estVoisinSegment(1, tabFigures[j].getTabMemo()[k], tabFigures[j].getTabMemo()[(k+1)%nbSommets])) {
+						// Si la figure est un polygone
+						if(tabFigures[j] instanceof Polygone) {
+							int nbSommets;
+							nbSommets = tabFigures[j].getNbMemo();
+							for(int k = 0 ; k < tabFigures[j].getNbMemo() ; k++) {
+								// Si c'est le cas, selection de cette figure
+								if(ptCourant.estVoisinSegment(MARGE_SELECTION_POLY, tabFigures[j].getTabMemo()[k], tabFigures[j].getTabMemo()[(k+1)%nbSommets])) {
+									tabFigures[j].setSelection(true);
+									trouve = true;
+								}
+							}
+						}
+						// Si la figure est un cercle
+						if(tabFigures[j] instanceof Cercle) {
+							int rayonCercle = tabFigures[j].getTabMemo()[0].dist(tabFigures[j].getTabMemo()[1]);
+							int rayonPtCourant = ptCourant.dist(tabFigures[j].getTabMemo()[0]);
+							if(Math.abs(rayonCercle - rayonPtCourant) < MARGE_SELECTION_CERCLE) {
 								tabFigures[j].setSelection(true);
+								// Remplissage de la figure si on a clique sur remplir
+								if (boutons.getRemplissage()) {
+									tabFigures[j].remplir();
+								}
 								trouve = true;
 							}
 						}

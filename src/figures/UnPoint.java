@@ -37,14 +37,10 @@ public class UnPoint extends Point {
 	public boolean estVoisinSegment(int marge, UnPoint p1, UnPoint p2) {
 		boolean res = false;
 		int distanceP1 = this.dist(p1);
-		System.out.println(distanceP1);
 		int distanceP2 = this.dist(p2);
-		System.out.println(distanceP2);
 		int distanceP1P2 = p1.dist(p2);
-		System.out.println(distanceP1P2);
 		if(distanceP1P2 + marge > distanceP1 + distanceP2)
 			res = true;
-		System.out.println(res);
 		return res;
 		
 	}
