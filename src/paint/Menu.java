@@ -59,21 +59,37 @@ public class Menu extends JPanel {
 			"images/annuler.png"));
 	private Bouton[] tabBoutonsOutils = { supprimer, selectionner, remplir,
 			exporterJPG, exporterPNG,annuler };
-
+	
 	// CONSTRUCTEUR
 	/**
 	 * Constructeur initialisant le menu
 	 */
 	public Menu(Dessin d) {
 		
+		JMenu size = new JMenu("Taille");
+		JMenuItem[] tailles = new JMenuItem[11];
+		JMenuItem image = new JMenuItem(new ImageIcon("images/taille.png"));
+		for (int i=10;i<=30;i=i+2) {
+			tailles[(i-10)/2] = new JMenuItem(i+"pts ----");
+			tailles[(i-10)/2].setFont(new Font("Arial",Font.BOLD,i));
+			size.add(tailles[(i-10)/2]);
+		}
+		JMenuBar tailleBarre= new JMenuBar();
+		image.setEnabled(false);
+		image.setDisabledIcon(image.getIcon());
+		tailleBarre.add(size);
+		tailleBarre.add(image);
+
+		
+	
 		//Affichage des bulles d'aide
 		supprimer.setToolTipText("Supprimer une figure");
 		selectionner.setToolTipText("Selectionner une figure");
 		remplir.setToolTipText("Remplir ou vider une figure");
 		exporterJPG.setToolTipText("Exporter l'image en .jpg");
 		exporterPNG.setToolTipText("Exporter l'image en .png");
-		annuler.setToolTipText("Annuler la derni�re modification");
-		palette.setToolTipText("S�lectionner une couleur dans la palette");
+		annuler.setToolTipText("Annuler la dernière modification");
+		palette.setToolTipText("Sélectionner une couleur dans la palette");
 		
 		//On empeche les barres d'outils d'être déplacées
 		formes.setFloatable(false); 
@@ -82,7 +98,7 @@ public class Menu extends JPanel {
 		
 		//Definition des layout
 		this.setLayout(new BorderLayout(4,4));
-		formes.setLayout(new GridLayout(2, 4, 2, 2));
+		formes.setLayout(new GridLayout(2, 5, 2, 2));
 		outils.setLayout(new GridLayout(2, 3, 2, 2));
 		col.setLayout(new BorderLayout(2,2));
 		
@@ -228,13 +244,13 @@ public class Menu extends JPanel {
 		col.add(colors,BorderLayout.CENTER);
 		col.add(palette,BorderLayout.WEST);
 		col.add(couleurCourante,BorderLayout.EAST);
+		formes.add(tailleBarre);
 		formes.setPreferredSize(new Dimension(150,60));
 		outils.setPreferredSize(new Dimension(190,60));
 		col.setPreferredSize(new Dimension(400,60));
 		this.add(col,BorderLayout.EAST);
 		this.add(formes,BorderLayout.CENTER);
 		this.add(outils,BorderLayout.WEST);
-
 	}
 
 	// ACCESSEURS
