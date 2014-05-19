@@ -1,5 +1,6 @@
 /**
  * 
+
  * @authors Nicolas Gambarini, Sarah Lequeuvre
  *
  */
@@ -182,51 +183,21 @@ public class Dessin extends JPanel {
 				// selection
 				if (boutons.getSelect()) {
 					UnPoint ptCourant = new UnPoint(e.getX(), e.getY());
-					boolean trouve = false;
-					int j = 0;
-					// Deselection de toutes les figures
-					for (int i = 0; i < nbFigures; i++) {
-						tabFigures[i].setSelection(false);
-					}
-					// Boucle sur toutes les figures pour savoir si l'une d'elle
-					// possede un segment a proximite du point courant
-					while (j < nbFigures && !trouve) {
-						// Si la figure est un polygone
-						if (tabFigures[j] instanceof Polygone) {
-							int nbSommets;
-							nbSommets = tabFigures[j].getNbMemo();
-							for (int k = 0; k < tabFigures[j].getNbMemo(); k++) {
-								// Si c'est le cas, selection de cette figure
-								if (ptCourant.estVoisinSegment(
-										MARGE_SELECTION_POLY,
-										tabFigures[j].getTabMemo()[k],
-										tabFigures[j].getTabMemo()[(k + 1)
-												% nbSommets])) {
-									tabFigures[j].setSelection(true);
-									trouve = true;
-								}
-							}
-						}
-						// Si la figure est un cercle
-						if (tabFigures[j] instanceof Cercle) {
-							int rayonCercle = tabFigures[j].getTabMemo()[0]
-									.dist(tabFigures[j].getTabMemo()[1]);
-							int rayonPtCourant = ptCourant.dist(tabFigures[j]
-									.getTabMemo()[0]);
-							if (Math.abs(rayonCercle - rayonPtCourant) < MARGE_SELECTION_CERCLE) {
-								tabFigures[j].setSelection(true);
-								trouve = true;
-							}
-						}
-						j++;
-					}
+					deselectionFig();
+					FigureGeom fig = figVoisine(ptCourant);
+					if(fig != null)
+						fig.setSelection(true);
+					
+						
+					
 				}
 
 				repaint();
 			}
 
 			public void mousePressed(MouseEvent e) {
-
+				Graphics g = getGraphics();
+				
 			}
 
 			public void mouseExited(MouseEvent e) {
@@ -242,8 +213,18 @@ public class Dessin extends JPanel {
 			}
 		};
 
-		// MouseMotionListener mml = new MouseMotionListener() {
+		MouseMotionListener mml = new MouseMotionListener() {
+			public void mouseDragged(MouseEvent e) {
 
+					
+				}
+			
+			public void mouseMoved(MouseEvent e) {}
+		
+
+		};
+			
+			
 		// public void mouseMoved(MouseEvent e) {
 		// if (boutons.getDessiner() && nbClics > 0) {
 		// //Tentative pour dessiner avec le mouvement de la souris (loup�)
@@ -403,7 +384,55 @@ public class Dessin extends JPanel {
 			res = true;
 		return res;
 	}
+	
+	// Fonction qui déselectionne toutes les figures
+	public void deselectionFig() {
+		for (int i = 0; i < nbFigures; i++) {
+			tabFigures[i].setSelection(false);
+		}
+	}
+	
+	// Fonction qui renvoie la première figure situee au voisinage d'un point ou null sinon
+	public FigureGeom figVoisine(UnPoint pt) {
+		FigureGeom res = null;
+		boolean trouve = false;
+		int i = 0;
 
+		// Boucle sur toutes les figures pour savoir si l'une d'elle
+		// possede un segment a proximite du point courant
+		while (i < nbFigures && !trouve) {
+			// Si la figure est un polygone
+			if (tabFigures[i] instanceof Polygone) {
+				int nbSommets;
+				nbSommets = tabFigures[i].getNbMemo();
+				for (int j = 0; j < tabFigures[i].getNbMemo(); j++) {
+					// Si c'est le cas, selection de cette figure
+					if (pt.estVoisinSegment(
+							MARGE_SELECTION_POLY,
+							tabFigures[i].getTabMemo()[j],
+							tabFigures[i].getTabMemo()[(j + 1)
+									% nbSommets])) {
+						res = tabFigures[i];
+						trouve = true;
+					}
+				}
+			}
+			// Si la figure est un cercle
+			if (tabFigures[i] instanceof Cercle) {
+				int rayonCercle = tabFigures[i].getTabMemo()[0]
+						.dist(tabFigures[i].getTabMemo()[1]);
+				int rayonPtCourant = pt.dist(tabFigures[i]
+						.getTabMemo()[0]);
+				if (Math.abs(rayonCercle - rayonPtCourant) < MARGE_SELECTION_CERCLE) {
+					res = tabFigures[i];
+					trouve = true;
+				}
+			}
+			i++;
+		}
+		return res;
+	}
+ 
 	// Fonction qui permet d'exporter une image
 	public void exporter(String format) {
 		JFileChooser filechoose = new JFileChooser();
