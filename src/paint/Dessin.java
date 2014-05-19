@@ -191,6 +191,10 @@ public class Dessin extends JPanel {
 							// Si c'est le cas, selection de cette figure
 							if(ptCourant.estVoisinSegment(1, tabFigures[j].getTabMemo()[k], tabFigures[j].getTabMemo()[(k+1)%nbSommets])) {
 								tabFigures[j].setSelection(true);
+								// Remplissage de la figure si on a clique sur remplir
+								if (boutons.getRemplissage()) {
+									tabFigures[j].remplir();
+								}
 								trouve = true;
 							}
 						}
