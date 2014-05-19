@@ -62,6 +62,9 @@ public class Menu extends JPanel {
 	 * Constructeur initialisant le menu
 	 */
 	public Menu(Dessin d) {
+		formes.setFloatable(false); 
+		outils.setFloatable(false); 
+		col.setFloatable(false); 
 		this.setLayout(new BorderLayout(4,4));
 		formes.setLayout(new GridLayout(2, 4, 2, 2));
 		outils.setLayout(new GridLayout(2, 3, 2, 2));
