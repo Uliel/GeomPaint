@@ -202,16 +202,24 @@ public class Dessin extends JPanel {
 							int rayonPtCourant = ptCourant.dist(tabFigures[j].getTabMemo()[0]);
 							if(Math.abs(rayonCercle - rayonPtCourant) < MARGE_SELECTION_CERCLE) {
 								tabFigures[j].setSelection(true);
-								// Remplissage de la figure si on a clique sur remplir
-								if (boutons.getRemplissage()) {
-									tabFigures[j].remplir();
-								}
 								trouve = true;
 							}
 						}
 						j++;			
 					}
 				}
+				
+				// Remplissage de la figure si on a clique sur remplir
+				if (boutons.getRemplissage()) {
+					for (int i = 0; i < nbFigures; i++) {
+						if (tabFigures[i].getSelection()) {
+							tabFigures[i].remplir();
+							boutons.setRemplissage(false);
+						}
+					}
+					
+				}
+				
 				repaint();
 			}
 
@@ -275,6 +283,10 @@ public class Dessin extends JPanel {
 				if (tabFigures[i] instanceof Cercle) {
 					// Calcul du rayon et dessin
 					int rayon = positions[0].dist(positions[1]);
+					if (tabFigures[i].getPlein())
+						g.fillOval(positions[0].x - rayon, positions[0].y - rayon,
+								rayon * 2, rayon * 2);
+					else
 					g.drawOval(positions[0].x - rayon, positions[0].y - rayon,
 							rayon * 2, rayon * 2);
 				}

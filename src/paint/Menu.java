@@ -161,7 +161,7 @@ public class Menu extends JPanel {
 						dessin.exporter("png");
 					((Bouton) (e.getSource())).setSelected(false);
 				}
-				if (((Bouton) (e.getSource())).getValeur() == 3 && select) {
+				if (((Bouton) (e.getSource())).getValeur() == 3) {
 					remplissage = true;
 				}
 			}
