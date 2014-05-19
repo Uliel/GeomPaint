@@ -38,6 +38,7 @@ public class Dessin extends JPanel {
 	private int nbFigures;
 	private int nbPoints;
 	private ArrayList<UnPoint> listePoints = new ArrayList<UnPoint>();
+	private Color couleur = Color.BLACK;
 
 	// CONSTRUCTEURS
 	public Dessin() {
@@ -55,7 +56,7 @@ public class Dessin extends JPanel {
 
 			public void mouseReleased(MouseEvent e) {
 				Graphics g = getGraphics();
-				g.setColor(Color.BLACK);
+				g.setColor(couleur);
 				// On ne dessine que si un bouton dessin est appuy�
 				if (boutons.getDessiner()) {
 					// Si on clique pour la premiere fois :
@@ -259,6 +260,14 @@ public class Dessin extends JPanel {
 	}
 
 	// METHODES
+	
+	public Color getCouleur() {
+		return couleur;
+	}
+	
+	public void setCouleur(Color c) {
+		couleur = c;
+	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
