@@ -33,7 +33,7 @@ public class Dessin extends JPanel {
 	private final int MARGE_SELECTION_POLY = 1;
 	private final int MARGE_SELECTION_CERCLE = 8;
 	private FigureGeom[] tabFigures;
-	private Menu boutons;
+	private BoiteOutils boutons;
 	private int nbClics;
 	private int nbFigures;
 	private int nbPoints;
@@ -45,9 +45,9 @@ public class Dessin extends JPanel {
 		this.setPreferredSize(new Dimension(1000, 600));
 		this.setBackground(Color.WHITE);
 		this.tabFigures = new FigureGeom[Dessin.MAXTAILLE];
-		this.boutons = new Menu(this);
+		this.boutons = new BoiteOutils(this);
 		this.setLayout(new BorderLayout());
-		this.add(boutons, BorderLayout.NORTH);		
+		this.add(boutons, BorderLayout.NORTH);
 		this.nbFigures = 0;
 		this.nbClics = 0;
 		this.nbPoints = 0;
@@ -173,43 +173,51 @@ public class Dessin extends JPanel {
 						}
 					}
 				}
-				
-				// Si le bouton selectionner est choisi, on passe en mode selection
-				if(boutons.getSelect()) {
+
+				// Si le bouton selectionner est choisi, on passe en mode
+				// selection
+				if (boutons.getSelect()) {
 					UnPoint ptCourant = new UnPoint(e.getX(), e.getY());
 					boolean trouve = false;
 					int j = 0;
 					// Deselection de toutes les figures
-					for(int i = 0 ; i < nbFigures ; i++) {
+					for (int i = 0; i < nbFigures; i++) {
 						tabFigures[i].setSelection(false);
 					}
-					// Boucle sur toutes les figures pour savoir si l'une d'elle possede un segment a proximite du point courant
-					while(j < nbFigures && !trouve) {
+					// Boucle sur toutes les figures pour savoir si l'une d'elle
+					// possede un segment a proximite du point courant
+					while (j < nbFigures && !trouve) {
 						// Si la figure est un polygone
-						if(tabFigures[j] instanceof Polygone) {
+						if (tabFigures[j] instanceof Polygone) {
 							int nbSommets;
 							nbSommets = tabFigures[j].getNbMemo();
-							for(int k = 0 ; k < tabFigures[j].getNbMemo() ; k++) {
+							for (int k = 0; k < tabFigures[j].getNbMemo(); k++) {
 								// Si c'est le cas, selection de cette figure
-								if(ptCourant.estVoisinSegment(MARGE_SELECTION_POLY, tabFigures[j].getTabMemo()[k], tabFigures[j].getTabMemo()[(k+1)%nbSommets])) {
+								if (ptCourant.estVoisinSegment(
+										MARGE_SELECTION_POLY,
+										tabFigures[j].getTabMemo()[k],
+										tabFigures[j].getTabMemo()[(k + 1)
+												% nbSommets])) {
 									tabFigures[j].setSelection(true);
 									trouve = true;
 								}
 							}
 						}
 						// Si la figure est un cercle
-						if(tabFigures[j] instanceof Cercle) {
-							int rayonCercle = tabFigures[j].getTabMemo()[0].dist(tabFigures[j].getTabMemo()[1]);
-							int rayonPtCourant = ptCourant.dist(tabFigures[j].getTabMemo()[0]);
-							if(Math.abs(rayonCercle - rayonPtCourant) < MARGE_SELECTION_CERCLE) {
+						if (tabFigures[j] instanceof Cercle) {
+							int rayonCercle = tabFigures[j].getTabMemo()[0]
+									.dist(tabFigures[j].getTabMemo()[1]);
+							int rayonPtCourant = ptCourant.dist(tabFigures[j]
+									.getTabMemo()[0]);
+							if (Math.abs(rayonCercle - rayonPtCourant) < MARGE_SELECTION_CERCLE) {
 								tabFigures[j].setSelection(true);
 								trouve = true;
 							}
 						}
-						j++;			
+						j++;
 					}
 				}
-				
+
 				repaint();
 			}
 
@@ -260,11 +268,11 @@ public class Dessin extends JPanel {
 	}
 
 	// METHODES
-	
+
 	public Color getCouleur() {
 		return couleur;
 	}
-	
+
 	public void setCouleur(Color c) {
 		couleur = c;
 	}
@@ -282,19 +290,35 @@ public class Dessin extends JPanel {
 					// Calcul du rayon et dessin
 					int rayon = positions[0].dist(positions[1]);
 					if (tabFigures[i].getPlein())
-						g.fillOval(positions[0].x - rayon, positions[0].y - rayon,
-								rayon * 2, rayon * 2);
+						g.fillOval(positions[0].x - rayon, positions[0].y
+								- rayon, rayon * 2, rayon * 2);
 					else
-					g.drawOval(positions[0].x - rayon, positions[0].y - rayon,
-							rayon * 2, rayon * 2);
+						g.drawOval(positions[0].x - rayon, positions[0].y
+								- rayon, rayon * 2, rayon * 2);
 				}
 
 				// Cas des polygones
 				if (tabFigures[i] instanceof Polygone) {
 					int nbSommets = tabFigures[i].getNbMemo();
-					for (int j = 0; j < nbSommets; j++)
-						dessinLigne(g, tabFigures[i].getTabMemo()[j],
-								tabFigures[i].getTabMemo()[(j + 1) % nbSommets]);
+					if (tabFigures[i].getPlein()) {
+						if (tabFigures[i] instanceof Rectangle) {
+							UnPoint[] memo = tabFigures[i].getTabMemo();
+							g.fillRect(memo[0].x, memo[0].y, memo[0].dist(memo[1]), memo[0].dist(memo[3]));
+						} else {
+							int[] tabX = new int[nbSommets];
+							int[] tabY = new int[nbSommets];
+							for (int j = 0; j < nbSommets; j++) {
+								tabX[j] = positions[j].x;
+								tabY[j] = positions[j].y;
+							}
+							g.fillPolygon(tabX, tabY, nbSommets);
+						}
+					} else {
+						for (int j = 0; j < nbSommets; j++)
+							dessinLigne(g, tabFigures[i].getTabMemo()[j],
+									tabFigures[i].getTabMemo()[(j + 1)
+											% nbSommets]);
+					}
 				}
 
 				// Si la figure est selectionnee, on dessine les points de
@@ -322,7 +346,7 @@ public class Dessin extends JPanel {
 				}
 		}
 	}
-	
+
 	public void remplir() {
 		boolean trouve = false;
 		for (int i = 0; i < nbFigures && !trouve; i++) {
