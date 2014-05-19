@@ -86,6 +86,10 @@ public class FigureGeom extends Observable {
 	public boolean getSelection() {
 		return this.selection;
 	}
+	
+	public void setSelection(boolean b) {
+		this.selection = b;
+	}
 
 	public void ajouterMemo(int pos, int x, int y) {
 		this.tabMemo[pos] = new UnPoint(x, y);

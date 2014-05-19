@@ -170,6 +170,27 @@ public class Dessin extends JPanel {
 						}
 					}
 				}
+				
+				if(boutons.getSelect()) {
+					UnPoint ptCourant = new UnPoint(e.getX(), e.getY());
+					boolean trouve = false;
+					int j = 0;
+					int nbSommets;
+					for(int i = 0 ; i < nbFigures ; i++)
+						tabFigures[i].setSelection(false);
+					while(j < nbFigures && !trouve) {
+						nbSommets = tabFigures[j].getNbMemo();
+						System.out.println("ok");
+						for(int k = 0 ; k < tabFigures[j].getNbMemo() ; k++) {
+							if(ptCourant.estVoisinSegment(10, tabFigures[j].getTabMemo()[k], tabFigures[j].getTabMemo()[(k+1)%nbSommets])) {
+								tabFigures[j].setSelection(true);
+								trouve = true;
+							}
+						}
+						j++;
+							
+					}
+				}
 				repaint();
 			}
 
