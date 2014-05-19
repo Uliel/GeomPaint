@@ -14,6 +14,7 @@ import javax.swing.*;
 public class Menu extends JPanel {
 
 	// ATTRIBUTS
+	private boolean select;
 	private boolean dessiner;
 	private Dessin dessin;
 	
@@ -74,6 +75,7 @@ public class Menu extends JPanel {
 		ActionListener selectionForme = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dessiner = true;
+				select = false;
 				desactiverOutils();
 				desactiverCoul();
 				numFigCourante = ((Bouton) (e.getSource())).getValeur();
@@ -101,10 +103,12 @@ public class Menu extends JPanel {
 		ActionListener selectionOutils = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dessiner = false;
+				select = false;
 				desactiverFormes();
 				desactiverCoul();
 				if (((Bouton) (e.getSource())).isSelected()
 						&& ((Bouton) (e.getSource())).getValeur() == 2) {
+					select = true;
 					((Bouton) (e.getSource())).setSelected(true);
 					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
 
@@ -219,6 +223,14 @@ public class Menu extends JPanel {
 		this.dessiner = d;
 	}
 
+	public boolean getSelect() {
+		return this.select;
+	}
+	
+	public void setSelect(boolean d) {
+		this.select = d;
+	}
+	
 	public int getNumFigCourante() {
 		return this.numFigCourante;
 	}
