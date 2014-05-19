@@ -170,8 +170,8 @@ public class Menu extends JPanel {
 				desactiverFormes();
 				desactiverCoul();
 				desactiverRotation();
-				if (((Bouton) (e.getSource())).isSelected()
-						&& ((Bouton) (e.getSource())).getValeur() == 2) {
+				desactiverOutils();
+				if (((Bouton) (e.getSource())).getValeur() == 2) {
 					select = true;
 					((Bouton) (e.getSource())).setSelected(true);
 					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
