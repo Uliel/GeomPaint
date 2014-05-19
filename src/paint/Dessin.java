@@ -193,11 +193,7 @@ public class Dessin extends JPanel {
 					FigureGeom fig = figVoisine(ptCourant);
 					if(fig != null)
 						fig.setSelection(true);
-					
-						
-					
 				}
-
 				repaint();
 			}
 
