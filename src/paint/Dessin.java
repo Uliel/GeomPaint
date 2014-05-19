@@ -36,6 +36,7 @@ public class Dessin extends JPanel {
 	private final int MARGE_SELECTION_CERCLE = 8;
 	private FigureGeom[] tabFigures;
 	private BoiteOutils boutons;
+	private MenuDeroulant menuD;
 	private int nbClics;
 	private int nbFigures;
 	private int nbPoints;
@@ -44,7 +45,8 @@ public class Dessin extends JPanel {
 
 	// CONSTRUCTEURS
 	public Dessin() {
-		this.setComponentPopupMenu(new MenuDeroulant(this));
+		menuD = new MenuDeroulant(this);
+		this.setComponentPopupMenu(menuD);
 		this.setPreferredSize(new Dimension(1000, 600));
 		this.setBackground(Color.WHITE);
 		this.tabFigures = new FigureGeom[Dessin.MAXTAILLE];
@@ -337,6 +339,14 @@ public class Dessin extends JPanel {
 					g.drawRect(listePoints.get(j).x - 3,
 							listePoints.get(j).y - 3, 6, 6);
 				}
+		}
+		if (figureSelectionne()) {
+			menuD.getSupprimer().setEnabled(true);
+			boutons.getSupprimer().setEnabled(true);
+		}
+		else {
+			menuD.getSupprimer().setEnabled(false);
+			boutons.getSupprimer().setEnabled(false);
 		}
 	}
 

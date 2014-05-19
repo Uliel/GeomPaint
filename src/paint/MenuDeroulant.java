@@ -10,7 +10,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.border.BevelBorder;
 
 public class MenuDeroulant extends JPopupMenu{
-Dessin dessin;
+private Dessin dessin;
+private JMenuItem supprimer;
   public MenuDeroulant(Dessin d) {
 	  dessin=d;
     ActionListener menuListener = new ActionListener() {
@@ -41,7 +42,8 @@ Dessin dessin;
     this.add(item = new JMenuItem("Exporter en png", new ImageIcon("images/exporter_png2.png")));
     item.setHorizontalTextPosition(JMenuItem.RIGHT);
     item.addActionListener(menuListener);
-    this.add(item = new JMenuItem("Supprimer", new ImageIcon("images/poubelle.png")));
+    supprimer = new JMenuItem("Supprimer", new ImageIcon("images/poubelle.png"));
+    this.add(item = supprimer );
     item.setHorizontalTextPosition(JMenuItem.RIGHT);
     item.addActionListener(menuListener);
     this.add(item = new JMenuItem("Annuler", new ImageIcon("images/annuler.png")));
@@ -53,5 +55,8 @@ Dessin dessin;
 
     this.setBorder(new BevelBorder(BevelBorder.RAISED));
   }
-
+	public JMenuItem getSupprimer() {
+		return supprimer;
+	}
+  
 }

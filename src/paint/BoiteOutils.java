@@ -70,6 +70,7 @@ public class BoiteOutils extends JPanel {
 	 */
 	public BoiteOutils(Dessin d) {
 		
+		supprimer.setEnabled(false);
 		//JMenuBar contenant la selection de la taille
 		JMenu size = new JMenu("Taille");
 		JMenuItem[] tailles = new JMenuItem[16];
@@ -328,7 +329,6 @@ public class BoiteOutils extends JPanel {
 		for (int i = 0; i < tabBoutonsOutils.length; i++) {
 			tabBoutonsOutils[i].setSelected(false);
 			tabBoutonsOutils[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
-
 		}
 	}
 	public void desactiverCoul() {
@@ -343,5 +343,9 @@ public class BoiteOutils extends JPanel {
 		rotationGauche.setSelected(false);
 		rotationDroite.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
 		rotationGauche.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+	}
+	
+	public Bouton getSupprimer() {
+		return supprimer;
 	}
 }
