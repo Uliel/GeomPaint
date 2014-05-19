@@ -151,7 +151,7 @@ public class Menu extends JPanel {
 				couleurCourante.setBackground(((Bouton) (e.getSource())).getCoul());
 			}
 		};
-		
+
 		for (int i = 0; i < tabCouleurs.length; i++) {
 			couleurs[i]=new Bouton(i,tabCouleurs[i]);
 			couleurs[i].addActionListener(selectionCouleur);

@@ -57,7 +57,7 @@ public class Bouton extends JToggleButton implements MouseListener{
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Stub de la méthode généré automatiquement
-		if (!this.isSelected())
+		if (this.isEnabled())
 		this.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
 	}
 
