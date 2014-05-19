@@ -50,7 +50,11 @@ public class Dessin extends JPanel {
 		this.tabFigures = new FigureGeom[Dessin.MAXTAILLE];
 		this.boutons = new BoiteOutils(this);
 		this.setLayout(new BorderLayout());
-		this.add(boutons, BorderLayout.NORTH);
+		JPanel entete = new JPanel();
+		entete.setLayout(new BorderLayout(2,2));
+		entete.add(boutons,BorderLayout.CENTER);
+		entete.add(new UnMenu(this),BorderLayout.NORTH);
+		this.add(entete, BorderLayout.NORTH);
 		this.nbFigures = 0;
 		this.nbClics = 0;
 		this.nbPoints = 0;
@@ -500,10 +504,19 @@ public class Dessin extends JPanel {
 		for (int i = 0; i < nbFigures && !trouve; i++) {
 			if (tabFigures[i].getSelection()) {
 				trouve=true;
-				tabFigures[i].setCouleur(c);
-				
+				tabFigures[i].setCouleur(c);	
 			}
 		}		
 		repaint();
+	}
+	
+	public boolean figureSelectionne() {
+		boolean trouve =false;
+		for (int i = 0; i < nbFigures && !trouve; i++) {
+			if (tabFigures[i].getSelection()) {
+				trouve=true;				
+			}
+		}
+		return trouve;
 	}
 }
