@@ -6,6 +6,7 @@
 
 import javax.swing.JFrame;
 import paint.Dessin;
+import paint.MenuDeroulant;
 import figures.*;
 
 public class Principale {

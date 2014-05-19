@@ -7,6 +7,7 @@
 package paint;
 
 import java.awt.*;
+import java.awt.Menu;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -42,6 +43,7 @@ public class Dessin extends JPanel {
 
 	// CONSTRUCTEURS
 	public Dessin() {
+		this.setComponentPopupMenu(new MenuDeroulant(this));
 		this.setPreferredSize(new Dimension(1000, 600));
 		this.setBackground(Color.WHITE);
 		this.tabFigures = new FigureGeom[Dessin.MAXTAILLE];
@@ -354,7 +356,7 @@ public class Dessin extends JPanel {
 	}
 
 	/**
-	 * change le booléen rempli de la figure si elle est sélectionnée
+	 * change le boolï¿½en rempli de la figure si elle est sï¿½lectionnï¿½e
 	 */
 	public void remplir() {
 		boolean trouve = false;
@@ -368,7 +370,7 @@ public class Dessin extends JPanel {
 	}
 	
 	/**
-	 * supprime la figure si elle est sélectionnée
+	 * supprime la figure si elle est sï¿½lectionnï¿½e
 	 */
 	public void supprimer() {
 		boolean trouve = false;
@@ -385,6 +387,7 @@ public class Dessin extends JPanel {
 		}
 		tabFigures[nbFigures - 1] = null;
 		nbFigures--;
+		repaint();
 	}
 
 	// Methode de dessin d'une ligne avec 2 paramÃ¨tres de type UnPoint
