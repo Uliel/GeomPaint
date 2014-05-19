@@ -228,6 +228,8 @@ public class Menu extends JPanel {
 				else 
 					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
 				couleurCourante.setBackground(((Bouton) (e.getSource())).getCoul());
+				dessin.setCouleur(((Bouton) (e.getSource())).getCoul());
+				
 			}
 		};
 
@@ -255,6 +257,7 @@ public class Menu extends JPanel {
 	                    "JColorChooser Sample", null);
 	            if (background != null) {
 	            	couleurCourante.setBackground(background);
+	            	dessin.setCouleur(background);
 	            	if (nbCoul<30) {
 	            		couleurs[nbCoul].setEnabled(true);
 	            		couleurs[nbCoul].setBackground(background);
