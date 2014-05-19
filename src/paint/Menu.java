@@ -55,8 +55,10 @@ public class Menu extends JPanel {
 			"images/exporter_jpg2.png"));
 	private Bouton exporterPNG = new Bouton(5, new ImageIcon(
 			"images/exporter_png2.png"));
+	private Bouton annuler = new Bouton(6, new ImageIcon(
+			"images/annuler.png"));
 	private Bouton[] tabBoutonsOutils = { supprimer, selectionner, remplir,
-			exporterJPG, exporterPNG };
+			exporterJPG, exporterPNG,annuler };
 
 	// CONSTRUCTEUR
 	/**
