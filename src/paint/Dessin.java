@@ -209,17 +209,6 @@ public class Dessin extends JPanel {
 					}
 				}
 				
-				// Remplissage de la figure si on a clique sur remplir
-				if (boutons.getRemplissage()) {
-					for (int i = 0; i < nbFigures; i++) {
-						if (tabFigures[i].getSelection()) {
-							tabFigures[i].remplir();
-							boutons.setRemplissage(false);
-						}
-					}
-					
-				}
-				
 				repaint();
 			}
 
@@ -323,6 +312,17 @@ public class Dessin extends JPanel {
 							listePoints.get(j).y - 3, 6, 6);
 				}
 		}
+	}
+	
+	public void remplir() {
+		boolean trouve = false;
+		for (int i = 0; i < nbFigures && !trouve; i++) {
+			if (tabFigures[i].getSelection()) {
+				tabFigures[i].remplir();
+				trouve = true;
+			}
+		}
+		repaint();
 	}
 
 	// Methode de dessin d'une ligne avec 2 paramètres de type UnPoint
