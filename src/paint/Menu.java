@@ -55,14 +55,26 @@ public class Menu extends JPanel {
 			"images/exporter_jpg2.png"));
 	private Bouton exporterPNG = new Bouton(5, new ImageIcon(
 			"images/exporter_png2.png"));
+	private Bouton annuler = new Bouton(6, new ImageIcon(
+			"images/annuler.png"));
 	private Bouton[] tabBoutonsOutils = { supprimer, selectionner, remplir,
-			exporterJPG, exporterPNG };
+			exporterJPG, exporterPNG,annuler };
 
 	// CONSTRUCTEUR
 	/**
 	 * Constructeur initialisant le menu
 	 */
 	public Menu(Dessin d) {
+		
+		//Affichage des bulles d'aide
+		supprimer.setToolTipText("Supprimer une figure");
+		selectionner.setToolTipText("Selectionner une figure");
+		remplir.setToolTipText("Remplir ou vider une figure");
+		exporterJPG.setToolTipText("Exporter l'image en .jpg");
+		exporterPNG.setToolTipText("Exporter l'image en .png");
+		annuler.setToolTipText("Annuler la dernière modification");
+		palette.setToolTipText("Sélectionner une couleur dans la palette");
+		
 		//On empeche les barres d'outils d'Ãªtre dÃ©placÃ©es
 		formes.setFloatable(false); 
 		outils.setFloatable(false); 
