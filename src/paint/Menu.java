@@ -67,19 +67,27 @@ public class Menu extends JPanel {
 	public Menu(Dessin d) {
 		
 		JMenu size = new JMenu("Taille");
-		JMenuItem[] tailles = new JMenuItem[11];
+		JMenuItem[] tailles = new JMenuItem[16];
 		JMenuItem image = new JMenuItem(new ImageIcon("images/taille.png"));
-		for (int i=10;i<=30;i=i+2) {
-			tailles[(i-10)/2] = new JMenuItem(i+"pts ----");
-			tailles[(i-10)/2].setFont(new Font("Arial",Font.BOLD,i));
-			size.add(tailles[(i-10)/2]);
+		for (int i=10;i<=60;i=i+4) {
+			tailles[(i-10)/4] = new JMenuItem(i+"pts ----");
+			tailles[(i-10)/4].setFont(new Font("Arial",Font.BOLD,i));
+			size.add(tailles[(i-10)/4]);
 		}
 		JMenuBar tailleBarre= new JMenuBar();
 		image.setEnabled(false);
 		image.setDisabledIcon(image.getIcon());
 		tailleBarre.add(size);
 		tailleBarre.add(image);
+		
+		JPanel rotation = new JPanel();
+		rotation.setLayout(new GridLayout(1,2));
+		Bouton rotationDroite = new Bouton(1,new ImageIcon("images/rotation_d.png"));
+		Bouton rotationGauche = new Bouton(1,new ImageIcon("images/rotation_g.png"));
+		rotation.add(rotationDroite);
+		rotation.add(rotationGauche);
 
+		
 		
 	
 		//Affichage des bulles d'aide
@@ -245,6 +253,7 @@ public class Menu extends JPanel {
 		col.add(palette,BorderLayout.WEST);
 		col.add(couleurCourante,BorderLayout.EAST);
 		formes.add(tailleBarre);
+		formes.add(rotation);
 		formes.setPreferredSize(new Dimension(150,60));
 		outils.setPreferredSize(new Dimension(190,60));
 		col.setPreferredSize(new Dimension(400,60));
