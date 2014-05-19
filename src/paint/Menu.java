@@ -129,7 +129,7 @@ public class Menu extends JPanel {
 		final JPanel colors = new JPanel();
 		colors.setLayout(new GridLayout(3,10,2,2));
 		Color[] tabCouleurs= {Color.black,Color.darkGray,new Color(137,0,21),Color.red,new Color(255,227,39),
-				Color.yellow,Color.green,new Color(0,162,232),Color.blue,Color.magenta,new Color(163,73,164),
+				Color.yellow,Color.green,new Color(0,162,232),Color.blue,new Color(163,73,164),Color.white,
 				Color.lightGray,new Color(185,122,87),Color.pink,Color.orange,new Color(239,228,176),
 				new Color(181,230,29),Color.cyan,new Color(112,146,190),Color.gray
 				};
@@ -158,7 +158,7 @@ public class Menu extends JPanel {
 			colors.add(couleurs[i]);
 		}
 		for (int i=tabCouleurs.length;i<couleurs.length;i++) {
-			couleurs[i]=new Bouton(i,Color.white);
+			couleurs[i]=new Bouton(i,new Color(230,230,230));
 			couleurs[i].setEnabled(false);
 			colors.add(couleurs[i]);
 			
@@ -176,13 +176,11 @@ public class Menu extends JPanel {
 	            		couleurs[nbCoul].setBackground(background);
 	            		couleurs[nbCoul].addActionListener(selectionCouleur);
 	            		couleurs[nbCoul].setCoul(background);
-	            		colors.add(couleurs[nbCoul]);
 	            		nbCoul++;
 	            	}
 	            	else {
 	            		nbCoul=20;
 	            		couleurs[20].setBackground(background);
-	            		colors.add(couleurs[nbCoul]);
 	            	}     
 	            }
 	        }
