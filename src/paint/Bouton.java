@@ -12,17 +12,35 @@ public class Bouton extends JToggleButton implements MouseListener{
 	private Border bord;
 	private Color coul;
 	
+	/**
+	 * Constructeur à partir de 
+	 * @param n un entier
+	 * @param i une ImageIcon
+	 */
 	public Bouton (int n,ImageIcon i) {
 		super(i);
 		coul=Color.white;
+		//Modification de la couleur de fond quand un bouton est selectionné
 		UIManager.put("ToggleButton.select", Color.WHITE);
 		SwingUtilities.updateComponentTreeUI(this);
+		
 		valeur = n;
+		
+		//Modification de la couleur de la bordure
 		this.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+		
+		//On recupere cette bordure dans une variable
 		bord=this.getBorder();
+		
+		//Ajout du mouseListener
 		this.addMouseListener(this);
 	}
 	
+	/**
+	 * Constructeur à partir de
+	 * @param n un entier
+	 * @param c une couleur
+	 */
 	public Bouton (int n,java.awt.Color c) {
 		super();
 		valeur=n;

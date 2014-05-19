@@ -62,14 +62,20 @@ public class Menu extends JPanel {
 	 * Constructeur initialisant le menu
 	 */
 	public Menu(Dessin d) {
+		//On empeche les barres d'outils d'être déplacées
 		formes.setFloatable(false); 
 		outils.setFloatable(false); 
-		col.setFloatable(false); 
+		col.setFloatable(false);
+		
+		//Definition des layout
 		this.setLayout(new BorderLayout(4,4));
 		formes.setLayout(new GridLayout(2, 4, 2, 2));
 		outils.setLayout(new GridLayout(2, 3, 2, 2));
 		col.setLayout(new BorderLayout(2,2));
+		
+		//Pour pouvoir avoir accès aux attributs et aux methodes de la classe dessin
 		dessin = d;
+		
 		// Creation d'un auditeur commun a tous les boutons de forme
 		ActionListener selectionForme = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -83,7 +89,6 @@ public class Menu extends JPanel {
 					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2, false));
 				} else
 					desactiverFormes();
-
 			}
 		};
 		/*
@@ -119,7 +124,8 @@ public class Menu extends JPanel {
 
 			}
 		};
-
+		
+		//Mise en formes des boutons et ajout du listenner
 		for (int i = 0; i < tabBoutonsOutils.length; i++) {
 			tabBoutonsOutils[i].setBackground(Color.white);
 			outils.add(tabBoutonsOutils[i]);
@@ -160,6 +166,7 @@ public class Menu extends JPanel {
 			}
 		};
 
+		//Mise en forme des boutons
 		for (int i = 0; i < tabCouleurs.length; i++) {
 			couleurs[i]=new Bouton(i,tabCouleurs[i]);
 			couleurs[i].addActionListener(selectionCouleur);
@@ -173,6 +180,8 @@ public class Menu extends JPanel {
 		}
 		
 		palette.setFocusPainted(false);
+		
+		//Definition du mouseListener pour l'apparition de la palette de couleurs
 		JColorChooser jc=new JColorChooser(Color.black);
 		MouseAdapter paletteListener = new java.awt.event.MouseAdapter() {
 	        public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -197,6 +206,8 @@ public class Menu extends JPanel {
 		};
 		
 		palette.addMouseListener(paletteListener);
+		
+		//Mise en place des JToolBar
 		
 		col.add(colors,BorderLayout.CENTER);
 		col.add(palette,BorderLayout.WEST);
