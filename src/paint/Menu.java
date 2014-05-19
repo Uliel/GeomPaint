@@ -61,12 +61,17 @@ public class Menu extends JPanel {
 	private Bouton[] tabBoutonsOutils = { supprimer, selectionner, remplir,
 			exporterJPG, exporterPNG,annuler };
 	
+	//Boutons rotation
+	private Bouton rotationDroite = new Bouton(1,new ImageIcon("images/rotation_d.png"));
+	private Bouton rotationGauche = new Bouton(2,new ImageIcon("images/rotation_g.png"));
+	
 	// CONSTRUCTEUR
 	/**
 	 * Constructeur initialisant le menu
 	 */
 	public Menu(Dessin d) {
 		
+		//JMenuBar contenant la selection de la taille
 		JMenu size = new JMenu("Taille");
 		JMenuItem[] tailles = new JMenuItem[16];
 		JMenuItem image = new JMenuItem(new ImageIcon("images/taille.png"));
@@ -81,10 +86,26 @@ public class Menu extends JPanel {
 		tailleBarre.add(size);
 		tailleBarre.add(image);
 		
+		//JPanel contenant les boutons de rotation
 		JPanel rotation = new JPanel();
 		rotation.setLayout(new GridLayout(1,2));
-		Bouton rotationDroite = new Bouton(1,new ImageIcon("images/rotation_d.png"));
-		Bouton rotationGauche = new Bouton(1,new ImageIcon("images/rotation_g.png"));
+		rotationDroite.setFocusPainted(false);
+		rotationGauche.setFocusPainted(false);
+		
+		//ActionListener des boutons de rotation
+		ActionListener rotationListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dessiner = false;
+				desactiverOutils();
+				desactiverFormes();
+				desactiverCoul();
+				desactiverRotation();
+				((Bouton) (e.getSource())).setSelected(true);
+			}
+		};
+		
+		rotationDroite.addActionListener(rotationListener);
+		rotationGauche.addActionListener(rotationListener);
 		rotation.add(rotationDroite);
 		rotation.add(rotationGauche);
 
@@ -121,6 +142,7 @@ public class Menu extends JPanel {
 				select = false;
 				desactiverOutils();
 				desactiverCoul();
+				desactiverRotation();
 				numFigCourante = ((Bouton) (e.getSource())).getValeur();
 				if (((Bouton) (e.getSource())).isSelected()) {
 					desactiverFormes();
@@ -148,6 +170,7 @@ public class Menu extends JPanel {
 				select = false;
 				desactiverFormes();
 				desactiverCoul();
+				desactiverRotation();
 				if (((Bouton) (e.getSource())).isSelected()
 						&& ((Bouton) (e.getSource())).getValeur() == 2) {
 					select = true;
@@ -197,6 +220,7 @@ public class Menu extends JPanel {
 				desactiverOutils();
 				desactiverFormes();
 				desactiverCoul();
+				desactiverRotation();
 				((Bouton) (e.getSource())).setSelected(true);
 				if (((Bouton) (e.getSource())).getCoul().getBlue()<150&&
 						((Bouton) (e.getSource())).getCoul().getRed()<150&&
@@ -315,5 +339,11 @@ public class Menu extends JPanel {
 			couleurs[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
 
 		}
+	}
+	public void desactiverRotation() {
+		rotationDroite.setSelected(false);
+		rotationGauche.setSelected(false);
+		rotationDroite.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+		rotationGauche.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
 	}
 }
