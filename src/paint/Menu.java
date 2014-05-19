@@ -65,6 +65,16 @@ public class Menu extends JPanel {
 	 * Constructeur initialisant le menu
 	 */
 	public Menu(Dessin d) {
+		
+		//Affichage des bulles d'aide
+		supprimer.setToolTipText("Supprimer une figure");
+		selectionner.setToolTipText("Selectionner une figure");
+		remplir.setToolTipText("Remplir ou vider une figure");
+		exporterJPG.setToolTipText("Exporter l'image en .jpg");
+		exporterPNG.setToolTipText("Exporter l'image en .png");
+		annuler.setToolTipText("Annuler la dernière modification");
+		palette.setToolTipText("Sélectionner une couleur dans la palette");
+		
 		//On empeche les barres d'outils d'Ãªtre dÃ©placÃ©es
 		formes.setFloatable(false); 
 		outils.setFloatable(false); 
