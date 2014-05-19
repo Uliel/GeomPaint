@@ -353,6 +353,9 @@ public class Dessin extends JPanel {
 		}
 	}
 
+	/**
+	 * change le booléen rempli de la figure si elle est sélectionnée
+	 */
 	public void remplir() {
 		boolean trouve = false;
 		for (int i = 0; i < nbFigures && !trouve; i++) {
@@ -362,6 +365,26 @@ public class Dessin extends JPanel {
 			}
 		}
 		repaint();
+	}
+	
+	/**
+	 * supprime la figure si elle est sélectionnée
+	 */
+	public void supprimer() {
+		boolean trouve = false;
+		int suppr = 0;
+		for (int i = 0; i < nbFigures && !trouve; i++) {
+			if (tabFigures[i].getSelection()) {
+				tabFigures[i] = null;
+				suppr = i;
+				trouve = true;
+			}
+		}
+		for (int i = suppr; i < nbFigures - 1 || tabFigures[i + 1] != null; i++) {
+			tabFigures[i] = tabFigures[i+1];
+		}
+		tabFigures[nbFigures - 1] = null;
+		nbFigures--;
 	}
 
 	// Methode de dessin d'une ligne avec 2 paramÃ¨tres de type UnPoint
