@@ -228,7 +228,7 @@ public class BoiteOutils extends JPanel {
 				else 
 					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
 				couleurCourante.setBackground(((Bouton) (e.getSource())).getCoul());
-				dessin.setCouleur(((Bouton) (e.getSource())).getCoul());
+				dessin.changeCouleur(((Bouton) (e.getSource())).getCoul());
 				
 			}
 		};

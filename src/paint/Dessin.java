@@ -437,6 +437,18 @@ public class Dessin extends JPanel {
 			}
 			boutons.setVisible(true);
 		}
-
+	}
+	
+	public void changeCouleur (Color c) {
+		boolean trouve =false;
+		couleur = c;
+		for (int i = 0; i < nbFigures && !trouve; i++) {
+			if (tabFigures[i].getSelection()) {
+				trouve=true;
+				tabFigures[i].setCouleur(c);
+				
+			}
+		}		
+		repaint();
 	}
 }
