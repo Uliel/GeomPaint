@@ -44,7 +44,7 @@ public class Dessin extends JPanel {
 		this.tabFigures = new FigureGeom[Dessin.MAXTAILLE];
 		this.boutons = new Menu(this);
 		this.setLayout(new BorderLayout());
-		this.add(boutons, BorderLayout.NORTH);
+		this.add(boutons, BorderLayout.NORTH);		
 		this.nbFigures = 0;
 		this.nbClics = 0;
 		this.nbPoints = 0;
@@ -61,7 +61,7 @@ public class Dessin extends JPanel {
 						// - Recuperation du nombre de points de selection de la
 						// figure desiree
 						switch (boutons.getNumFigCourante()) {
-						case(1) :
+						case (1):
 							// Cercle
 							nbPoints = 2;
 							break;
@@ -108,10 +108,9 @@ public class Dessin extends JPanel {
 						else {
 							listePoints.add(new UnPoint(e.getX(), e.getY()));
 							switch (boutons.getNumFigCourante()) {
-							case(1) :
+							case (1):
 								// Cercle
-								tabFigures[nbFigures] = new Cercle(
-										listePoints);
+								tabFigures[nbFigures] = new Cercle(listePoints);
 								break;
 							case (2):
 								// Rectangle
@@ -153,7 +152,8 @@ public class Dessin extends JPanel {
 						// Gestion des points suivants
 						else {
 							// Si le nouveau point est positionné au voisinage
-							// du premier point, le polygone est considéré comme
+							// du premier point, le polygone est considéré
+							// comme
 							// fini
 							if (estVoisin(20, nouveauPoint, listePoints.get(0))) {
 								tabFigures[nbFigures] = new Polygone(
@@ -214,7 +214,7 @@ public class Dessin extends JPanel {
 		// }
 		// };
 
-		this.addMouseListener(ml);
+		addMouseListener(ml);
 		// this.addMouseMotionListener(mml);
 
 	}
@@ -233,7 +233,8 @@ public class Dessin extends JPanel {
 				if (tabFigures[i] instanceof Cercle) {
 					// Calcul du rayon et dessin
 					int rayon = positions[0].dist(positions[1]);
-					g.drawOval(positions[0].x - rayon, positions[0].y - rayon, rayon * 2, rayon * 2);
+					g.drawOval(positions[0].x - rayon, positions[0].y - rayon,
+							rayon * 2, rayon * 2);
 				}
 
 				// Cas des polygones
@@ -293,23 +294,23 @@ public class Dessin extends JPanel {
 														 * répertoire courant
 														 */
 		filechoose.setDialogTitle("Exporter une image"); /*
-																	 * nom de la
-																	 * boite de
-																	 * dialogue
-																	 */
+														 * nom de la boite de
+														 * dialogue
+														 */
 
 		filechoose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); /*
 																		 * pour
 																		 * afficher
 																		 * seulement
 																		 * les
-																		 * répertoires
+																		 * ré
+																		 * pertoires
 																		 */
 
 		String approve = new String("Exporter"); /*
-													 * Le bouton pour valider
-													 */
-		int resultatEnregistrer = filechoose.showDialog(filechoose,approve);
+												 * Le bouton pour valider
+												 */
+		int resultatEnregistrer = filechoose.showDialog(filechoose, approve);
 		if (resultatEnregistrer == JFileChooser.APPROVE_OPTION) { /*
 																 * Si
 																 * l’utilisateur
@@ -317,12 +318,20 @@ public class Dessin extends JPanel {
 																 * bouton
 																 * Exporter
 																 */
-			String chemin = filechoose.getSelectedFile().getAbsolutePath(); /* pour avoir le chemin absolu */
+			String chemin = filechoose.getSelectedFile().getAbsolutePath(); /*
+																			 * pour
+																			 * avoir
+																			 * le
+																			 * chemin
+																			 * absolu
+																			 */
 			/*
-			 * on enregistre le fichier dans le repertoire desiré avec pour nom image + date en millisecondes
+			 * on enregistre le fichier dans le repertoire desiré avec pour nom
+			 * image + date en millisecondes
 			 */
 			GregorianCalendar intCal = new GregorianCalendar();
 			long tmp = intCal.getTimeInMillis();
+			boutons.setVisible(false);
 			BufferedImage img = new BufferedImage(this.getWidth(),
 					this.getHeight(), BufferedImage.TYPE_INT_RGB);
 			Graphics2D g2 = img.createGraphics();
@@ -333,6 +342,7 @@ public class Dessin extends JPanel {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
+			boutons.setVisible(true);
 		}
 
 	}
