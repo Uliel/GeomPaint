@@ -29,11 +29,11 @@ public class UnMenu extends JMenuBar {
 	public UnMenu(Dessin des) {
 		this.d = des;
 		// Un JMenu "Couleur"
-		JMenu jm1 = new JMenu("Couleur");
-		jm1.setFont(new Font("Arial", Font.BOLD, 20));
+		JMenu jm1 = new JMenu("Fichier");
+		jm1.setFont(new Font("Arial", Font.BOLD, 14));
 		// Un JMenu "Taille"
-		JMenu jm2 = new JMenu("Taille");
-		jm2.setFont(new Font("Arial", Font.BOLD, 20));
+		JMenu jm2 = new JMenu("Edition");
+		jm2.setFont(new Font("Arial", Font.BOLD, 14));
 		// On cree des JMenuItem pour des tailles de 5 à 10 qu'on associe au
 		// JMenu taille
 		for (int i = 5; i < 11; i++) {
@@ -52,7 +52,7 @@ public class UnMenu extends JMenuBar {
 		jm1.add(new JMenuItem("essai"));
 		// On associe les deux JMenu à la JMenuBar
 		this.add(jm1);
-		this.add(new JLabel("      "));
+		this.add(new JLabel("  "));
 		this.add(jm2);
 	}
 }
