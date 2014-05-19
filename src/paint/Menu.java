@@ -147,7 +147,12 @@ public class Menu extends JPanel {
 				desactiverFormes();
 				desactiverCoul();
 				((Bouton) (e.getSource())).setSelected(true);
-				((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
+				if (((Bouton) (e.getSource())).getCoul().getBlue()<150&&
+						((Bouton) (e.getSource())).getCoul().getRed()<150&&
+						((Bouton) (e.getSource())).getCoul().getGreen()<150)
+				((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(new Color(255,230,90), 2));
+				else 
+					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
 				couleurCourante.setBackground(((Bouton) (e.getSource())).getCoul());
 			}
 		};
@@ -164,9 +169,11 @@ public class Menu extends JPanel {
 			
 		}
 		
+		palette.setFocusPainted(false);
 		JColorChooser jc=new JColorChooser(Color.black);
 		MouseAdapter paletteListener = new java.awt.event.MouseAdapter() {
 	        public void mouseClicked(java.awt.event.MouseEvent evt) {
+	        	((Bouton)evt.getSource()).setSelected(false);
 	            Color background = JColorChooser.showDialog(null,
 	                    "JColorChooser Sample", null);
 	            if (background != null) {
