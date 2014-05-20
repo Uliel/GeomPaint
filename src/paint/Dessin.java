@@ -203,11 +203,19 @@ public class Dessin extends JPanel {
 					if (!control)
 						listeFigSelectionnees.clear();
 					FigureGeom fig = figVoisine(ptCourant);
-					if(fig != null)
-						listeFigSelectionnees.add(fig);
+					boolean trouve = false;
+					if(fig != null) {
+						for (int i = 0; i < listeFigSelectionnees.size() && !trouve; i++) {
+							if (fig == listeFigSelectionnees.get(i))
+								trouve = true;
+						}
+						if (!trouve)
+							listeFigSelectionnees.add(fig);
+						else
+							listeFigSelectionnees.remove(fig);
+					}
 					else
 						listeFigSelectionnees.clear();
-					System.out.println(listeFigSelectionnees.size());
 					control=false;
 				}
 
