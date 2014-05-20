@@ -180,7 +180,7 @@ public class BoiteOutils extends JPanel {
 				} else {
 					if (((Bouton) (e.getSource())).getValeur() == 4) {
 						dessin.exporter("jpg");
-						selectionner.doClick();
+						selectionner.doClick();;
 					}
 					else if (((Bouton) (e.getSource())).getValeur() == 5) {
 						dessin.exporter("png");
@@ -196,6 +196,7 @@ public class BoiteOutils extends JPanel {
 					}
 					((Bouton) (e.getSource())).setSelected(false);
 				}
+				dessin.viderPoints();
 				
 			}
 		};
