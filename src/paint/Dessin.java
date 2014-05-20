@@ -193,7 +193,9 @@ public class Dessin extends JPanel {
 						}
 					}
 				}
-
+				if ((e.getModifiers()&ActionEvent.CTRL_MASK)==ActionEvent.CTRL_MASK) {
+					setControl(true);
+				}
 				// Si le bouton selectionner est choisi, on passe en mode
 				// selection
 				if (boutons.getSelect()) {
@@ -204,9 +206,7 @@ public class Dessin extends JPanel {
 					if(fig != null)
 						listeFigSelectionnees.add(fig);
 				}
-				if ((e.getModifiers()&ActionEvent.CTRL_MASK)==ActionEvent.CTRL_MASK) {
-					setControl(true);
-				}
+
 				repaint();
 			}
 
