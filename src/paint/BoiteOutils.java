@@ -358,6 +358,12 @@ public class BoiteOutils extends JPanel {
 	public Bouton getRemplir() {
 		return remplir;
 	}
+
+	public Bouton getSelectionner() {
+		return selectionner;
+	}
+	
+	
 	
 	
 }
