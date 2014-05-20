@@ -611,7 +611,8 @@ public class Dessin extends JPanel {
 	}
 
 	public void viderPoints() {
-		if (nbPoints != 0) {
+		if (nbClics != 0) {
+			nbClics = 0;
 			nbPoints = 0;
 			listePoints.clear();
 			repaint();
