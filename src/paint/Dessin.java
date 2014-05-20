@@ -356,6 +356,8 @@ public class Dessin extends JPanel {
 							listePoints.get(j).y - 3, 6, 6);
 				}
 		}
+		
+		//activation ou non de la fonction supprimer
 		if (figureSelectionne()) {
 			menuD.getSupprimer().setEnabled(true);
 			boutons.getSupprimer().setEnabled(true);

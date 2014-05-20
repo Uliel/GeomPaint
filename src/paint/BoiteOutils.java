@@ -178,15 +178,21 @@ public class BoiteOutils extends JPanel {
 					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
 
 				} else {
-					if (((Bouton) (e.getSource())).getValeur() == 4)
+					if (((Bouton) (e.getSource())).getValeur() == 4) {
 						dessin.exporter("jpg");
-					else if (((Bouton) (e.getSource())).getValeur() == 5)
+						selectionner.doClick();
+					}
+					else if (((Bouton) (e.getSource())).getValeur() == 5) {
 						dessin.exporter("png");
+						selectionner.doClick();
+					}
 					else if (((Bouton) (e.getSource())).getValeur() == 3) {
 						dessin.remplir();
+						selectionner.doClick();
 					}
 					else if (((Bouton) (e.getSource())).getValeur() == 1) {
 						dessin.supprimer();
+						selectionner.doClick();
 					}
 					((Bouton) (e.getSource())).setSelected(false);
 				}
