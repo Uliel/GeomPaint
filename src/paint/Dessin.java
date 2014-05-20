@@ -47,6 +47,7 @@ public class Dessin extends JPanel {
 	private ArrayList<UnPoint> listePoints = new ArrayList<UnPoint>();
 	private ArrayList<FigureGeom> listeFigSelectionnees = new ArrayList<FigureGeom>();
 	private Color couleur = Color.BLACK;
+	private int epaisseur=1;
 	private int departTranslation = 0;
 	private UnPoint ptPrec = new UnPoint(0, 0);
 	private boolean control;
@@ -313,11 +314,14 @@ public class Dessin extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		super.paintComponent(g2d);
 		// Dessin du tableau de figures
 		if (nbFigures > 0) {
 			for (int i = 0; i < nbFigures; i++) {
-				g.setColor(tabFigures[i].getCouleur());
+				g2d.setStroke( new BasicStroke( 
+						tabFigures[i].getEpaisseur()));
+				g2d.setColor(tabFigures[i].getCouleur());
 				UnPoint[] positions = tabFigures[i].getTabMemo();
 
 				// Cas du cercle
@@ -325,10 +329,10 @@ public class Dessin extends JPanel {
 					// Calcul du rayon et dessin
 					int rayon = positions[0].dist(positions[1]);
 					if (tabFigures[i].getPlein())
-						g.fillOval(positions[0].x - rayon, positions[0].y
+						g2d.fillOval(positions[0].x - rayon, positions[0].y
 								- rayon, rayon * 2, rayon * 2);
 					else
-						g.drawOval(positions[0].x - rayon, positions[0].y
+						g2d.drawOval(positions[0].x - rayon, positions[0].y
 								- rayon, rayon * 2, rayon * 2);
 				}
 
@@ -337,7 +341,7 @@ public class Dessin extends JPanel {
 					int nbSommets = tabFigures[i].getNbMemo();
 					if (tabFigures[i].getPlein()) {
 						if (tabFigures[i] instanceof Rectangle) {
-							g.fillRect(positions[0].x, positions[0].y,
+							g2d.fillRect(positions[0].x, positions[0].y,
 									positions[0].dist(positions[1]),
 									positions[0].dist(positions[3]));
 						} else {
@@ -347,7 +351,7 @@ public class Dessin extends JPanel {
 								tabX[j] = positions[j].x;
 								tabY[j] = positions[j].y;
 							}
-							g.fillPolygon(tabX, tabY, nbSommets);
+							g2d.fillPolygon(tabX, tabY, nbSommets);
 						}
 					} else {
 						for (int j = 0; j < nbSommets; j++)
@@ -363,28 +367,28 @@ public class Dessin extends JPanel {
 				if (listeFigSelectionnees.get(i).getPlein()
 						&& couleur.getRed() < 150 && couleur.getBlue() < 150
 						&& couleur.getGreen() < 150)
-					g.setColor(Color.YELLOW);
+					g2d.setColor(Color.YELLOW);
 				else
-					g.setColor(Color.BLACK);
+					g2d.setColor(Color.BLACK);
 				for (int j = 0; j < listeFigSelectionnees.get(i).getNbMemo(); j++)
-					g.drawRect(
+					g2d.drawRect(
 							listeFigSelectionnees.get(i).getTabMemo()[j].x - 3,
 							listeFigSelectionnees.get(i).getTabMemo()[j].y - 3,
 							6, 6);
 			}
 		}
 		// Affichage des points d'une ArrayList si existante
-		g.setColor(Color.black);
+		g2d.setColor(Color.black);
 		if (!listePoints.isEmpty()) {
 			if (boutons.getNumFigCourante() == 6) {
-				g.fillRect(listePoints.get(0).x - 3, listePoints.get(0).y - 3,
+				g2d.fillRect(listePoints.get(0).x - 3, listePoints.get(0).y - 3,
 						6, 6);
 				for (int i = 0; i < listePoints.size(); i++)
-					g.drawRect(listePoints.get(i).x - 3,
+					g2d.drawRect(listePoints.get(i).x - 3,
 							listePoints.get(i).y - 3, 6, 6);
 			} else
 				for (int j = 0; j < listePoints.size(); j++) {
-					g.drawRect(listePoints.get(j).x - 3,
+					g2d.drawRect(listePoints.get(j).x - 3,
 							listePoints.get(j).y - 3, 6, 6);
 				}
 		}
@@ -595,6 +599,14 @@ public class Dessin extends JPanel {
 		couleur = c;
 		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 			listeFigSelectionnees.get(i).setCouleur(c);
+		}
+		repaint();
+	}
+	
+	public void changeEpaisseur(int e) {
+		epaisseur=e;
+		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+			listeFigSelectionnees.get(i).setEpaisseur(e);
 		}
 		repaint();
 	}
