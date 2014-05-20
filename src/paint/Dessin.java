@@ -205,6 +205,9 @@ public class Dessin extends JPanel {
 					FigureGeom fig = figVoisine(ptCourant);
 					if(fig != null)
 						listeFigSelectionnees.add(fig);
+					else
+						listeFigSelectionnees.clear();
+					System.out.println(listeFigSelectionnees.size());
 				}
 
 				repaint();
@@ -397,7 +400,7 @@ public class Dessin extends JPanel {
 		int suppr = 0;
 		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 			boolean trouve = false;
-			for (int j = 0; i < nbFigures && !trouve; j++) {
+			for (int j = 0; j < nbFigures && !trouve; j++) {
 				if (tabFigures[j] == listeFigSelectionnees.get(i)) {
 					suppr = j;
 					trouve = true;
