@@ -8,7 +8,8 @@
 package paint;
 
 import java.awt.*;
-import java.awt.Menu;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -45,10 +46,12 @@ public class Dessin extends JPanel {
 	private Color couleur = Color.BLACK;
 	private int departTranslation =0;
 	private UnPoint ptPrec = new UnPoint(0,0);
+	private boolean control;
 
 	// CONSTRUCTEURS
 	public Dessin() {
 		menuD = new MenuDeroulant(this);
+		this.setFocusable(true);
 		this.setComponentPopupMenu(menuD);
 		this.setPreferredSize(new Dimension(1000, 600));
 		this.setBackground(Color.WHITE);
@@ -63,6 +66,7 @@ public class Dessin extends JPanel {
 		this.nbFigures = 0;
 		this.nbClics = 0;
 		this.nbPoints = 0;
+		this.control = false;
 
 
 		MouseListener ml = new MouseListener() {
@@ -192,7 +196,8 @@ public class Dessin extends JPanel {
 				// selection
 				if (boutons.getSelect()) {
 					UnPoint ptCourant = new UnPoint(e.getX(), e.getY());
-					listeFigSelectionnees.clear();
+					if (!control)
+						listeFigSelectionnees.clear();
 					FigureGeom fig = figVoisine(ptCourant);
 					if(fig != null)
 						listeFigSelectionnees.add(fig);
@@ -269,9 +274,31 @@ public class Dessin extends JPanel {
 		//
 		// }
 		// };
+		
+		KeyListener ctrl = new KeyListener() {
+			
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_A)
+					System.out.println("ok");
+			}
+			
+			public void keyReleased(KeyEvent e) {
+				control = false;
+				
+			}
+			
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+					control = true;
+					System.out.println("ok");
+				}
+				
+			}
+		};
 
 		addMouseListener(ml);
 		addMouseMotionListener(mml);
+		addKeyListener(ctrl);
 
 	}
 
@@ -370,7 +397,7 @@ public class Dessin extends JPanel {
 	}
 
 	/**
-	 * change le bool�en rempli de la figure si elle est s�lectionn�e
+	 * change le booleen rempli de la figure si elle est selectionnee
 	 */
 	public void remplir() {
 		for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
@@ -380,23 +407,26 @@ public class Dessin extends JPanel {
 	}
 	
 	/**
-	 * supprime la figure si elle est s�lectionn�e
+	 * supprime la figure si elle est selectionnee
 	 */
 	public void supprimer() {
-		boolean trouve = false;
 		int suppr = 0;
-		for (int i = 0; i < nbFigures && !trouve; i++) {
-			if (tabFigures[i].getSelection()) {
-				tabFigures[i] = null;
-				suppr = i;
-				trouve = true;
+		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+			boolean trouve = false;
+			for (int j = 0; i < nbFigures && !trouve; j++) {
+				if (tabFigures[j] == listeFigSelectionnees.get(i)) {
+					suppr = j;
+					trouve = true;
+				}
+			}
+			if (trouve) {
+				for (int j = suppr; j < nbFigures - 1; j++) {
+					tabFigures[j] = tabFigures[j+1];
+				}
+				nbFigures--;
 			}
 		}
-		for (int i = suppr; i < nbFigures - 1 || tabFigures[i + 1] != null; i++) {
-			tabFigures[i] = tabFigures[i+1];
-		}
-		tabFigures[nbFigures - 1] = null;
-		nbFigures--;
+		listeFigSelectionnees.clear();
 		repaint();
 	}
 
@@ -532,12 +562,9 @@ public class Dessin extends JPanel {
 	}
 	
 	public boolean figureSelectionne() {
-		boolean trouve =false;
-		for (int i = 0; i < nbFigures && !trouve; i++) {
-			if (tabFigures[i].getSelection()) {
-				trouve=true;				
-			}
-		}
-		return trouve;
+		if (listeFigSelectionnees.isEmpty())
+			return false;
+		else
+			return true;
 	}
 }
