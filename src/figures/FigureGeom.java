@@ -15,6 +15,7 @@ public class FigureGeom extends Observable {
 	
 	// ATTRIBUTS
 	private Color couleur;
+	private int epaisseur=1;
 	protected boolean plein;
 	protected boolean selection;
 	protected UnPoint[] tabMemo;
@@ -81,6 +82,16 @@ public class FigureGeom extends Observable {
 
 	public void setCouleur(Color coul) {
 		this.couleur = coul;
+	}
+	
+	
+
+	public int getEpaisseur() {
+		return epaisseur;
+	}
+
+	public void setEpaisseur(int epaisseur) {
+		this.epaisseur = epaisseur;
 	}
 
 	public boolean getSelection() {
