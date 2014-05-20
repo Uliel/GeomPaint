@@ -423,7 +423,7 @@ public class Dessin extends JPanel {
 	// d'un autre point
 	public boolean estVoisin(int distance, UnPoint p1, UnPoint p2) {
 		boolean res = false;
-		if (p1.distance(p2) < distance)
+		if (p1.dist(p2) < distance)
 			res = true;
 		return res;
 	}
