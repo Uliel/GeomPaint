@@ -41,7 +41,10 @@ public class Dessin extends JPanel {
 	private int nbFigures;
 	private int nbPoints;
 	private ArrayList<UnPoint> listePoints = new ArrayList<UnPoint>();
+	private ArrayList<FigureGeom> listeFigSelectionnees = new ArrayList<FigureGeom>();
 	private Color couleur = Color.BLACK;
+	private int departTranslation =0;
+	private UnPoint ptPrec = new UnPoint(0,0);
 
 	// CONSTRUCTEURS
 	public Dessin() {
@@ -60,6 +63,7 @@ public class Dessin extends JPanel {
 		this.nbFigures = 0;
 		this.nbClics = 0;
 		this.nbPoints = 0;
+
 
 		MouseListener ml = new MouseListener() {
 
@@ -101,10 +105,7 @@ public class Dessin extends JPanel {
 						// tabFigures[nbFigures].setCouleur(g.getColor());
 
 						// - Deselection de la figure precedente
-						for (int i = 0; i < nbFigures; i++) {
-							if (tabFigures[i].getSelection())
-								tabFigures[i].selectionner();
-						}
+						listeFigSelectionnees.clear();
 					}
 
 					// Si on a une figure autre qu'un polygone
@@ -189,16 +190,15 @@ public class Dessin extends JPanel {
 				// selection
 				if (boutons.getSelect()) {
 					UnPoint ptCourant = new UnPoint(e.getX(), e.getY());
-					deselectionFig();
+					listeFigSelectionnees.clear();
 					FigureGeom fig = figVoisine(ptCourant);
 					if(fig != null)
-						fig.setSelection(true);
+						listeFigSelectionnees.add(fig);
 				}
 				repaint();
 			}
 
 			public void mousePressed(MouseEvent e) {
-				Graphics g = getGraphics();
 				
 			}
 
@@ -217,11 +217,32 @@ public class Dessin extends JPanel {
 
 		MouseMotionListener mml = new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
-
-					
+				if (boutons.getSelect()) {
+					System.out.println(departTranslation);
+					if(departTranslation == 0) {
+						listeFigSelectionnees.clear();
+						ptPrec.move(e.getX(), e.getY());
+						FigureGeom fig = figVoisine(ptPrec);
+						if(fig != null)
+							listeFigSelectionnees.add(fig);
+						departTranslation++;
+					}
+					else {
+						for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
+							listeFigSelectionnees.get(i).translater(e.getX()-ptPrec.x, e.getY()-ptPrec.y);
+							ptPrec.move(e.getX(), e.getY());
+							System.out.println(listeFigSelectionnees.get(i).getTabMemo()[0].x + "  " + listeFigSelectionnees.get(i).getTabMemo()[0].y);
+						}
+					}
 				}
+				repaint();
+
+			}
+
 			
-			public void mouseMoved(MouseEvent e) {}
+			public void mouseMoved(MouseEvent e) {
+				departTranslation = 0;
+			}
 		
 
 		};
@@ -250,7 +271,7 @@ public class Dessin extends JPanel {
 		// };
 
 		addMouseListener(ml);
-		// this.addMouseMotionListener(mml);
+		addMouseMotionListener(mml);
 
 	}
 
@@ -307,18 +328,17 @@ public class Dessin extends JPanel {
 											% nbSommets]);
 					}
 				}
-
-				// Si la figure est selectionnee, on dessine les points de
-				// selection (et pas les points de memorisation
-				// je pense qu'il y a une faute dans l'enonce, a discuter)
-				if (tabFigures[i].getSelection()) {
-					if (tabFigures[i].getPlein() && couleur.getRed() < 150 && couleur.getBlue() < 150 && couleur.getGreen() < 150)
-						g.setColor(Color.YELLOW);
-					else
-						g.setColor(Color.BLACK);
-					for (int j = 0; j < positions.length; j++)
-						g.drawRect(positions[j].x - 3, positions[j].y - 3, 6, 6);
-				}
+			}
+			// Si la figure est selectionnee, on dessine les points de
+			// selection (et pas les points de memorisation
+			// je pense qu'il y a une faute dans l'enonce, a discuter)
+			for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
+				if (listeFigSelectionnees.get(i).getPlein() && couleur.getRed() < 150 && couleur.getBlue() < 150 && couleur.getGreen() < 150)
+					g.setColor(Color.YELLOW);
+				else
+					g.setColor(Color.BLACK);
+				for (int j = 0; j < listeFigSelectionnees.get(i).getNbMemo() ; j++)
+					g.drawRect(listeFigSelectionnees.get(i).getTabMemo()[j].x - 3, listeFigSelectionnees.get(i).getTabMemo()[j].y - 3, 6, 6);
 			}
 		}
 		// Affichage des points d'une ArrayList si existante
