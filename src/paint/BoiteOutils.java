@@ -76,8 +76,11 @@ public class BoiteOutils extends JPanel {
 		JMenuItem[] tailles = new JMenuItem[10];
 		JMenuItem image = new JMenuItem(new ImageIcon("images/taille.png"));
 		for (int i=1;i<=10;i++) {
-			tailles[i-1] = new JMenuItem("----");
-			tailles[i-1].setFont(new Font("Arial",Font.BOLD,i*10+2));
+			tailles[i-1] = new JMenuItem(new ImageIcon("images/taille.png"));
+			if (i==1) 
+				tailles[i-1].setFont(new Font("Arial",Font.BOLD,10));
+			else
+				tailles[i-1].setFont(new Font("Arial",Font.BOLD,i*10+5));
 			size.add(tailles[i-1]);
 			final int epaisseur= i;
 			tailles[i-1].addActionListener(new ActionListener() {

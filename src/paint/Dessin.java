@@ -657,6 +657,7 @@ public class Dessin extends JPanel {
 				if (listeFigSelectionnees.get(i) instanceof Triangle)
 					tabFigures[nbFigures] = new Triangle(
 							(Triangle) listeFigSelectionnees.get(i));
+				nbFigures ++;
 			}
 		}
 		repaint();
