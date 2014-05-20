@@ -355,7 +355,7 @@ public class Dessin extends JPanel {
 						}
 					} else {
 						for (int j = 0; j < nbSommets; j++)
-							dessinLigne(g, positions[j], positions[(j + 1)
+							dessinLigne(g2d, positions[j], positions[(j + 1)
 									% nbSommets]);
 					}
 				}
@@ -448,8 +448,9 @@ public class Dessin extends JPanel {
 	}
 
 	// Methode de dessin d'une ligne avec 2 paramètres de type UnPoint
-	public void dessinLigne(Graphics g, UnPoint p1, UnPoint p2) {
-		g.drawLine(p1.x, p1.y, p2.x, p2.y);
+	public void dessinLigne(Graphics2D g2d, UnPoint p1, UnPoint p2) {
+		g2d.setStroke(new BasicStroke(epaisseur));
+		g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
 	}
 
 	// Methode qui teste si un point se trouve à moins d'une certaine distance
@@ -657,7 +658,7 @@ public class Dessin extends JPanel {
 				if (listeFigSelectionnees.get(i) instanceof Triangle)
 					tabFigures[nbFigures] = new Triangle(
 							(Triangle) listeFigSelectionnees.get(i));
-				nbFigures ++;
+				nbFigures++;
 			}
 		}
 		repaint();
