@@ -359,6 +359,7 @@ public class Dessin extends JPanel {
 							dessinLigne(g2d, positions[j], positions[(j + 1)
 									% nbSommets]);
 					}
+					
 				}
 			}
 			// Si la figure est selectionnee, on dessine les points de
