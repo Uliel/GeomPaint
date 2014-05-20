@@ -86,9 +86,9 @@ public class BoiteOutils extends JPanel {
 					desactiverCoul();
 					desactiverRotation();
 					dessin.setEpaisseur(epaisseur);
-					dessiner = false;
 					dessin.viderPoints();
-					dessin.changeEpaisseur((int)(epaisseur));
+					dessiner = false;
+					dessin.changeEpaisseur((epaisseur));
 				}	
 			});
 		}

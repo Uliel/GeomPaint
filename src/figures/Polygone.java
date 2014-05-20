@@ -14,6 +14,7 @@ public class Polygone extends FigureGeom {
 		// Constructeur vide
 	public Polygone() {
 		super();
+		
 	}
 	
 		// Constructeur prenant en paramètre une ArrayList

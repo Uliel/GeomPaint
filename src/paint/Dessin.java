@@ -320,6 +320,7 @@ public class Dessin extends JPanel {
 		// Dessin du tableau de figures
 		if (nbFigures > 0) {
 			for (int i = 0; i < nbFigures; i++) {
+				System.out.print(tabFigures[i].getEpaisseur());
 				g2d.setStroke(new BasicStroke(tabFigures[i].getEpaisseur()));
 				g2d.setColor(tabFigures[i].getCouleur());
 				UnPoint[] positions = tabFigures[i].getTabMemo();
@@ -364,6 +365,7 @@ public class Dessin extends JPanel {
 			// selection (et pas les points de memorisation
 			// je pense qu'il y a une faute dans l'enonce, a discuter)
 			for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+				
 				if (listeFigSelectionnees.get(i).getPlein()
 						&& couleur.getRed() < 150 && couleur.getBlue() < 150
 						&& couleur.getGreen() < 150)
@@ -449,7 +451,6 @@ public class Dessin extends JPanel {
 
 	// Methode de dessin d'une ligne avec 2 paramètres de type UnPoint
 	public void dessinLigne(Graphics2D g2d, UnPoint p1, UnPoint p2) {
-		g2d.setStroke(new BasicStroke(epaisseur));
 		g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
 	}
 
