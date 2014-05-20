@@ -30,4 +30,8 @@ public class Cercle extends Ovale {
 		int dist = listePointsSaisie.get(0).dist(listePointsSaisie.get(1));
 		this.tabMemo[1] = new UnPoint(listePointsSaisie.get(0).x + dist, listePointsSaisie.get(0).y);	
 	}
+	
+	public Cercle(Cercle c) {
+		super(c);
+	}
 }

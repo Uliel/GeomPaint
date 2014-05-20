@@ -27,5 +27,9 @@ public class Triangle extends Polygone {
 	public Triangle(ArrayList<UnPoint> listePointsSaisie) {
 		super(listePointsSaisie);
 	}
+	
+	public Triangle(Triangle tr) {
+		super(tr);
+	}
 
 }

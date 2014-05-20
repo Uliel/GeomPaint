@@ -18,5 +18,9 @@ public class Ovale extends FigureGeom {
 		this.setTabSaisie(this.getNbSaisie());
 		this.setTabMemo(this.getNbMemo());
 	}
+	
+	public Ovale(Ovale ov) {
+		super(ov);
+	}
 
 }

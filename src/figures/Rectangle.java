@@ -19,6 +19,10 @@ public class Rectangle extends Polygone {
 	public Rectangle() {
 		super();
 	}
+	
+	public Rectangle(Rectangle rec) {
+		super(rec);
+	}
 
 	// Constructeur prenant en paramètre une ArrayList
 	public Rectangle(ArrayList<UnPoint> listePointsSaisie) {

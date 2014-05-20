@@ -618,5 +618,20 @@ public class Dessin extends JPanel {
 			repaint();
 		}
 	}
+	
+	public void dupliquer() {
+		if (!listeFigSelectionnees.isEmpty()) {
+			for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+				if (listeFigSelectionnees.get(i) instanceof Cercle)
+					tabFigures[nbFigures] = new Cercle((Cercle) listeFigSelectionnees.get(i));
+				if (listeFigSelectionnees.get(i) instanceof Rectangle)
+					tabFigures[nbFigures] = new Rectangle((Rectangle) listeFigSelectionnees.get(i));
+				if (listeFigSelectionnees.get(i) instanceof Polygone)
+					tabFigures[nbFigures] = new Polygone((Polygone) listeFigSelectionnees.get(i));
+				if (listeFigSelectionnees.get(i) instanceof Triangle)
+					tabFigures[nbFigures] = new Triangle((Triangle) listeFigSelectionnees.get(i));
+			}
+		}
+	}
 
 }

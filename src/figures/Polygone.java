@@ -24,4 +24,8 @@ public class Polygone extends FigureGeom {
 		for(int i = 0 ; i < this.nbMemo ; i++)
 			this.tabMemo[i] = listePoints.get(i);
 	}
+	
+	public Polygone(Polygone pol) {
+		super(pol);
+	}
 }
