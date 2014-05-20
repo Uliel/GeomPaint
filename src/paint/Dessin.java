@@ -321,7 +321,6 @@ public class Dessin extends JPanel {
 		// Dessin du tableau de figures
 		if (nbFigures > 0) {
 			for (int i = 0; i < nbFigures; i++) {
-				System.out.print(tabFigures[i].getEpaisseur());
 				g2d.setStroke(new BasicStroke(tabFigures[i].getEpaisseur()));
 				g2d.setColor(tabFigures[i].getCouleur());
 				UnPoint[] positions = tabFigures[i].getTabMemo();
