@@ -73,14 +73,14 @@ public class BoiteOutils extends JPanel {
 		supprimer.setEnabled(false);
 		//JMenuBar contenant la selection de la taille
 		JMenu size = new JMenu("Taille");
-		JMenuItem[] tailles = new JMenuItem[16];
+		JMenuItem[] tailles = new JMenuItem[10];
 		JMenuItem image = new JMenuItem(new ImageIcon("images/taille.png"));
-		for (int w=10;w<=60;w=w+4) {
-			tailles[(w-10)/4] = new JMenuItem(w+"pts ----");
-			tailles[(w-10)/4].setFont(new Font("Arial",Font.BOLD,w));
-			size.add(tailles[(w-10)/4]);
-			final int epaisseur= w;
-			tailles[(w-10)/4].addActionListener(new ActionListener() {
+		for (int i=1;i<=10;i++) {
+			tailles[i-1] = new JMenuItem("----");
+			tailles[i-1].setFont(new Font("Arial",Font.BOLD,i*10+2));
+			size.add(tailles[i-1]);
+			final int epaisseur= i;
+			tailles[i-1].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					desactiverOutils();
 					desactiverFormes();
@@ -89,7 +89,7 @@ public class BoiteOutils extends JPanel {
 					dessin.setEpaisseur(epaisseur);
 					dessiner = false;
 					dessin.viderPoints();
-					dessin.changeEpaisseur((int)(epaisseur/10));
+					dessin.changeEpaisseur((int)(epaisseur));
 				}	
 			});
 		}

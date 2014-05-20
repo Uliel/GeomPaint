@@ -34,6 +34,7 @@ public class UnMenu extends JMenuBar {
 	private JMenuItem remplir = new JMenuItem("Remplir/Vider");
 	private JMenuItem dupliquer = new JMenuItem("Dupliquer");
 	private JMenuItem couleurs = new JMenuItem("Couleurs ...");
+	private JMenuItem toutSelectionner = new JMenuItem("Tout selectionner");
 	private JMenuItem nouveau = new JMenuItem("Nouveau");
 	private JMenu rotation = new JMenu("Rotation");
 	private JMenuItem exporterJPG = new JMenuItem("Exporter en JPG");
@@ -42,7 +43,7 @@ public class UnMenu extends JMenuBar {
 	private JMenuItem rotationDroite = new JMenuItem("Rotation vers la droite");
 	private JMenuItem rotationGauche = new JMenuItem("Rotation vers la gauche");
 	private JMenuItem [] tabMenu = {annuler,copier,couper,coller,supprimer,remplir,
-			rotation,dupliquer,couleurs,nouveau,exporterJPG,exporterPNG,quitter};
+			rotation,dupliquer,couleurs,nouveau,exporterJPG,exporterPNG,quitter,toutSelectionner};
 
 	/**
 	 * Constructeur qui permet d'initialiser le menu
@@ -52,12 +53,12 @@ public class UnMenu extends JMenuBar {
 	public UnMenu(Dessin des, BoiteOutils o) {
 		this.d = des;
 		outils = o;
-		JMenu jm1 = new JMenu("Fichier");
-		jm1.setFont(new Font("Arial", Font.BOLD, 14));
-		JMenu jm2 = new JMenu("Edition");
-		jm2.setFont(new Font("Arial", Font.BOLD, 14));
-		JMenu jm3 = new JMenu("Image");
-		jm3.setFont(new Font("Arial", Font.BOLD, 14));
+		JMenu fichier = new JMenu("Fichier");
+		fichier.setFont(new Font("Arial", Font.BOLD, 14));
+		JMenu edition = new JMenu("Edition");
+		edition.setFont(new Font("Arial", Font.BOLD, 14));
+		JMenu image = new JMenu("Image");
+		image.setFont(new Font("Arial", Font.BOLD, 14));
 		rotation.add(rotationDroite);
 		rotation.add(rotationGauche);
 		
@@ -111,27 +112,28 @@ public class UnMenu extends JMenuBar {
 		rotationDroite.addActionListener(menuListener);
 		rotationGauche.addActionListener(menuListener);
 		
-		jm2.add(annuler);
-		jm2.add(copier);
-		jm2.add(couper);
-		jm2.add(coller);
-		jm2.add(supprimer);
-		jm3.add(remplir);
-		jm3.add(rotation);
-		jm3.add(dupliquer);
-		jm3.add(couleurs);
-		jm1.add(nouveau);
-		jm1.add(exporterJPG);
-		jm1.add(exporterPNG);
-		jm1.addSeparator();
-		jm1.add(quitter);
+		edition.add(annuler);
+		edition.add(toutSelectionner);
+		edition.add(copier);
+		edition.add(couper);
+		edition.add(coller);
+		edition.add(supprimer);
+		image.add(remplir);
+		image.add(rotation);
+		image.add(dupliquer);
+		image.add(couleurs);
+		fichier.add(nouveau);
+		fichier.add(exporterJPG);
+		fichier.add(exporterPNG);
+		fichier.addSeparator();
+		fichier.add(quitter);
 
 		// On associe les deux JMenu à la JMenuBar
-		this.add(jm1);
+		this.add(fichier);
 		this.add(new JLabel("  "));
-		this.add(jm2);
+		this.add(edition);
 		this.add(new JLabel("  "));
-		this.add(jm3);
+		this.add(image);
 	}
 
 	public JMenuItem getSupprimer() {
