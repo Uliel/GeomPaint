@@ -157,6 +157,7 @@ public class Dessin extends JPanel {
 							}
 							nbClics = 0;
 							tabFigures[nbFigures].setCouleur(couleur);
+							tabFigures[nbFigures].setEpaisseur(epaisseur);
 							listeFigSelectionnees.add(tabFigures[nbFigures]);
 							nbFigures++;
 							listePoints.clear();
@@ -620,6 +621,10 @@ public class Dessin extends JPanel {
 
 	public void setControl(boolean control) {
 		this.control = control;
+	}
+	
+	public void setEpaisseur(int e) {
+		this.epaisseur = e;
 	}
 
 	public void viderPoints() {
