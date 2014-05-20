@@ -356,10 +356,14 @@ public class Dessin extends JPanel {
 		if (figureSelectionne()) {
 			menuD.getSupprimer().setEnabled(true);
 			boutons.getSupprimer().setEnabled(true);
+			boutons.getRemplir().setEnabled(true);
+			
+			
 		}
 		else {
 			menuD.getSupprimer().setEnabled(false);
 			boutons.getSupprimer().setEnabled(false);
+			boutons.getRemplir().setEnabled(false);
 		}
 	}
 

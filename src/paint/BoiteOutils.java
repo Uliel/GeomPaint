@@ -354,4 +354,10 @@ public class BoiteOutils extends JPanel {
 	public Bouton getSupprimer() {
 		return supprimer;
 	}
+
+	public Bouton getRemplir() {
+		return remplir;
+	}
+	
+	
 }
