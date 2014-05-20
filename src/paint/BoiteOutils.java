@@ -75,10 +75,18 @@ public class BoiteOutils extends JPanel {
 		JMenu size = new JMenu("Taille");
 		JMenuItem[] tailles = new JMenuItem[16];
 		JMenuItem image = new JMenuItem(new ImageIcon("images/taille.png"));
-		for (int i=10;i<=60;i=i+4) {
-			tailles[(i-10)/4] = new JMenuItem(i+"pts ----");
-			tailles[(i-10)/4].setFont(new Font("Arial",Font.BOLD,i));
-			size.add(tailles[(i-10)/4]);
+		for (int w=10;w<=60;w=w+4) {
+			tailles[(w-10)/4] = new JMenuItem(w+"pts ----");
+			tailles[(w-10)/4].setFont(new Font("Arial",Font.BOLD,w));
+			size.add(tailles[(w-10)/4]);
+			final int epaisseur= w;
+			tailles[(w-10)/4].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dessin.setEpaisseur(epaisseur);
+					dessiner = false;
+					dessin.changeEpaisseur((int)(epaisseur/10));
+				}	
+			});
 		}
 		JMenuBar tailleBarre= new JMenuBar();
 		image.setEnabled(false);
