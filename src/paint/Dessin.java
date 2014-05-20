@@ -31,7 +31,7 @@ public class Dessin extends JPanel {
 	private final static int MAXTAILLE = 100;
 	private final int MARGE_SELECTION_POLY = 1;
 	private final int MARGE_SELECTION_CERCLE = 8;
-	private final int MARGE_SELECTION_POINT = 5;
+	private final int MARGE_SELECTION_POINT = 10;
 	private FigureGeom[] tabFigures;
 	private BoiteOutils boutons;
 	private MenuDeroulant menuD;
@@ -236,7 +236,28 @@ public class Dessin extends JPanel {
 
 			}
 		};
+		MouseMotionListener apparenceSouris = new MouseMotionListener() {
 
+			@Override
+			public void mouseDragged(MouseEvent arg0) {
+				// TODO Stub de la méthode généré automatiquement
+				
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				// TODO Stub de la méthode généré automatiquement
+				if (figVoisine(new UnPoint(e.getX(),e.getY()))!=null&&boutons.getSelectionner().isSelected()) {
+				    setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR) );	
+				}
+				else if(pointVoisin(new UnPoint(e.getX(),e.getY()))!=null&&boutons.getSelectionner().isSelected()){
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );	
+				}
+				else {
+				    setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR) );	
+				}
+			}
+		};
 		MouseMotionListener mml = new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
 				if (boutons.getSelect()) {
@@ -305,6 +326,7 @@ public class Dessin extends JPanel {
 
 		addMouseListener(ml);
 		addMouseMotionListener(mml);
+		addMouseMotionListener(apparenceSouris);
 
 	}
 
