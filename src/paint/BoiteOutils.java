@@ -82,8 +82,13 @@ public class BoiteOutils extends JPanel {
 			final int epaisseur= w;
 			tailles[(w-10)/4].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					desactiverOutils();
+					desactiverFormes();
+					desactiverCoul();
+					desactiverRotation();
 					dessin.setEpaisseur(epaisseur);
 					dessiner = false;
+					dessin.viderPoints();
 					dessin.changeEpaisseur((int)(epaisseur/10));
 				}	
 			});

@@ -98,6 +98,9 @@ public class UnMenu extends JMenuBar {
 				else if (((JMenuItem)(e.getSource())).getText().equals("Rotation vers la gauche")) {
 					outils.getRotationGauche().doClick();				
 				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Dupliquer")) {
+					d.dupliquer();				
+				}
 			}
 		};
 		for (int i=0;i<tabMenu.length;i++) {
