@@ -28,7 +28,7 @@ public class UnMenu extends JMenuBar {
 	private JMenuItem couper = new JMenuItem("Couper");
 	private JMenuItem coller = new JMenuItem("Coller");
 	private JMenuItem supprimer = new JMenuItem("Supprimer");
-	private JMenuItem remplir = new JMenuItem("Remplir");
+	private JMenuItem remplir = new JMenuItem("Remplir/Vider");
 	private JMenuItem rotation = new JMenuItem("Rotation");
 	private JMenuItem dupliquer = new JMenuItem("Dupliquer");
 	private JMenuItem couleurs = new JMenuItem("Couleurs ...");
@@ -64,9 +64,17 @@ public class UnMenu extends JMenuBar {
 				if (((JMenuItem)(e.getSource())).getText().equals("Quitter")) {
 					System.exit(0);
 				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Supprimer")) {
+					outils.getSupprimer().doClick();
+				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Remplir/Vider")) {
+					outils.getRemplir().doClick();
+				}
 			}
 		};
-		quitter.addActionListener(menuListener);
+		for (int i=0;i<tabMenu.length;i++) {
+			tabMenu[i].addActionListener(menuListener);
+		}		
 		
 		jm2.add(annuler);
 		jm2.add(copier);
@@ -90,5 +98,11 @@ public class UnMenu extends JMenuBar {
 		this.add(new JLabel("  "));
 		this.add(jm3);
 	}
+
+	public JMenuItem getSupprimer() {
+		return supprimer;
+	}
+	
+	
 }
 

@@ -208,6 +208,7 @@ public class Dessin extends JPanel {
 					else
 						listeFigSelectionnees.clear();
 					System.out.println(listeFigSelectionnees.size());
+					control=false;
 				}
 
 				repaint();
