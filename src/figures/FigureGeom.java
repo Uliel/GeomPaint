@@ -11,11 +11,11 @@ import java.awt.Point;
 import java.util.Observable;
 import java.util.ArrayList;
 
-public class FigureGeom extends Observable {
+public class FigureGeom {
 	
 	// ATTRIBUTS
 	private Color couleur;
-	private int epaisseur=1;
+	protected int epaisseur=1;
 	protected boolean plein;
 	protected boolean selection;
 	protected UnPoint[] tabMemo;
@@ -35,6 +35,7 @@ public class FigureGeom extends Observable {
 	public FigureGeom(FigureGeom fig) {
 		this.plein = fig.getPlein();
 		this.couleur = fig.getCouleur();
+		this.epaisseur= fig.getEpaisseur();
 		this.selection = false;
 		this.nbMemo = fig.getNbMemo();
 		this.tabMemo = new UnPoint[nbMemo];
