@@ -568,5 +568,11 @@ public class Dessin extends JPanel {
 		this.control = control;
 	}
 	
+	public void viderPoints() {
+		nbPoints = 0;
+		listePoints.clear();
+		repaint();
+	}
+	
 	
 }
