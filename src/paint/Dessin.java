@@ -182,6 +182,7 @@ public class Dessin extends JPanel {
 								tabFigures[nbFigures] = new Polygone(
 										listePoints);
 								tabFigures[nbFigures].setCouleur(couleur);
+								tabFigures[nbFigures].setEpaisseur(epaisseur);
 								listePoints.clear();
 								listeFigSelectionnees
 										.add(tabFigures[nbFigures]);
