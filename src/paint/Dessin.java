@@ -370,7 +370,7 @@ public class Dessin extends JPanel {
 	}
 
 	/**
-	 * change le bool�en rempli de la figure si elle est s�lectionn�e
+	 * change le booleen rempli de la figure si elle est selectionnee
 	 */
 	public void remplir() {
 		for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
@@ -380,23 +380,26 @@ public class Dessin extends JPanel {
 	}
 	
 	/**
-	 * supprime la figure si elle est s�lectionn�e
+	 * supprime la figure si elle est selectionnee
 	 */
 	public void supprimer() {
-		boolean trouve = false;
 		int suppr = 0;
-		for (int i = 0; i < nbFigures && !trouve; i++) {
-			if (tabFigures[i].getSelection()) {
-				tabFigures[i] = null;
-				suppr = i;
-				trouve = true;
+		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+			boolean trouve = false;
+			for (int j = 0; i < nbFigures && !trouve; j++) {
+				if (tabFigures[j] == listeFigSelectionnees.get(i)) {
+					suppr = j;
+					trouve = true;
+				}
+			}
+			if (trouve) {
+				for (int j = suppr; j < nbFigures - 1; j++) {
+					tabFigures[j] = tabFigures[j+1];
+				}
+				nbFigures--;
 			}
 		}
-		for (int i = suppr; i < nbFigures - 1 || tabFigures[i + 1] != null; i++) {
-			tabFigures[i] = tabFigures[i+1];
-		}
-		tabFigures[nbFigures - 1] = null;
-		nbFigures--;
+		listeFigSelectionnees.clear();
 		repaint();
 	}
 
@@ -532,12 +535,9 @@ public class Dessin extends JPanel {
 	}
 	
 	public boolean figureSelectionne() {
-		boolean trouve =false;
-		for (int i = 0; i < nbFigures && !trouve; i++) {
-			if (tabFigures[i].getSelection()) {
-				trouve=true;				
-			}
-		}
-		return trouve;
+		if (listeFigSelectionnees.isEmpty())
+			return false;
+		else
+			return true;
 	}
 }
