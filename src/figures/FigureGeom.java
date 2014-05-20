@@ -37,11 +37,13 @@ public class FigureGeom extends Observable {
 		this.couleur = fig.getCouleur();
 		this.selection = false;
 		this.nbMemo = fig.getNbMemo();
+		this.tabMemo = new UnPoint[nbMemo];
 		UnPoint[] tab = fig.getTabMemo();
 		for (int i = 0; i < nbMemo; i++) {
 			tabMemo[i] = new UnPoint(tab[i].x + 20, tab[i].y + 20);
 		}
 		this.nbSaisie = fig.getNbSaisie();
+		this.tabSaisie = new UnPoint[nbSaisie];
 		tab = fig.getTabSaisie();
 		for (int i = 0; i < nbSaisie; i++) {
 			tabSaisie[i] = new UnPoint(tab[i].x + 20, tab[i].y + 20);
