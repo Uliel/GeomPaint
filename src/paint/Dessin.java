@@ -659,6 +659,7 @@ public class Dessin extends JPanel {
 							(Triangle) listeFigSelectionnees.get(i));
 			}
 		}
+		repaint();
 	}
 
 }
