@@ -47,7 +47,7 @@ public class Dessin extends JPanel {
 	private ArrayList<UnPoint> listePoints = new ArrayList<UnPoint>();
 	private ArrayList<FigureGeom> listeFigSelectionnees = new ArrayList<FigureGeom>();
 	private Color couleur = Color.BLACK;
-	private int epaisseur=1;
+	private int epaisseur = 1;
 	private int departTranslation = 0;
 	private UnPoint ptPrec = new UnPoint(0, 0);
 	private boolean control;
@@ -320,8 +320,7 @@ public class Dessin extends JPanel {
 		// Dessin du tableau de figures
 		if (nbFigures > 0) {
 			for (int i = 0; i < nbFigures; i++) {
-				g2d.setStroke( new BasicStroke( 
-						tabFigures[i].getEpaisseur()));
+				g2d.setStroke(new BasicStroke(tabFigures[i].getEpaisseur()));
 				g2d.setColor(tabFigures[i].getCouleur());
 				UnPoint[] positions = tabFigures[i].getTabMemo();
 
@@ -371,19 +370,26 @@ public class Dessin extends JPanel {
 					g2d.setColor(Color.YELLOW);
 				else
 					g2d.setColor(Color.BLACK);
-				for (int j = 0; j < listeFigSelectionnees.get(i).getNbMemo(); j++)
-					g2d.drawRect(
-							listeFigSelectionnees.get(i).getTabMemo()[j].x - 3,
-							listeFigSelectionnees.get(i).getTabMemo()[j].y - 3,
-							6, 6);
+				for (int j = 0; j < listeFigSelectionnees.get(i).getNbMemo(); j++) {
+					g2d.setStroke(new BasicStroke(1));
+					g2d.drawRect(listeFigSelectionnees.get(i).getTabMemo()[j].x
+							- 3 - listeFigSelectionnees.get(i).getEpaisseur()
+							+ 1, listeFigSelectionnees.get(i).getTabMemo()[j].y
+							- 3 - listeFigSelectionnees.get(i).getEpaisseur()
+							+ 1, 6 + listeFigSelectionnees.get(i)
+							.getEpaisseur() - 1,
+							6 + listeFigSelectionnees.get(i).getEpaisseur() - 1);
+				}
+				g2d.setStroke(new BasicStroke(tabFigures[i].getEpaisseur()));
 			}
 		}
 		// Affichage des points d'une ArrayList si existante
 		g2d.setColor(Color.black);
 		if (!listePoints.isEmpty()) {
 			if (boutons.getNumFigCourante() == 6) {
-				g2d.fillRect(listePoints.get(0).x - 3, listePoints.get(0).y - 3,
-						6, 6);
+				g2d.setStroke(new BasicStroke(1));
+				g2d.fillRect(listePoints.get(0).x - 3,
+						listePoints.get(0).y - 3, 6, 6);
 				for (int i = 0; i < listePoints.size(); i++)
 					g2d.drawRect(listePoints.get(i).x - 3,
 							listePoints.get(i).y - 3, 6, 6);
@@ -603,9 +609,9 @@ public class Dessin extends JPanel {
 		}
 		repaint();
 	}
-	
+
 	public void changeEpaisseur(int e) {
-		epaisseur=e;
+		epaisseur = e;
 		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 			listeFigSelectionnees.get(i).setEpaisseur(e);
 		}
@@ -622,7 +628,7 @@ public class Dessin extends JPanel {
 	public void setControl(boolean control) {
 		this.control = control;
 	}
-	
+
 	public void setEpaisseur(int e) {
 		this.epaisseur = e;
 	}
@@ -635,18 +641,22 @@ public class Dessin extends JPanel {
 			repaint();
 		}
 	}
-	
+
 	public void dupliquer() {
 		if (!listeFigSelectionnees.isEmpty()) {
 			for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 				if (listeFigSelectionnees.get(i) instanceof Cercle)
-					tabFigures[nbFigures] = new Cercle((Cercle) listeFigSelectionnees.get(i));
+					tabFigures[nbFigures] = new Cercle(
+							(Cercle) listeFigSelectionnees.get(i));
 				if (listeFigSelectionnees.get(i) instanceof Rectangle)
-					tabFigures[nbFigures] = new Rectangle((Rectangle) listeFigSelectionnees.get(i));
+					tabFigures[nbFigures] = new Rectangle(
+							(Rectangle) listeFigSelectionnees.get(i));
 				if (listeFigSelectionnees.get(i) instanceof Polygone)
-					tabFigures[nbFigures] = new Polygone((Polygone) listeFigSelectionnees.get(i));
+					tabFigures[nbFigures] = new Polygone(
+							(Polygone) listeFigSelectionnees.get(i));
 				if (listeFigSelectionnees.get(i) instanceof Triangle)
-					tabFigures[nbFigures] = new Triangle((Triangle) listeFigSelectionnees.get(i));
+					tabFigures[nbFigures] = new Triangle(
+							(Triangle) listeFigSelectionnees.get(i));
 			}
 		}
 	}
