@@ -7,8 +7,6 @@
 package figures;
 
 import java.awt.Color;
-import java.awt.Point;
-import java.util.Observable;
 import java.util.ArrayList;
 
 public class FigureGeom {

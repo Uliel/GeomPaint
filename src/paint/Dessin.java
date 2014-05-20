@@ -29,9 +29,9 @@ public class Dessin extends JPanel {
 
 	// ATTRIBUTS
 	private final static int MAXTAILLE = 100;
-	private final int MARGE_SELECTION_POLY = 1;
+	private final int MARGE_SELECTION_POLY = 5;
 	private final int MARGE_SELECTION_CERCLE = 8;
-	private final int MARGE_SELECTION_POINT = 10;
+	private final int MARGE_SELECTION_POINT = 12;
 	private FigureGeom[] tabFigures;
 	private BoiteOutils boutons;
 	private MenuDeroulant menuD;
@@ -236,6 +236,8 @@ public class Dessin extends JPanel {
 
 			}
 		};
+		//Listener qui permet de modifier le curseur de la souris
+		
 		MouseMotionListener apparenceSouris = new MouseMotionListener() {
 
 			@Override
@@ -247,7 +249,8 @@ public class Dessin extends JPanel {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				// TODO Stub de la méthode généré automatiquement
-				if (figVoisine(new UnPoint(e.getX(),e.getY()))!=null&&boutons.getSelectionner().isSelected()) {
+				if (figVoisine(new UnPoint(e.getX(),e.getY()))!=null&&boutons.getSelectionner().isSelected()
+						&&pointVoisin(new UnPoint(e.getX(),e.getY()))==null) {
 				    setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR) );	
 				}
 				else if(pointVoisin(new UnPoint(e.getX(),e.getY()))!=null&&boutons.getSelectionner().isSelected()){
@@ -280,13 +283,11 @@ public class Dessin extends JPanel {
 									pointVoisin(ptPrec).deplacerPt(e.getX() - ptPrec.x,
 											e.getY() - ptPrec.y);
 								}
-
 						} else {
 							for (int i = 0; i < listeFigSelectionnees.size(); i++) {
-								listeFigSelectionnees.get(i).translater(
+									listeFigSelectionnees.get(i).translater(
 										e.getX() - ptPrec.x,
 										e.getY() - ptPrec.y);
-
 							}
 						}
 						ptPrec.move(e.getX(), e.getY());
