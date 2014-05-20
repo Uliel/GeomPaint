@@ -89,6 +89,7 @@ public class BoiteOutils extends JPanel {
 					dessin.viderPoints();
 					dessiner = false;
 					dessin.changeEpaisseur((epaisseur));
+					selectionner.doClick();
 				}	
 			});
 		}
