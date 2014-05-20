@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 import javax.swing.BorderFactory;
+import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -28,7 +30,7 @@ public class UnMenu extends JMenuBar {
 	private JMenuItem couper = new JMenuItem("Couper");
 	private JMenuItem coller = new JMenuItem("Coller");
 	private JMenuItem supprimer = new JMenuItem("Supprimer");
-	private JMenuItem remplir = new JMenuItem("Remplir");
+	private JMenuItem remplir = new JMenuItem("Remplir/Vider");
 	private JMenuItem rotation = new JMenuItem("Rotation");
 	private JMenuItem dupliquer = new JMenuItem("Dupliquer");
 	private JMenuItem couleurs = new JMenuItem("Couleurs ...");
@@ -61,11 +63,31 @@ public class UnMenu extends JMenuBar {
 				outils.desactiverCoul();
 				outils.desactiverRotation();
 				outils.getSelectionner().doClick();
-				if (((JMenuItem)(e.getSource())).getText().equals("quitter")) {
+				if (((JMenuItem)(e.getSource())).getText().equals("Quitter")) {
 					System.exit(0);
 				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Supprimer")) {
+					outils.getSupprimer().doClick();
+				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Remplir/Vider")) {
+					outils.getRemplir().doClick();
+				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Exporter en JPG")) {
+					outils.getExporterJPG().doClick();
+				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Exporter en PNG")) {
+					outils.getExporterPNG().doClick();
+				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Couleurs ...")) {
+					outils.getPalette().doClick();
+					
+				}
+				
 			}
 		};
+		for (int i=0;i<tabMenu.length;i++) {
+			tabMenu[i].addActionListener(menuListener);
+		}		
 		
 		jm2.add(annuler);
 		jm2.add(copier);
@@ -89,5 +111,11 @@ public class UnMenu extends JMenuBar {
 		this.add(new JLabel("  "));
 		this.add(jm3);
 	}
+
+	public JMenuItem getSupprimer() {
+		return supprimer;
+	}
+	
+	
 }
 

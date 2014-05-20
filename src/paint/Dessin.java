@@ -8,6 +8,8 @@
 package paint;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -192,7 +194,9 @@ public class Dessin extends JPanel {
 						}
 					}
 				}
-
+				if ((e.getModifiers()&ActionEvent.CTRL_MASK)==ActionEvent.CTRL_MASK) {
+					setControl(true);
+				}
 				// Si le bouton selectionner est choisi, on passe en mode
 				// selection
 				if (boutons.getSelect()) {
@@ -200,9 +204,22 @@ public class Dessin extends JPanel {
 					if (!control)
 						listeFigSelectionnees.clear();
 					FigureGeom fig = figVoisine(ptCourant);
-					if(fig != null)
-						listeFigSelectionnees.add(fig);
+					boolean trouve = false;
+					if(fig != null) {
+						for (int i = 0; i < listeFigSelectionnees.size() && !trouve; i++) {
+							if (fig == listeFigSelectionnees.get(i))
+								trouve = true;
+						}
+						if (!trouve)
+							listeFigSelectionnees.add(fig);
+						else
+							listeFigSelectionnees.remove(fig);
+					}
+					else
+						listeFigSelectionnees.clear();
+					control=false;
 				}
+
 				repaint();
 			}
 
@@ -282,30 +299,9 @@ public class Dessin extends JPanel {
 		// }
 		// };
 		
-		KeyListener ctrl = new KeyListener() {
-			
-			public void keyTyped(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_A)
-					System.out.println("ok");
-			}
-			
-			public void keyReleased(KeyEvent e) {
-				control = false;
-				
-			}
-			
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
-					control = true;
-					System.out.println("ok");
-				}
-				
-			}
-		};
 
 		addMouseListener(ml);
 		addMouseMotionListener(mml);
-		addKeyListener(ctrl);
 
 	}
 
@@ -420,7 +416,7 @@ public class Dessin extends JPanel {
 		int suppr = 0;
 		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 			boolean trouve = false;
-			for (int j = 0; i < nbFigures && !trouve; j++) {
+			for (int j = 0; j < nbFigures && !trouve; j++) {
 				if (tabFigures[j] == listeFigSelectionnees.get(i)) {
 					suppr = j;
 					trouve = true;
@@ -607,4 +603,10 @@ public class Dessin extends JPanel {
 		else
 			return true;
 	}
+
+	public void setControl(boolean control) {
+		this.control = control;
+	}
+	
+	
 }
