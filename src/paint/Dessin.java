@@ -8,6 +8,8 @@
 package paint;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -202,6 +204,9 @@ public class Dessin extends JPanel {
 					if(fig != null)
 						listeFigSelectionnees.add(fig);
 				}
+				if ((e.getModifiers()&ActionEvent.CTRL_MASK)==ActionEvent.CTRL_MASK) {
+					setControl(true);
+				}
 				repaint();
 			}
 
@@ -275,30 +280,9 @@ public class Dessin extends JPanel {
 		// }
 		// };
 		
-		KeyListener ctrl = new KeyListener() {
-			
-			public void keyTyped(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_A)
-					System.out.println("ok");
-			}
-			
-			public void keyReleased(KeyEvent e) {
-				control = false;
-				
-			}
-			
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
-					control = true;
-					System.out.println("ok");
-				}
-				
-			}
-		};
 
 		addMouseListener(ml);
 		addMouseMotionListener(mml);
-		addKeyListener(ctrl);
 
 	}
 
@@ -567,4 +551,10 @@ public class Dessin extends JPanel {
 		else
 			return true;
 	}
+
+	public void setControl(boolean control) {
+		this.control = control;
+	}
+	
+	
 }

@@ -61,11 +61,12 @@ public class UnMenu extends JMenuBar {
 				outils.desactiverCoul();
 				outils.desactiverRotation();
 				outils.getSelectionner().doClick();
-				if (((JMenuItem)(e.getSource())).getText().equals("quitter")) {
+				if (((JMenuItem)(e.getSource())).getText().equals("Quitter")) {
 					System.exit(0);
 				}
 			}
 		};
+		quitter.addActionListener(menuListener);
 		
 		jm2.add(annuler);
 		jm2.add(copier);
