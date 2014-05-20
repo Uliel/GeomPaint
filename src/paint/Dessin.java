@@ -8,7 +8,8 @@
 package paint;
 
 import java.awt.*;
-import java.awt.Menu;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -45,10 +46,12 @@ public class Dessin extends JPanel {
 	private Color couleur = Color.BLACK;
 	private int departTranslation =0;
 	private UnPoint ptPrec = new UnPoint(0,0);
+	private boolean control;
 
 	// CONSTRUCTEURS
 	public Dessin() {
 		menuD = new MenuDeroulant(this);
+		this.setFocusable(true);
 		this.setComponentPopupMenu(menuD);
 		this.setPreferredSize(new Dimension(1000, 600));
 		this.setBackground(Color.WHITE);
@@ -63,6 +66,7 @@ public class Dessin extends JPanel {
 		this.nbFigures = 0;
 		this.nbClics = 0;
 		this.nbPoints = 0;
+		this.control = false;
 
 
 		MouseListener ml = new MouseListener() {
@@ -192,7 +196,8 @@ public class Dessin extends JPanel {
 				// selection
 				if (boutons.getSelect()) {
 					UnPoint ptCourant = new UnPoint(e.getX(), e.getY());
-					listeFigSelectionnees.clear();
+					if (!control)
+						listeFigSelectionnees.clear();
 					FigureGeom fig = figVoisine(ptCourant);
 					if(fig != null)
 						listeFigSelectionnees.add(fig);
@@ -269,9 +274,31 @@ public class Dessin extends JPanel {
 		//
 		// }
 		// };
+		
+		KeyListener ctrl = new KeyListener() {
+			
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_A)
+					System.out.println("ok");
+			}
+			
+			public void keyReleased(KeyEvent e) {
+				control = false;
+				
+			}
+			
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+					control = true;
+					System.out.println("ok");
+				}
+				
+			}
+		};
 
 		addMouseListener(ml);
 		addMouseMotionListener(mml);
+		addKeyListener(ctrl);
 
 	}
 
