@@ -47,8 +47,8 @@ public class Dessin extends JPanel {
 	private ArrayList<UnPoint> listePoints = new ArrayList<UnPoint>();
 	private ArrayList<FigureGeom> listeFigSelectionnees = new ArrayList<FigureGeom>();
 	private Color couleur = Color.BLACK;
-	private int departTranslation =0;
-	private UnPoint ptPrec = new UnPoint(0,0);
+	private int departTranslation = 0;
+	private UnPoint ptPrec = new UnPoint(0, 0);
 	private boolean control;
 
 	// CONSTRUCTEURS
@@ -62,15 +62,14 @@ public class Dessin extends JPanel {
 		this.boutons = new BoiteOutils(this);
 		this.setLayout(new BorderLayout());
 		JPanel entete = new JPanel();
-		entete.setLayout(new BorderLayout(2,2));
-		entete.add(boutons,BorderLayout.CENTER);
-		entete.add(new UnMenu(this,boutons),BorderLayout.NORTH);
+		entete.setLayout(new BorderLayout(2, 2));
+		entete.add(boutons, BorderLayout.CENTER);
+		entete.add(new UnMenu(this, boutons), BorderLayout.NORTH);
 		this.add(entete, BorderLayout.NORTH);
 		this.nbFigures = 0;
 		this.nbClics = 0;
 		this.nbPoints = 0;
 		this.control = false;
-
 
 		MouseListener ml = new MouseListener() {
 
@@ -182,7 +181,8 @@ public class Dessin extends JPanel {
 										listePoints);
 								tabFigures[nbFigures].setCouleur(couleur);
 								listePoints.clear();
-								listeFigSelectionnees.add(tabFigures[nbFigures]);
+								listeFigSelectionnees
+										.add(tabFigures[nbFigures]);
 								nbClics = 0;
 								nbFigures++;
 							}
@@ -194,7 +194,7 @@ public class Dessin extends JPanel {
 						}
 					}
 				}
-				if ((e.getModifiers()&ActionEvent.CTRL_MASK)==ActionEvent.CTRL_MASK) {
+				if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
 					setControl(true);
 				}
 				// Si le bouton selectionner est choisi, on passe en mode
@@ -205,8 +205,9 @@ public class Dessin extends JPanel {
 						listeFigSelectionnees.clear();
 					FigureGeom fig = figVoisine(ptCourant);
 					boolean trouve = false;
-					if(fig != null) {
-						for (int i = 0; i < listeFigSelectionnees.size() && !trouve; i++) {
+					if (fig != null) {
+						for (int i = 0; i < listeFigSelectionnees.size()
+								&& !trouve; i++) {
 							if (fig == listeFigSelectionnees.get(i))
 								trouve = true;
 						}
@@ -214,17 +215,16 @@ public class Dessin extends JPanel {
 							listeFigSelectionnees.add(fig);
 						else
 							listeFigSelectionnees.remove(fig);
-					}
-					else
+					} else
 						listeFigSelectionnees.clear();
-					control=false;
+					control = false;
 				}
 
 				repaint();
 			}
 
 			public void mousePressed(MouseEvent e) {
-				
+
 			}
 
 			public void mouseExited(MouseEvent e) {
@@ -243,21 +243,22 @@ public class Dessin extends JPanel {
 		MouseMotionListener mml = new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
 				if (boutons.getSelect()) {
-					if(departTranslation == 0) {
+					if (departTranslation == 0) {
 						listeFigSelectionnees.clear();
 						ptPrec.move(e.getX(), e.getY());
 						FigureGeom fig = figVoisine(ptPrec);
-						if(fig != null)
+						if (fig != null)
 							listeFigSelectionnees.add(fig);
 						departTranslation++;
-					}
-					else {
-						if(pointVoisin(ptPrec) != null) {
-							pointVoisin(ptPrec).deplacerPt(e.getX()-ptPrec.x, e.getY()-ptPrec.y);
-						}
-						else {
-							for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
-								listeFigSelectionnees.get(i).translater(e.getX()-ptPrec.x, e.getY()-ptPrec.y);
+					} else {
+						if (pointVoisin(ptPrec) != null) {
+							pointVoisin(ptPrec).deplacerPt(e.getX() - ptPrec.x,
+									e.getY() - ptPrec.y);
+						} else {
+							for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+								listeFigSelectionnees.get(i).translater(
+										e.getX() - ptPrec.x,
+										e.getY() - ptPrec.y);
 
 							}
 						}
@@ -268,15 +269,12 @@ public class Dessin extends JPanel {
 
 			}
 
-			
 			public void mouseMoved(MouseEvent e) {
 				departTranslation = 0;
 			}
-		
 
 		};
-			
-			
+
 		// public void mouseMoved(MouseEvent e) {
 		// if (boutons.getDessiner() && nbClics > 0) {
 		// //Tentative pour dessiner avec le mouvement de la souris (loup�)
@@ -298,7 +296,6 @@ public class Dessin extends JPanel {
 		//
 		// }
 		// };
-		
 
 		addMouseListener(ml);
 		addMouseMotionListener(mml);
@@ -340,7 +337,9 @@ public class Dessin extends JPanel {
 					int nbSommets = tabFigures[i].getNbMemo();
 					if (tabFigures[i].getPlein()) {
 						if (tabFigures[i] instanceof Rectangle) {
-							g.fillRect(positions[0].x, positions[0].y, positions[0].dist(positions[1]), positions[0].dist(positions[3]));
+							g.fillRect(positions[0].x, positions[0].y,
+									positions[0].dist(positions[1]),
+									positions[0].dist(positions[3]));
 						} else {
 							int[] tabX = new int[nbSommets];
 							int[] tabY = new int[nbSommets];
@@ -352,20 +351,26 @@ public class Dessin extends JPanel {
 						}
 					} else {
 						for (int j = 0; j < nbSommets; j++)
-							dessinLigne(g, positions[j], positions[(j + 1)	% nbSommets]);
+							dessinLigne(g, positions[j], positions[(j + 1)
+									% nbSommets]);
 					}
 				}
 			}
 			// Si la figure est selectionnee, on dessine les points de
 			// selection (et pas les points de memorisation
 			// je pense qu'il y a une faute dans l'enonce, a discuter)
-			for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
-				if (listeFigSelectionnees.get(i).getPlein() && couleur.getRed() < 150 && couleur.getBlue() < 150 && couleur.getGreen() < 150)
+			for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+				if (listeFigSelectionnees.get(i).getPlein()
+						&& couleur.getRed() < 150 && couleur.getBlue() < 150
+						&& couleur.getGreen() < 150)
 					g.setColor(Color.YELLOW);
 				else
 					g.setColor(Color.BLACK);
-				for (int j = 0; j < listeFigSelectionnees.get(i).getNbMemo() ; j++)
-					g.drawRect(listeFigSelectionnees.get(i).getTabMemo()[j].x - 3, listeFigSelectionnees.get(i).getTabMemo()[j].y - 3, 6, 6);
+				for (int j = 0; j < listeFigSelectionnees.get(i).getNbMemo(); j++)
+					g.drawRect(
+							listeFigSelectionnees.get(i).getTabMemo()[j].x - 3,
+							listeFigSelectionnees.get(i).getTabMemo()[j].y - 3,
+							6, 6);
 			}
 		}
 		// Affichage des points d'une ArrayList si existante
@@ -383,16 +388,14 @@ public class Dessin extends JPanel {
 							listePoints.get(j).y - 3, 6, 6);
 				}
 		}
-		
-		//activation ou non de la fonction supprimer
+
+		// activation ou non de la fonction supprimer
 		if (figureSelectionne()) {
 			menuD.getSupprimer().setEnabled(true);
 			boutons.getSupprimer().setEnabled(true);
 			boutons.getRemplir().setEnabled(true);
-			
-			
-		}
-		else {
+
+		} else {
 			menuD.getSupprimer().setEnabled(false);
 			boutons.getSupprimer().setEnabled(false);
 			boutons.getRemplir().setEnabled(false);
@@ -403,12 +406,12 @@ public class Dessin extends JPanel {
 	 * change le booleen rempli de la figure si elle est selectionnee
 	 */
 	public void remplir() {
-		for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
+		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 			listeFigSelectionnees.get(i).remplir();
 		}
 		repaint();
 	}
-	
+
 	/**
 	 * supprime la figure si elle est selectionnee
 	 */
@@ -424,7 +427,7 @@ public class Dessin extends JPanel {
 			}
 			if (trouve) {
 				for (int j = suppr; j < nbFigures - 1; j++) {
-					tabFigures[j] = tabFigures[j+1];
+					tabFigures[j] = tabFigures[j + 1];
 				}
 				nbFigures--;
 			}
@@ -446,15 +449,16 @@ public class Dessin extends JPanel {
 			res = true;
 		return res;
 	}
-	
+
 	// Fonction qui déselectionne toutes les figures
 	public void deselectionFig() {
 		for (int i = 0; i < nbFigures; i++) {
 			tabFigures[i].setSelection(false);
 		}
 	}
-	
-	// Fonction qui renvoie la première figure situee au voisinage d'un point ou null sinon
+
+	// Fonction qui renvoie la première figure situee au voisinage d'un point
+	// ou null sinon
 	public FigureGeom figVoisine(UnPoint pt) {
 		FigureGeom res = null;
 		boolean trouve = false;
@@ -469,11 +473,9 @@ public class Dessin extends JPanel {
 				nbSommets = tabFigures[i].getNbMemo();
 				for (int j = 0; j < tabFigures[i].getNbMemo(); j++) {
 					// Si c'est le cas, selection de cette figure
-					if (pt.estVoisinSegment(
-							MARGE_SELECTION_POLY,
+					if (pt.estVoisinSegment(MARGE_SELECTION_POLY,
 							tabFigures[i].getTabMemo()[j],
-							tabFigures[i].getTabMemo()[(j + 1)
-									% nbSommets])) {
+							tabFigures[i].getTabMemo()[(j + 1) % nbSommets])) {
 						res = tabFigures[i];
 						trouve = true;
 					}
@@ -483,8 +485,7 @@ public class Dessin extends JPanel {
 			if (tabFigures[i] instanceof Cercle) {
 				int rayonCercle = tabFigures[i].getTabMemo()[0]
 						.dist(tabFigures[i].getTabMemo()[1]);
-				int rayonPtCourant = pt.dist(tabFigures[i]
-						.getTabMemo()[0]);
+				int rayonPtCourant = pt.dist(tabFigures[i].getTabMemo()[0]);
 				if (Math.abs(rayonCercle - rayonPtCourant) < MARGE_SELECTION_CERCLE) {
 					res = tabFigures[i];
 					trouve = true;
@@ -494,9 +495,9 @@ public class Dessin extends JPanel {
 		}
 		return res;
 	}
-	
-	
-	// Fonction qui renvoie le premier point d'une figure située au voisinage d'un point, ou null sinon
+
+	// Fonction qui renvoie le premier point d'une figure située au voisinage
+	// d'un point, ou null sinon
 	public UnPoint pointVoisin(UnPoint pt) {
 		UnPoint res = null;
 		boolean trouve = false;
@@ -518,7 +519,8 @@ public class Dessin extends JPanel {
 			}
 			// Si la figure est un cercle
 			if (tabFigures[i] instanceof Cercle) {
-				if (estVoisin(MARGE_SELECTION_POINT, pt, tabFigures[i].getTabMemo()[1])) {
+				if (estVoisin(MARGE_SELECTION_POINT, pt,
+						tabFigures[i].getTabMemo()[1])) {
 					res = tabFigures[i].getTabMemo()[1];
 					trouve = true;
 				}
@@ -527,7 +529,7 @@ public class Dessin extends JPanel {
 		}
 		return res;
 	}
- 
+
 	// Fonction qui permet d'exporter une image
 	public void exporter(String format) {
 		JFileChooser filechoose = new JFileChooser();
@@ -588,15 +590,15 @@ public class Dessin extends JPanel {
 			boutons.setVisible(true);
 		}
 	}
-	
-	public void changeCouleur (Color c) {
+
+	public void changeCouleur(Color c) {
 		couleur = c;
-		for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
-			listeFigSelectionnees.get(i).setCouleur(c);	
-		}		
+		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+			listeFigSelectionnees.get(i).setCouleur(c);
+		}
 		repaint();
 	}
-	
+
 	public boolean figureSelectionne() {
 		if (listeFigSelectionnees.isEmpty())
 			return false;
@@ -607,12 +609,13 @@ public class Dessin extends JPanel {
 	public void setControl(boolean control) {
 		this.control = control;
 	}
-	
+
 	public void viderPoints() {
-		nbPoints = 0;
-		listePoints.clear();
-		repaint();
+		if (nbPoints != 0) {
+			nbPoints = 0;
+			listePoints.clear();
+			repaint();
+		}
 	}
-	
-	
+
 }
