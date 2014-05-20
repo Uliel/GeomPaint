@@ -25,7 +25,6 @@ public class UnMenu extends JMenuBar {
 	 */
 	private Dessin d;
 	private BoiteOutils outils;
-	private boolean dessiner;
 	private JMenuItem annuler = new JMenuItem("Annuler");
 	private JMenuItem copier =new JMenuItem("Copier");
 	private JMenuItem couper = new JMenuItem("Couper");
@@ -64,7 +63,6 @@ public class UnMenu extends JMenuBar {
 		
 		ActionListener menuListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dessiner = false;
 				outils.desactiverOutils();
 				outils.desactiverCoul();
 				outils.desactiverRotation();
@@ -101,6 +99,9 @@ public class UnMenu extends JMenuBar {
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Dupliquer")) {
 					d.dupliquer();				
+				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Tout selectionner")) {
+					d.toutSelectionner();				
 				}
 			}
 		};

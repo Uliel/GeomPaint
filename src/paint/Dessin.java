@@ -9,9 +9,6 @@ package paint;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -20,12 +17,9 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.jar.Attributes.Name;
 
 import figures.*;
 // Rq : laisser l'import de figures.Rectangle qui permet a eclipse de ne pas confondre avec une classe java existante java.awt.rectangle
@@ -383,7 +377,6 @@ public class Dessin extends JPanel {
 							.getEpaisseur() - 1,
 							6 + listeFigSelectionnees.get(i).getEpaisseur() - 1);
 				}
-				g2d.setStroke(new BasicStroke(tabFigures[i].getEpaisseur()));
 			}
 		}
 		// Affichage des points d'une ArrayList si existante
@@ -403,7 +396,7 @@ public class Dessin extends JPanel {
 				}
 		}
 
-		// activation ou non de la fonction supprimer
+		// activation ou non de la fonction supprimer et remplir
 		if (figureSelectionne()) {
 			menuD.getSupprimer().setEnabled(true);
 			boutons.getSupprimer().setEnabled(true);
@@ -664,6 +657,13 @@ public class Dessin extends JPanel {
 			}
 		}
 		repaint();
+	}
+	
+	public void toutSelectionner() {
+		for (int i = 0; i < nbFigures; i++) {
+			listeFigSelectionnees.add(tabFigures[i]);
+			repaint();
+		}
 	}
 
 }
