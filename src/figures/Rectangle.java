@@ -36,7 +36,7 @@ public class Rectangle extends Polygone {
 		// Remplissage du tableau de points de mÃ©morisation
 		this.nbMemo = 4;
 		this.tabMemo = new UnPoint[this.nbMemo];
-		// 1er point en haut à gauche, 2nd en bas à droite
+		// 1er point en haut ï¿½ gauche, 2nd en bas ï¿½ droite
 		if (listePointsSaisie.get(1).x > listePointsSaisie.get(0).x) {
 			if (listePointsSaisie.get(1).y > listePointsSaisie.get(0).y) {
 				this.tabMemo[0] = listePointsSaisie.get(0);
@@ -45,7 +45,7 @@ public class Rectangle extends Polygone {
 				this.tabMemo[2] = listePointsSaisie.get(1);
 				this.tabMemo[3] = new UnPoint(listePointsSaisie.get(0).x,
 						listePointsSaisie.get(1).y);
-			} // 1er point en bas à gauche, 2nd en haut à droite
+			} // 1er point en bas ï¿½ gauche, 2nd en haut ï¿½ droite
 			else {
 				this.tabMemo[0] = new UnPoint(listePointsSaisie.get(0).x,
 						listePointsSaisie.get(1).y);
@@ -54,7 +54,7 @@ public class Rectangle extends Polygone {
 						listePointsSaisie.get(0).y);
 				this.tabMemo[3] = listePointsSaisie.get(0);
 			}
-		} //1er point en haut à droite, 2nd en bas à gauche
+		} //1er point en haut ï¿½ droite, 2nd en bas ï¿½ gauche
 		else {
 			if (listePointsSaisie.get(1).y > listePointsSaisie.get(0).y) {
 			this.tabMemo[0] = new UnPoint(listePointsSaisie.get(1).x,
@@ -63,7 +63,7 @@ public class Rectangle extends Polygone {
 			this.tabMemo[2] = new UnPoint(listePointsSaisie.get(0).x,
 					listePointsSaisie.get(1).y);
 			this.tabMemo[3] = listePointsSaisie.get(1);
-			} //1er point en bas à droite, 2nd en haut à gauche
+			} //1er point en bas ï¿½ droite, 2nd en haut ï¿½ gauche
 			else {
 				this.tabMemo[0] = listePointsSaisie.get(1);
 				this.tabMemo[1] = new UnPoint(listePointsSaisie.get(0).x, listePointsSaisie.get(1).y);
@@ -72,4 +72,14 @@ public class Rectangle extends Polygone {
 			}
 		}
 	}
+	
+	
+	// MÃ©thode de deplacement de point specifique au rectangle
+	public void modifierTaille(int valAbs, int valOrd) {
+		this.tabMemo[0].move(-valAbs, -valOrd);
+		this.tabMemo[1].move(valAbs, -valOrd);
+		this.tabMemo[2].move(valAbs, valOrd);
+		this.tabMemo[3].move(-valAbs, valOrd);
+	}
+	
 }

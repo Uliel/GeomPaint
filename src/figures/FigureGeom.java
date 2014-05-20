@@ -158,20 +158,20 @@ public class FigureGeom {
 			this.selection = true;
 	}
 
-	public void modifierForme(Point modif, int nouvX, int nouvY) {
-		boolean trouve = false;
-		for (int i = 0; i < getTabMemo().length && !trouve; i++)
-			if (this.getTabMemo()[i] == modif) {
-				trouve = true;
-				this.getTabMemo()[i].move(nouvX, nouvY);
-			}
-		trouve = false;
-		for (int i = 0; i < getTabSaisie().length && !trouve; i++) {
-			if (this.getTabSaisie()[i] == modif) {
-				trouve = true;
-				this.getTabSaisie()[i].move(nouvX, nouvY);
-			}
-		}
-	}
+//	public void modifierForme(Point modif, int nouvX, int nouvY) {
+//		boolean trouve = false;
+//		for (int i = 0; i < getTabMemo().length && !trouve; i++)
+//			if (this.getTabMemo()[i] == modif) {
+//				trouve = true;
+//				this.getTabMemo()[i].move(nouvX, nouvY);
+//			}
+//		trouve = false;
+//		for (int i = 0; i < getTabSaisie().length && !trouve; i++) {
+//			if (this.getTabSaisie()[i] == modif) {
+//				trouve = true;
+//				this.getTabSaisie()[i].move(nouvX, nouvY);
+//			}
+//		}
+//	}
 
 }

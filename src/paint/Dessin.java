@@ -249,8 +249,17 @@ public class Dessin extends JPanel {
 						departTranslation++;
 					} else {
 						if (pointVoisin(ptPrec) != null) {
-							pointVoisin(ptPrec).deplacerPt(e.getX() - ptPrec.x,
-									e.getY() - ptPrec.y);
+							FigureGeom fig = figVoisine(pointVoisin(ptPrec));
+							// Si le point appartient à un rectangle, il faut garder la forme rectangulaire
+							if(fig instanceof Rectangle) {
+								((Rectangle)fig).modifierTaille(e.getX() - ptPrec.x,
+										e.getY() - ptPrec.y);
+							}
+								else {
+									pointVoisin(ptPrec).deplacerPt(e.getX() - ptPrec.x,
+											e.getY() - ptPrec.y);
+								}
+
 						} else {
 							for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 								listeFigSelectionnees.get(i).translater(
