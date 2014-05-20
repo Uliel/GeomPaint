@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 import javax.swing.BorderFactory;
+import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -70,6 +72,17 @@ public class UnMenu extends JMenuBar {
 				else if (((JMenuItem)(e.getSource())).getText().equals("Remplir/Vider")) {
 					outils.getRemplir().doClick();
 				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Exporter en JPG")) {
+					outils.getExporterJPG().doClick();
+				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Exporter en PNG")) {
+					outils.getExporterPNG().doClick();
+				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Couleurs ...")) {
+					outils.getPalette().doClick();
+					
+				}
+				
 			}
 		};
 		for (int i=0;i<tabMenu.length;i++) {

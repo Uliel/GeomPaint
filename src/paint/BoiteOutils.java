@@ -261,9 +261,8 @@ public class BoiteOutils extends JPanel {
 		
 		//Definition du mouseListener pour l'apparition de la palette de couleurs
 		JColorChooser jc=new JColorChooser(Color.black);
-		MouseAdapter paletteListener = new java.awt.event.MouseAdapter() {
-	        public void mouseClicked(java.awt.event.MouseEvent evt) {
-	        	((Bouton)evt.getSource()).setSelected(false);
+		ActionListener paletteListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {	     
 	            Color background = JColorChooser.showDialog(null,
 	                    "JColorChooser Sample", null);
 	            if (background != null) {
@@ -284,7 +283,7 @@ public class BoiteOutils extends JPanel {
 	        }
 		};
 		
-		palette.addMouseListener(paletteListener);
+		palette.addActionListener(paletteListener);
 		
 		//Mise en place des JToolBar
 		
@@ -299,6 +298,26 @@ public class BoiteOutils extends JPanel {
 		this.add(col,BorderLayout.EAST);
 		this.add(formes,BorderLayout.CENTER);
 		this.add(outils,BorderLayout.WEST);
+	}
+
+	public Bouton getPalette() {
+		return palette;
+	}
+
+	public Bouton getExporterJPG() {
+		return exporterJPG;
+	}
+
+	public Bouton getExporterPNG() {
+		return exporterPNG;
+	}
+
+	public Bouton getRotationDroite() {
+		return rotationDroite;
+	}
+
+	public Bouton getRotationGauche() {
+		return rotationGauche;
 	}
 
 	// ACCESSEURS
