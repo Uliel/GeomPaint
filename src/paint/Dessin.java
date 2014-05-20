@@ -61,7 +61,7 @@ public class Dessin extends JPanel {
 		JPanel entete = new JPanel();
 		entete.setLayout(new BorderLayout(2,2));
 		entete.add(boutons,BorderLayout.CENTER);
-		entete.add(new UnMenu(this),BorderLayout.NORTH);
+		entete.add(new UnMenu(this,boutons),BorderLayout.NORTH);
 		this.add(entete, BorderLayout.NORTH);
 		this.nbFigures = 0;
 		this.nbClics = 0;
