@@ -386,8 +386,8 @@ public class Dessin extends JPanel {
 		// Affichage des points d'une ArrayList si existante
 		g2d.setColor(Color.black);
 		if (!listePoints.isEmpty()) {
+			g2d.setStroke(new BasicStroke(1));
 			if (boutons.getNumFigCourante() == 6) {
-				g2d.setStroke(new BasicStroke(1));
 				g2d.fillRect(listePoints.get(0).x - 3,
 						listePoints.get(0).y - 3, 6, 6);
 				for (int i = 0; i < listePoints.size(); i++)
