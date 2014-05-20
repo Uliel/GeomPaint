@@ -150,6 +150,7 @@ public class Dessin extends JPanel {
 							}
 							nbClics = 0;
 							tabFigures[nbFigures].setCouleur(couleur);
+							listeFigSelectionnees.add(tabFigures[nbFigures]);
 							nbFigures++;
 							listePoints.clear();
 						}
@@ -174,6 +175,7 @@ public class Dessin extends JPanel {
 										listePoints);
 								tabFigures[nbFigures].setCouleur(couleur);
 								listePoints.clear();
+								listeFigSelectionnees.add(tabFigures[nbFigures]);
 								nbClics = 0;
 								nbFigures++;
 							}
