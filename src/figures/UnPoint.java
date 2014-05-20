@@ -44,5 +44,10 @@ public class UnPoint extends Point {
 		return res;
 		
 	}
+	
+	// Méthode qui déplace un point
+	public void deplacerPt(int nouvX, int nouvY) {
+		this.move(this.x + nouvX, this.y + nouvY);
+	}
 
 }

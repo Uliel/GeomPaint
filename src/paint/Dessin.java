@@ -37,6 +37,7 @@ public class Dessin extends JPanel {
 	private final static int MAXTAILLE = 100;
 	private final int MARGE_SELECTION_POLY = 1;
 	private final int MARGE_SELECTION_CERCLE = 8;
+	private final int MARGE_SELECTION_POINT = 5;
 	private FigureGeom[] tabFigures;
 	private BoiteOutils boutons;
 	private MenuDeroulant menuD;
@@ -251,10 +252,16 @@ public class Dessin extends JPanel {
 						departTranslation++;
 					}
 					else {
-						for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
-							listeFigSelectionnees.get(i).translater(e.getX()-ptPrec.x, e.getY()-ptPrec.y);
-							ptPrec.move(e.getX(), e.getY());
+						if(pointVoisin(ptPrec) != null) {
+							pointVoisin(ptPrec).deplacerPt(e.getX()-ptPrec.x, e.getY()-ptPrec.y);
 						}
+						else {
+							for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
+								listeFigSelectionnees.get(i).translater(e.getX()-ptPrec.x, e.getY()-ptPrec.y);
+
+							}
+						}
+						ptPrec.move(e.getX(), e.getY());
 					}
 				}
 				repaint();
@@ -480,6 +487,39 @@ public class Dessin extends JPanel {
 						.getTabMemo()[0]);
 				if (Math.abs(rayonCercle - rayonPtCourant) < MARGE_SELECTION_CERCLE) {
 					res = tabFigures[i];
+					trouve = true;
+				}
+			}
+			i++;
+		}
+		return res;
+	}
+	
+	
+	// Fonction qui renvoie le premier point d'une figure située au voisinage d'un point, ou null sinon
+	public UnPoint pointVoisin(UnPoint pt) {
+		UnPoint res = null;
+		boolean trouve = false;
+		int i = 0;
+
+		// Boucle sur toutes les figures pour savoir si l'une d'elle
+		// possede un segment a proximite du point courant
+		while (i < nbFigures && !trouve) {
+			// Si la figure est un polygone
+			if (tabFigures[i] instanceof Polygone) {
+				for (int j = 0; j < tabFigures[i].getNbMemo(); j++) {
+					// Si c'est le cas, selection de cette figure
+					if (estVoisin(MARGE_SELECTION_POINT, pt,
+							tabFigures[i].getTabMemo()[j])) {
+						res = tabFigures[i].getTabMemo()[j];
+						trouve = true;
+					}
+				}
+			}
+			// Si la figure est un cercle
+			if (tabFigures[i] instanceof Cercle) {
+				if (estVoisin(MARGE_SELECTION_POINT, pt, tabFigures[i].getTabMemo()[1])) {
+					res = tabFigures[i].getTabMemo()[1];
 					trouve = true;
 				}
 			}
