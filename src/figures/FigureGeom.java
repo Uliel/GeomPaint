@@ -108,11 +108,8 @@ public class FigureGeom extends Observable {
 	}
 
 	public void translater(int nouvX, int nouvY) {
+		System.out.println(nouvX + "  " + nouvY);
 		for (int i = 0; i < getTabMemo().length; i++) {
-			this.getTabMemo()[i].move(this.getTabMemo()[i].x + nouvX, this.getTabMemo()[i].y + nouvY);
-		}
-		for (int i = 0; i < getTabSaisie().length; i++) {
-			this.getTabSaisie()[i].move(this.getTabSaisie()[i].x + nouvX, this.getTabSaisie()[i].y + nouvY);
 		}
 	}
 

@@ -218,7 +218,6 @@ public class Dessin extends JPanel {
 		MouseMotionListener mml = new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
 				if (boutons.getSelect()) {
-					System.out.println(departTranslation);
 					if(departTranslation == 0) {
 						listeFigSelectionnees.clear();
 						ptPrec.move(e.getX(), e.getY());
@@ -231,7 +230,6 @@ public class Dessin extends JPanel {
 						for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
 							listeFigSelectionnees.get(i).translater(e.getX()-ptPrec.x, e.getY()-ptPrec.y);
 							ptPrec.move(e.getX(), e.getY());
-							System.out.println(listeFigSelectionnees.get(i).getTabMemo()[0].x + "  " + listeFigSelectionnees.get(i).getTabMemo()[0].y);
 						}
 					}
 				}
@@ -291,7 +289,7 @@ public class Dessin extends JPanel {
 		if (nbFigures > 0) {
 			for (int i = 0; i < nbFigures; i++) {
 				g.setColor(tabFigures[i].getCouleur());
-				UnPoint[] positions = tabFigures[i].getTabSaisie();
+				UnPoint[] positions = tabFigures[i].getTabMemo();
 
 				// Cas du cercle
 				if (tabFigures[i] instanceof Cercle) {
@@ -310,8 +308,7 @@ public class Dessin extends JPanel {
 					int nbSommets = tabFigures[i].getNbMemo();
 					if (tabFigures[i].getPlein()) {
 						if (tabFigures[i] instanceof Rectangle) {
-							UnPoint[] memo = tabFigures[i].getTabMemo();
-							g.fillRect(memo[0].x, memo[0].y, memo[0].dist(memo[1]), memo[0].dist(memo[3]));
+							g.fillRect(positions[0].x, positions[0].y, positions[0].dist(positions[1]), positions[0].dist(positions[3]));
 						} else {
 							int[] tabX = new int[nbSommets];
 							int[] tabY = new int[nbSommets];
@@ -323,9 +320,7 @@ public class Dessin extends JPanel {
 						}
 					} else {
 						for (int j = 0; j < nbSommets; j++)
-							dessinLigne(g, tabFigures[i].getTabMemo()[j],
-									tabFigures[i].getTabMemo()[(j + 1)
-											% nbSommets]);
+							dessinLigne(g, positions[j], positions[(j + 1)	% nbSommets]);
 					}
 				}
 			}
@@ -370,12 +365,8 @@ public class Dessin extends JPanel {
 	 * change le bool�en rempli de la figure si elle est s�lectionn�e
 	 */
 	public void remplir() {
-		boolean trouve = false;
-		for (int i = 0; i < nbFigures && !trouve; i++) {
-			if (tabFigures[i].getSelection()) {
-				tabFigures[i].remplir();
-				trouve = true;
-			}
+		for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
+			listeFigSelectionnees.get(i).remplir();
 		}
 		repaint();
 	}
@@ -525,13 +516,9 @@ public class Dessin extends JPanel {
 	}
 	
 	public void changeCouleur (Color c) {
-		boolean trouve =false;
 		couleur = c;
-		for (int i = 0; i < nbFigures && !trouve; i++) {
-			if (tabFigures[i].getSelection()) {
-				trouve=true;
-				tabFigures[i].setCouleur(c);	
-			}
+		for(int i = 0 ; i < listeFigSelectionnees.size() ; i++) {
+			listeFigSelectionnees.get(i).setCouleur(c);	
 		}		
 		repaint();
 	}
