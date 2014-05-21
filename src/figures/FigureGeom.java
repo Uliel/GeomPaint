@@ -9,7 +9,7 @@ package figures;
 import java.awt.Color;
 import java.util.ArrayList;
 
-public class FigureGeom {
+public class FigureGeom implements Cloneable {
 	
 	// ATTRIBUTS
 	private Color couleur;
@@ -155,6 +155,9 @@ public class FigureGeom {
 		else
 			this.selection = true;
 	}
+    public FigureGeom clone() throws CloneNotSupportedException {
+    	return (FigureGeom)super.clone();
+    }
 
 //	public void modifierForme(Point modif, int nouvX, int nouvY) {
 //		boolean trouve = false;

@@ -40,6 +40,7 @@ public class Dessin extends JPanel {
 	private int nbPoints;
 	private ArrayList<UnPoint> listePoints = new ArrayList<UnPoint>();
 	private ArrayList<FigureGeom> listeFigSelectionnees = new ArrayList<FigureGeom>();
+	private ArrayList<FigureGeom[]> listeEtats = new ArrayList<FigureGeom[]>();
 	private Color couleur = Color.BLACK;
 	private int epaisseur = 1;
 	private int departTranslation = 0;
@@ -439,6 +440,12 @@ public class Dessin extends JPanel {
 			boutons.getSupprimer().setEnabled(false);
 			boutons.getRemplir().setEnabled(false);
 		}
+		if (listeEtats.isEmpty()) {
+			boutons.getAnnuler().setEnabled(false);
+		}
+		else 
+			boutons.getAnnuler().setEnabled(true);
+
 	}
 
 	/**
@@ -631,6 +638,8 @@ public class Dessin extends JPanel {
 	}
 
 	public void changeCouleur(Color c) {
+		if (!listeFigSelectionnees.isEmpty())
+			ajouterEtat();
 		couleur = c;
 		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 			listeFigSelectionnees.get(i).setCouleur(c);
@@ -639,6 +648,8 @@ public class Dessin extends JPanel {
 	}
 
 	public void changeEpaisseur(int e) {
+		if (!listeFigSelectionnees.isEmpty())
+			ajouterEtat();
 		epaisseur = e;
 		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 			listeFigSelectionnees.get(i).setEpaisseur(e);
@@ -698,5 +709,35 @@ public class Dessin extends JPanel {
 			repaint();
 		}
 	}
+	
+	public void ajouterEtat() {
+		FigureGeom tmp[] = new FigureGeom[nbFigures];
+		for (int i=0;i<nbFigures;i++) {
+			try {
+				tmp[i]=tabFigures[i].clone();
+			} catch (CloneNotSupportedException e) {
+				// TODO Bloc catch généré automatiquement
+				e.printStackTrace();
+			}
+		}
+		listeEtats.add(tmp);
+	}
+	
+	public void annuler() {
+		int n = listeEtats.size()-1;
+		nbFigures=listeEtats.get(n).length;
+		System.out.print(listeEtats.get(n)[0].getCouleur());
+		for (int i=0;i<nbFigures;i++) {
+			tabFigures[i]=listeEtats.get(n)[i];
+		}
+		repaint();
+		listeEtats.remove(n);
+		
+	}
+
+	
+	
+	
+	
 
 }

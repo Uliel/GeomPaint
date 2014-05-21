@@ -207,6 +207,10 @@ public class BoiteOutils extends JPanel {
 						dessin.supprimer();
 						selectionner.doClick();
 					}
+					else if (((Bouton) (e.getSource())).getValeur() == 6) {
+						dessin.annuler();
+						selectionner.doClick();
+					}
 					((Bouton) (e.getSource())).setSelected(false);
 				}
 				dessin.viderPoints();
@@ -397,6 +401,12 @@ public class BoiteOutils extends JPanel {
 	public Bouton getSelectionner() {
 		return selectionner;
 	}
+
+	public Bouton getAnnuler() {
+		return annuler;
+	}
+	
+	
 	
 	
 	
