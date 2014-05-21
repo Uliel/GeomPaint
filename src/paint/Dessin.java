@@ -86,6 +86,10 @@ public class Dessin extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 				modifFigure = false;
 				annule=true;
+				if(SwingUtilities.isRightMouseButton(e)) {
+					absSouris=e.getX();
+					ordSouris=e.getY();
+				}
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -277,8 +281,7 @@ public class Dessin extends JPanel {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-				absSouris=e.getX();
-				ordSouris=e.getY();
+
 			}
 		};
 		//Listener qui permet de modifier le curseur de la souris
@@ -527,6 +530,8 @@ public class Dessin extends JPanel {
 			boutons.getRotationGauche().setEnabled(true);
 			menu.getCouper().setEnabled(true);
 			menu.getCopier().setEnabled(true);
+			menuD.getCouper().setEnabled(true);
+			menuD.getCopier().setEnabled(true);
 
 
 		} else {
@@ -539,12 +544,19 @@ public class Dessin extends JPanel {
 			boutons.getRotationGauche().setEnabled(false);
 			menu.getCouper().setEnabled(false);
 			menu.getCopier().setEnabled(false);
+			menuD.getCouper().setEnabled(false);
+			menuD.getCopier().setEnabled(false);
 		}
 		
-		if (listeTampon.isEmpty()) 
+		if (listeTampon.isEmpty()) {
 			menu.getColler().setEnabled(false);
-		else 
+			menuD.getColler().setEnabled(false);
+		}
+		
+		else {
 			menu.getColler().setEnabled(true);
+			menuD.getColler().setEnabled(true);
+		}
 		if (listeEtats.isEmpty()) {
 			boutons.getAnnuler().setEnabled(false);
 			menuD.getAnnuler().setEnabled(false);
