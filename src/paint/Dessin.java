@@ -77,7 +77,7 @@ public class Dessin extends JPanel {
 		MouseListener ml = new MouseListener() {
 
 			public void mouseReleased(MouseEvent e) {
-
+				modifFigure = false;
 
 			}
 
@@ -234,7 +234,6 @@ public class Dessin extends JPanel {
 					else {
 						listeFigSelectionnees.clear();
 						translation = false;
-						modifFigure = false;
 					}
 						
 			
