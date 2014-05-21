@@ -53,6 +53,8 @@ public class Dessin extends JPanel {
 	private UnPoint ptFigure;
 	private FigureGeom figModifiee;
 	private boolean annule=true;
+	private int currentX;
+	private int currentY;
 
 
 	// CONSTRUCTEURS
@@ -136,6 +138,8 @@ public class Dessin extends JPanel {
 						if (nbClics < nbPoints - 1) {
 							listePoints.add(new UnPoint(e.getX(), e.getY()));
 							nbClics++;
+							
+							
 						}
 						// Dernier clic : on instancie la figure, on supprime
 						// l'ArrayList et on incrémente le nombre de figures
@@ -295,6 +299,14 @@ public class Dessin extends JPanel {
 				else {
 				    setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR) );	
 				}
+				
+			  //quand on est en train de construire une figure !
+				currentX = e.getX();
+				currentY = e.getY();
+				if(listePoints.size() > 0)
+				{
+					repaint();
+				}
 			}
 		};
 		MouseMotionListener mml = new MouseMotionListener() {
@@ -381,6 +393,40 @@ public class Dessin extends JPanel {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		super.paintComponent(g2d);
+		
+	  // si une figure est en cours de construction
+		if(listePoints.size() > 0)
+		{
+			//si la figure est un carre
+			if(boutons.getNumFigCourante()==3)
+			{
+				int longueur = currentX - listePoints.get(0).x;
+				if(longueur < 0) { longueur = -longueur; }
+				
+				//si le curseur de la souris est en dessous du point d'origine
+				if(currentY > listePoints.get(0).y)
+				{
+					//si le curseur de la souris est a droite du point d'origine
+					if(currentX > listePoints.get(0).x)
+						g2d.drawRect(listePoints.get(0).x, listePoints.get(0).y, longueur, longueur);
+				  //si le curseur de la souris est a gauche du point d'origine
+					else
+						g2d.drawRect(listePoints.get(0).x - longueur, listePoints.get(0).y , longueur, longueur);
+				}
+			  //si le curseur de la souris est au dessus du point d'origine
+				else
+				{
+				  //si le curseur de la souris est a droite du point d'origine
+					if(currentX > listePoints.get(0).x)
+						g2d.drawRect(listePoints.get(0).x , listePoints.get(0).y -longueur, longueur, longueur);
+				  //si le curseur de la souris est a gauche du point d'origine
+					else
+						g2d.drawRect(listePoints.get(0).x - longueur,listePoints.get(0).y - longueur, longueur, longueur);
+				}
+				
+			}
+		}
+		
 		// Dessin du tableau de figures
 		if (nbFigures > 0) {
 			for (int i = 0; i < nbFigures; i++) {
