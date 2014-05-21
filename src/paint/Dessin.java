@@ -78,7 +78,6 @@ public class Dessin extends JPanel {
 
 			public void mouseReleased(MouseEvent e) {
 				modifFigure = false;
-
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -214,7 +213,6 @@ public class Dessin extends JPanel {
 				// Actions possibles avec le bouton "select" :
 				if (boutons.getSelect()) {
 					ptSouris.move(e.getX(), e.getY());
-					
 					// 1) Selection d'une ou plusieurs figures
 					if (!control)
 						listeFigSelectionnees.clear();
@@ -236,8 +234,6 @@ public class Dessin extends JPanel {
 						translation = false;
 					}
 						
-			
-					
 					// 2) Initialisation d'une modification de figure (couplage avec MouseDragged)
 					if(pointVoisin(ptSouris) != null) {
 						ptFigure = pointVoisin(ptSouris);
