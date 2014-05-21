@@ -402,33 +402,77 @@ public class Dessin extends JPanel {
 	  // si une figure est en cours de construction
 		if(listePoints.size() > 0)
 		{
-			//si la figure est un carre
-			if(boutons.getNumFigCourante()==3)
-			{
-				int longueur = currentX - listePoints.get(0).x;
-				if(longueur < 0) { longueur = -longueur; }
+			int longueur = currentX - listePoints.get(0).x;
+			if(longueur < 0) { longueur = -longueur; }
+			int hauteur = currentY - listePoints.get(0).y;
+			if(hauteur < 0) { hauteur = -hauteur; }
+			
+			switch (boutons.getNumFigCourante()) {
+				case 1://si la figure est un cercle
+					g2d.drawOval(listePoints.get(0).x - listePoints.get(0).dist(new UnPoint(currentX, currentY)), 
+											 listePoints.get(0).y - listePoints.get(0).dist(new UnPoint(currentX, currentY)), 
+											 listePoints.get(0).dist(new UnPoint(currentX, currentY))*2,
+											 listePoints.get(0).dist(new UnPoint(currentX, currentY))*2);
+					break;
 				
-				//si le curseur de la souris est en dessous du point d'origine
-				if(currentY > listePoints.get(0).y)
-				{
-					//si le curseur de la souris est a droite du point d'origine
-					if(currentX > listePoints.get(0).x)
-						g2d.drawRect(listePoints.get(0).x, listePoints.get(0).y, longueur, longueur);
-				  //si le curseur de la souris est a gauche du point d'origine
+				case 2 : //si la figure est un rectangle
+					//si le curseur de la souris est en dessous du point d'origine
+					if(currentY > listePoints.get(0).y)
+					{
+						//si le curseur de la souris est a droite du point d'origine
+						if(currentX > listePoints.get(0).x)
+							g2d.drawRect(listePoints.get(0).x, listePoints.get(0).y, longueur, hauteur);
+					  //si le curseur de la souris est a gauche du point d'origine
+						else
+							g2d.drawRect(listePoints.get(0).x - longueur, listePoints.get(0).y , longueur, hauteur);
+					}
+				  //si le curseur de la souris est au dessus du point d'origine
 					else
-						g2d.drawRect(listePoints.get(0).x - longueur, listePoints.get(0).y , longueur, longueur);
-				}
-			  //si le curseur de la souris est au dessus du point d'origine
-				else
-				{
-				  //si le curseur de la souris est a droite du point d'origine
-					if(currentX > listePoints.get(0).x)
-						g2d.drawRect(listePoints.get(0).x , listePoints.get(0).y -longueur, longueur, longueur);
-				  //si le curseur de la souris est a gauche du point d'origine
+					{
+					  //si le curseur de la souris est a droite du point d'origine
+						if(currentX > listePoints.get(0).x)
+							g2d.drawRect(listePoints.get(0).x , listePoints.get(0).y -hauteur, longueur, hauteur);
+					  //si le curseur de la souris est a gauche du point d'origine
+						else
+							g2d.drawRect(listePoints.get(0).x - longueur,listePoints.get(0).y - hauteur, longueur, hauteur);
+					}
+					break;
+					
+				case 3 : //si la figure est un carre					
+					//si le curseur de la souris est en dessous du point d'origine
+					if(currentY > listePoints.get(0).y)
+					{
+						//si le curseur de la souris est a droite du point d'origine
+						if(currentX > listePoints.get(0).x)
+							g2d.drawRect(listePoints.get(0).x, listePoints.get(0).y, longueur, longueur);
+					  //si le curseur de la souris est a gauche du point d'origine
+						else
+							g2d.drawRect(listePoints.get(0).x - longueur, listePoints.get(0).y , longueur, longueur);
+					}
+				  //si le curseur de la souris est au dessus du point d'origine
 					else
-						g2d.drawRect(listePoints.get(0).x - longueur,listePoints.get(0).y - longueur, longueur, longueur);
-				}
-				
+					{
+					  //si le curseur de la souris est a droite du point d'origine
+						if(currentX > listePoints.get(0).x)
+							g2d.drawRect(listePoints.get(0).x , listePoints.get(0).y -longueur, longueur, longueur);
+					  //si le curseur de la souris est a gauche du point d'origine
+						else
+							g2d.drawRect(listePoints.get(0).x - longueur,listePoints.get(0).y - longueur, longueur, longueur);
+					}
+					break;
+					
+				case 4 : // si la figure est un triangle
+					if(listePoints.size() == 1)
+					{
+						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, currentX, currentY);
+					}
+					else
+					{
+						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, listePoints.get(1).x, listePoints.get(1).y);
+						g2d.drawLine(listePoints.get(1).x, listePoints.get(1).y, currentX, currentY);
+						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, currentX, currentY);
+					}
+					break;
 			}
 		}
 		
