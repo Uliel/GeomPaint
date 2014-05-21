@@ -1,6 +1,6 @@
 /**
  * 
- * @authors Frï¿½dï¿½ric Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
  *
  */
 
@@ -10,28 +10,34 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public abstract class FigureGeom implements Cloneable {
-	
+
 	// ATTRIBUTS
 	private Color couleur;
-	protected int epaisseur=1;
+	protected int epaisseur = 1;
 	protected boolean plein;
 	protected UnPoint[] tabMemo;
 	protected int nbMemo;
 	protected UnPoint[] tabSaisie;
 	protected int nbSaisie;
 
-	
 	// CONSTRUCTEURS
-		// Constructeur vide
+	/**
+	 * Contructeur vide
+	 */
 	public FigureGeom() {
 		this.plein = false;
 	}
-	
-		// Constructeur par copie
+
+	/**
+	 * Constructeur par copie
+	 * 
+	 * @param fig
+	 *            la figure à copier
+	 */
 	public FigureGeom(FigureGeom fig) {
 		this.plein = fig.getPlein();
 		this.couleur = fig.getCouleur();
-		this.epaisseur= fig.getEpaisseur();
+		this.epaisseur = fig.getEpaisseur();
 		this.nbMemo = fig.getNbMemo();
 		this.tabMemo = new UnPoint[nbMemo];
 		UnPoint[] tab = fig.getTabMemo();
@@ -45,19 +51,23 @@ public abstract class FigureGeom implements Cloneable {
 			tabSaisie[i] = new UnPoint(tab[i].x + 20, tab[i].y + 20);
 		}
 	}
-	
-		// Constructeur prenant en paramÃ¨tres une ArrayList
+
+	/**
+	 * Constructeur prenant en parametre une ArrayList
+	 * 
+	 * @param listePointsSaisie
+	 *            la liste des points saisis par l'utilisateur
+	 */
 	public FigureGeom(ArrayList<UnPoint> listePointsSaisie) {
 		this.plein = false;
 		this.nbSaisie = listePointsSaisie.size();
 		this.tabSaisie = new UnPoint[this.nbSaisie];
-		for(int i = 0 ; i < this.nbSaisie ; i++)
+		for (int i = 0; i < this.nbSaisie; i++)
 			this.tabSaisie[i] = listePointsSaisie.get(i);
 	}
-	
-	
+
 	// ACCESSEURS
-	
+
 	public int getNbSaisie() {
 		return nbSaisie;
 	}
@@ -97,8 +107,6 @@ public abstract class FigureGeom implements Cloneable {
 	public void setCouleur(Color coul) {
 		this.couleur = coul;
 	}
-	
-	
 
 	public int getEpaisseur() {
 		return epaisseur;
@@ -107,29 +115,34 @@ public abstract class FigureGeom implements Cloneable {
 	public void setEpaisseur(int epaisseur) {
 		this.epaisseur = epaisseur;
 	}
-	
+
 	public boolean getPlein() {
 		return this.plein;
 	}
-	
+
 	public void setPlein(boolean b) {
 		this.plein = b;
 	}
 
-	public void ajouterMemo(int pos, int x, int y) {
-		this.tabMemo[pos] = new UnPoint(x, y);
-	}
+	// METHODES
 
-	public void ajouterSaisie(int pos, int x, int y) {
-		this.tabSaisie[pos] = new UnPoint(x, y);
-	}
-
+	/**
+	 * Deplace les points de memorisation de la figure
+	 * 
+	 * @param nouvX
+	 *            la nouvelle abscisse des points
+	 * @param nouvY
+	 *            la nouvelle ordonnee des points
+	 */
 	public void translater(int nouvX, int nouvY) {
 		for (int i = 0; i < getTabMemo().length; i++) {
 			this.getTabMemo()[i].deplacerPt(nouvX, nouvY);
 		}
 	}
 
+	/**
+	 * Remplit ou vide la figure en fonction de l'attribut plein
+	 */
 	public void remplir() {
 		if (this.plein)
 			this.plein = false;
@@ -137,26 +150,13 @@ public abstract class FigureGeom implements Cloneable {
 			this.plein = true;
 	}
 
-    public FigureGeom clone() throws CloneNotSupportedException {
-    	return (FigureGeom)super.clone();
-    }
-    
-    public abstract void rotation(int r);
+	/**
+	 * Copie un objet sans copier la reference
+	 */
+	public FigureGeom clone() throws CloneNotSupportedException {
+		return (FigureGeom) super.clone();
+	}
 
-//	public void modifierForme(Point modif, int nouvX, int nouvY) {
-//		boolean trouve = false;
-//		for (int i = 0; i < getTabMemo().length && !trouve; i++)
-//			if (this.getTabMemo()[i] == modif) {
-//				trouve = true;
-//				this.getTabMemo()[i].move(nouvX, nouvY);
-//			}
-//		trouve = false;
-//		for (int i = 0; i < getTabSaisie().length && !trouve; i++) {
-//			if (this.getTabSaisie()[i] == modif) {
-//				trouve = true;
-//				this.getTabSaisie()[i].move(nouvX, nouvY);
-//			}
-//		}
-//	}
+	public abstract void rotation(int r);
 
 }
