@@ -162,7 +162,7 @@ public class Dessin extends JPanel {
 								// Rectangle
 								tabFigures[nbFigures] = new Rectangle(listePoints);
 								break;
-							case(3) :
+							case (3) :
 								// Carre
 							  tabFigures[nbFigures] = new Carre(listePoints);
 							  break;
@@ -354,7 +354,6 @@ public class Dessin extends JPanel {
 			}
 
 
-
 			public void mouseMoved(MouseEvent e) {
 			}
 
@@ -476,6 +475,29 @@ public class Dessin extends JPanel {
 						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, currentX, currentY);
 					}
 					break;
+					
+				case 5 : // si la figure est un ovale
+					
+					break;
+					
+				case 6 : // si la figure est un polygone
+					int i;
+					for(i=0; i<listePoints.size()-1; i++)
+					{
+						g2d.drawLine(listePoints.get(i).x, listePoints.get(i).y,
+												 listePoints.get(i+1).x, listePoints.get(i+1).y);
+					}
+					g2d.drawLine(listePoints.get(i).x, listePoints.get(i).y, currentX, currentY);
+					break;
+					
+				case 7 : // si la figure est un losange
+					
+					break;
+					
+				case 8 : // si la figure est un trait
+					
+					break;
+					
 			}
 		}
 		
