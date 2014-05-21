@@ -209,7 +209,6 @@ public class BoiteOutils extends JPanel {
 					}
 					else if (((Bouton) (e.getSource())).getValeur() == 6) {
 						dessin.annuler();
-						selectionner.doClick();
 					}
 					((Bouton) (e.getSource())).setSelected(false);
 				}

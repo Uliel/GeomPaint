@@ -63,10 +63,6 @@ public class UnMenu extends JMenuBar {
 		
 		ActionListener menuListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				outils.desactiverOutils();
-				outils.desactiverCoul();
-				outils.desactiverRotation();
-				outils.getSelectionner().doClick();
 				if (((JMenuItem)(e.getSource())).getText().equals("Quitter")) {
 					System.exit(0);
 				}
@@ -140,6 +136,11 @@ public class UnMenu extends JMenuBar {
 	public JMenuItem getSupprimer() {
 		return supprimer;
 	}
+
+	public JMenuItem getDupliquer() {
+		return dupliquer;
+	}
+	
 	
 	
 }

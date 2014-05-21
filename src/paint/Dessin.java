@@ -46,6 +46,8 @@ public class Dessin extends JPanel {
 	private int departTranslation = 0;
 	private UnPoint ptPrec = new UnPoint(0, 0);
 	private boolean control;
+	private UnMenu menu = new UnMenu(this, boutons);
+
 
 	// CONSTRUCTEURS
 	public Dessin() {
@@ -60,7 +62,7 @@ public class Dessin extends JPanel {
 		JPanel entete = new JPanel();
 		entete.setLayout(new BorderLayout(2, 2));
 		entete.add(boutons, BorderLayout.CENTER);
-		entete.add(new UnMenu(this, boutons), BorderLayout.NORTH);
+		entete.add(menu, BorderLayout.NORTH);
 		this.add(entete, BorderLayout.NORTH);
 		this.nbFigures = 0;
 		this.nbClics = 0;
@@ -434,11 +436,15 @@ public class Dessin extends JPanel {
 			menuD.getSupprimer().setEnabled(true);
 			boutons.getSupprimer().setEnabled(true);
 			boutons.getRemplir().setEnabled(true);
+			menu.getDupliquer().setEnabled(true);
+			menu.getSupprimer().setEnabled(true);
 
 		} else {
 			menuD.getSupprimer().setEnabled(false);
 			boutons.getSupprimer().setEnabled(false);
 			boutons.getRemplir().setEnabled(false);
+			menu.getDupliquer().setEnabled(false);
+			menu.getSupprimer().setEnabled(false);
 		}
 		if (listeEtats.isEmpty()) {
 			boutons.getAnnuler().setEnabled(false);
@@ -452,6 +458,7 @@ public class Dessin extends JPanel {
 	 * change le booleen rempli de la figure si elle est selectionnee
 	 */
 	public void remplir() {
+		ajouterEtat();
 		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 			listeFigSelectionnees.get(i).remplir();
 		}
@@ -462,6 +469,7 @@ public class Dessin extends JPanel {
 	 * supprime la figure si elle est selectionnee
 	 */
 	public void supprimer() {
+		ajouterEtat();
 		int suppr = 0;
 		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 			boolean trouve = false;
@@ -683,6 +691,7 @@ public class Dessin extends JPanel {
 
 	public void dupliquer() {
 		if (!listeFigSelectionnees.isEmpty()) {
+			ajouterEtat();
 			for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 				if (listeFigSelectionnees.get(i) instanceof Cercle)
 					tabFigures[nbFigures] = new Cercle(
@@ -724,6 +733,7 @@ public class Dessin extends JPanel {
 	}
 	
 	public void annuler() {
+		listeFigSelectionnees.clear();
 		int n = listeEtats.size()-1;
 		nbFigures=listeEtats.get(n).length;
 		System.out.print(listeEtats.get(n)[0].getCouleur());
