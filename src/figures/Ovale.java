@@ -23,4 +23,10 @@ public class Ovale extends FigureGeom {
 		super(ov);
 	}
 
+	@Override
+	public void rotation(int r) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
