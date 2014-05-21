@@ -16,7 +16,13 @@ public class Carre extends Rectangle {
 		super();
 	}
 	
-	// Constructeur prenant en parametre une ArrayList
+	/** Constructeur prenant en parametre une ArrayList (2 Pts)
+	 * 	- le premier point fixe le point d'origine
+	 *  - le second point calcule la longueur des cotes du carre 
+	 *  en fonction de la difference sur l'axe des abscisses
+	 * 
+	 * @param listePointsSaisie	(doit contenir au moins 2 pts pour construire un carre)
+	 */
 	public Carre(ArrayList<UnPoint> listePointsSaisie) {
 		this.plein = false;
 		// Remplissage du tableau de points de saisie
@@ -24,16 +30,14 @@ public class Carre extends Rectangle {
 			this.tabSaisie = new UnPoint[this.nbSaisie];
 			for (int i = 0; i < this.nbSaisie; i++)
 				this.tabSaisie[i] = listePointsSaisie.get(i);
+			
 			// Remplissage du tableau de points de memorisation
 			this.nbMemo = 4;
 			this.tabMemo = new UnPoint[this.nbMemo];
 			
 			//calcul de la longueur des cotes du carre
 			int d = listePointsSaisie.get(0).x - listePointsSaisie.get(1).x;
-			if(d < 0)
-			{
-				d = -d;
-			}
+			if(d < 0)		{		d = -d;		}
 			
 			// 1er point en haut a gauche, 2nd en bas a droite
 			if (listePointsSaisie.get(1).x > listePointsSaisie.get(0).x)
@@ -84,14 +88,12 @@ public class Carre extends Rectangle {
 	}
 	
 	/**
-	 * Deplacement specifique au carré
+	 * Redimensionnement specifique au carre
 	 * 
 	 * @param pt
 	 *            le point modifie
-	 * @param valAbs
-	 *            la nouvelle valeur de l'abscisse
-	 * @param valOrd
-	 *            la nouvelle valeur de l'ordonnee
+	 * @param val
+	 *            la valeur de redimensionnement
 	 */
 	public void modifierTaille(UnPoint pt, int val) {
 		if (pt.equals(tabMemo[0])) 
