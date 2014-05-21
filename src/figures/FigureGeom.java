@@ -33,7 +33,7 @@ public abstract class FigureGeom implements Cloneable {
 	 * Constructeur par copie
 	 * 
 	 * @param fig
-	 *            la figure à copier
+	 *            la figure ï¿½ copier
 	 */
 	public FigureGeom(FigureGeom fig) {
 		this.plein = fig.getPlein();
@@ -155,7 +155,9 @@ public abstract class FigureGeom implements Cloneable {
 	 * Copie un objet sans copier la reference
 	 */
 	public FigureGeom clone() throws CloneNotSupportedException {
-		return (FigureGeom) super.clone();
+		FigureGeom copie = (FigureGeom) super.clone();
+		copie.tabMemo=tabMemo.clone();
+		return copie;
 	}
 
 	public abstract void rotation(int r);

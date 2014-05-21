@@ -6,7 +6,7 @@ package figures;
 
 import java.awt.Point;
 
-public class UnPoint extends Point {
+public class UnPoint extends Point implements Cloneable {
 
 	/**
 	 * Constructeur
@@ -48,6 +48,10 @@ public class UnPoint extends Point {
 	// Méthode qui déplace un point
 	public void deplacerPt(int nouvX, int nouvY) {
 		this.move(this.x + nouvX, this.y + nouvY);
+	}
+	
+	public UnPoint clone() {
+		return (UnPoint) super.clone();
 	}
 
 }
