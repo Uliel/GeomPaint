@@ -113,6 +113,10 @@ public class BoiteOutils extends JPanel {
 				desactiverFormes();
 				desactiverCoul();
 				desactiverRotation();
+				if (((Bouton) (e.getSource())).getValeur()==1)
+					dessin.rotation(1);
+				else
+					dessin.rotation(2);
 				((Bouton) (e.getSource())).setSelected(true);
 			}
 		};
