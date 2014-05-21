@@ -51,6 +51,7 @@ public class Dessin extends JPanel {
 	private UnPoint ptSouris = new UnPoint(0,0);
 	private UnPoint ptFigure;
 	private FigureGeom figModifiee;
+	private boolean annule=true;
 
 
 	// CONSTRUCTEURS
@@ -78,6 +79,7 @@ public class Dessin extends JPanel {
 
 			public void mouseReleased(MouseEvent e) {
 				modifFigure = false;
+				annule=true;
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -291,6 +293,10 @@ public class Dessin extends JPanel {
 		MouseMotionListener mml = new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
 				if (modifFigure) {
+					if (annule) {
+						ajouterEtat();
+						annule=false;
+					}
 				// Si le point appartient à un rectangle, il faut garder la forme rectangulaire
 					if(figModifiee instanceof Rectangle) {
 						((Rectangle)figModifiee).modifierTaille(ptFigure, e.getX() - ptSouris.x,
@@ -302,6 +308,10 @@ public class Dessin extends JPanel {
 							}
 				} else {
 					if(translation)
+						if (annule) {
+							ajouterEtat();
+							annule=false;
+						}
 						for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 								listeFigSelectionnees.get(i).translater(
 									e.getX() - ptSouris.x,
