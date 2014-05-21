@@ -50,19 +50,14 @@ public class Polygone extends FigureGeom {
 	 * TODO m�thode rotation pour le polygone
 	 */
 	public void rotation(int r) {
-		int aire=0;
-		for (int i = 0;i<tabMemo.length-1;i++) {
-			aire = aire + (tabMemo[i].x*tabMemo[i+1].y-tabMemo[i+1].x*tabMemo[i].y);
-		}
-		aire=aire/2;
 		int graviteX=0;
 		int graviteY=0;
-		for (int i = 0;i<tabMemo.length-1;i++) {
-			graviteX = graviteX + (tabMemo[i].x + tabMemo[i+1].x)*(tabMemo[i].x*tabMemo[i+1].y-tabMemo[i+1].x*tabMemo[i].y) ;
-			graviteY = graviteY + (tabMemo[i].y + tabMemo[i+1].y)*(tabMemo[i].x*tabMemo[i+1].y-tabMemo[i+1].x*tabMemo[i].y) ;
+		for (int i = 0;i<tabMemo.length;i++) {
+			graviteX = graviteX + tabMemo[i].x;
+			graviteY = graviteY + tabMemo[i].y;
 		}
-		graviteX=graviteX/(6*aire);
-		graviteY=graviteY/(6*aire);
+		graviteX=graviteX/nbMemo;
+		graviteY=graviteY/nbMemo;
 		UnPoint centreGravite = new UnPoint(graviteX,graviteY);
 		
 		for (int i = 0;i<tabMemo.length;i++) {
