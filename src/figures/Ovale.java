@@ -6,27 +6,36 @@
 
 package figures;
 
+import java.util.ArrayList;
 
-public class Ovale extends FigureGeom {
+public class Ovale extends Cercle {
 	
+	//ATTRIBUTS
 	private final static int OVALE_POINTS = 3;
 	
-	public Ovale() {
-		super();
-		this.setNbSaisie(OVALE_POINTS);
-		this.setNbMemo(OVALE_POINTS);
-		this.setTabSaisie(this.getNbSaisie());
-		this.setTabMemo(this.getNbMemo());
+	//CONSTRUCTEURS
+	public Ovale(ArrayList<UnPoint> listePointsSaisie) {
+		super(listePointsSaisie);
+		this.plein = false;
+		// Remplissage du tableau de points de saisie
+		this.nbSaisie = listePointsSaisie.size();
+		this.tabSaisie = new UnPoint[this.nbSaisie];
+		for (int i = 0; i < this.nbSaisie; i++)
+			this.tabSaisie[i] = listePointsSaisie.get(i);
+		// Remplissage du tableau de points de memorisation
+		this.nbMemo = 2;
+		this.tabMemo = new UnPoint[this.nbMemo];
+		this.tabMemo[0] = listePointsSaisie.get(0);
+		int dist = listePointsSaisie.get(0).dist(listePointsSaisie.get(1));
+		this.tabMemo[1] = new UnPoint(listePointsSaisie.get(0).x + dist,
+				listePointsSaisie.get(0).y);
 	}
 	
+	/** constructeur par copie
+	 * 
+	 * @param ov
+	 */
 	public Ovale(Ovale ov) {
 		super(ov);
 	}
-
-	@Override
-	public void rotation(int r) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

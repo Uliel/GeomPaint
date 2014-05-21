@@ -8,7 +8,7 @@ package figures;
 
 import java.util.ArrayList;
 
-public class Cercle extends Ovale {
+public class Cercle extends FigureGeom {
 
 	// ATTRIBUTS
 	private final static int CERCLE_POINTS = 2;
@@ -45,5 +45,11 @@ public class Cercle extends Ovale {
 	 */
 	public Cercle(Cercle c) {
 		super(c);
+	}
+	
+	@Override
+	public void rotation(int r) {
+		// TODO Auto-generated method stub
+		
 	}
 }
