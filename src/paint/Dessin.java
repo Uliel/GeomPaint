@@ -751,9 +751,13 @@ public class Dessin extends JPanel {
 		
 	}
 
+	public void rotation(int r) {
+		if (!listeFigSelectionnees.isEmpty())
+			ajouterEtat();
+		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+			listeFigSelectionnees.get(i).rotation(r);
+		}
+		repaint();
+	}
 	
-	
-	
-	
-
 }
