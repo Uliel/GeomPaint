@@ -47,9 +47,14 @@ public class Polygone extends FigureGeom {
 	// METHODES
 	
 	/**
-	 * TODO méthode rotation pour le polygone
+	 * TODO mï¿½thode rotation pour le polygone
 	 */
 	public void rotation(int r) {
-
+		for (int i = 0;i<tabMemo.length;i++) {
+			int tmp;
+			tmp=tabMemo[i].x;
+			tabMemo[i].x=tabMemo[i].y;
+			tabMemo[i].y=-tmp;
+		}
 	}
 }

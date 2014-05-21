@@ -117,8 +117,7 @@ public class BoiteOutils extends JPanel {
 					dessin.rotation(1);
 				else
 					dessin.rotation(2);
-				((Bouton) (e.getSource())).setSelected(true);
-			}
+				}
 		};
 		
 		rotationDroite.addActionListener(rotationListener);
