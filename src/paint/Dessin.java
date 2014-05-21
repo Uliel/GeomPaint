@@ -304,8 +304,12 @@ public class Dessin extends JPanel {
 						ajouterEtat();
 						annule=false;
 					}
+				// Si le point appartient a  un carre, il faut garder tous les cotes de la meme longueur
+					if(figModifiee instanceof Carre) {
+						((Carre)figModifiee).modifierTaille(ptFigure, e.getY() - ptSouris.y);
+					}
 				// Si le point appartient Ã  un rectangle, il faut garder la forme rectangulaire
-					if(figModifiee instanceof Rectangle) {
+					else if(figModifiee instanceof Rectangle) {
 						((Rectangle)figModifiee).modifierTaille(ptFigure, e.getX() - ptSouris.x,
 								e.getY() - ptSouris.y);
 					}
