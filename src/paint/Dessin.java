@@ -692,6 +692,7 @@ public class Dessin extends JPanel {
 	}
 	
 	public void toutSelectionner() {
+		listeFigSelectionnees.clear();
 		for (int i = 0; i < nbFigures; i++) {
 			listeFigSelectionnees.add(tabFigures[i]);
 			repaint();
