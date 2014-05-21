@@ -39,7 +39,7 @@ public class Carre extends Rectangle {
 			}
 			
 			// 1er point en haut a gauche, 2nd en bas a droite
-			if (listePointsSaisie.get(1).x > listePointsSaisie.get(0).x) 
+			if (listePointsSaisie.get(1).x > listePointsSaisie.get(0).x)
 			{
 				if (listePointsSaisie.get(1).y > listePointsSaisie.get(0).y) 
 				{
@@ -84,5 +84,39 @@ public class Carre extends Rectangle {
 																				listePointsSaisie.get(0).y);
 				}
 			}
+	}
+	
+	/**
+	 * Deplacement specifique au rectangle
+	 * 
+	 * @param pt
+	 *            le point modifie
+	 * @param valAbs
+	 *            la nouvelle valeur de l'abscisse
+	 * @param valOrd
+	 *            la nouvelle valeur de l'ordonnee
+	 */
+	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {
+		if (pt.equals(tabMemo[0])) {
+			this.tabMemo[0].move(tabMemo[0].x + valOrd, tabMemo[0].y + valOrd);
+			this.tabMemo[1].move(tabMemo[1].x, tabMemo[1].y + valOrd);
+			this.tabMemo[2].move(tabMemo[2].x, tabMemo[2].y);
+			this.tabMemo[3].move(tabMemo[3].x + valOrd, tabMemo[3].y);
+		} else if (pt.equals(tabMemo[1])) {
+			this.tabMemo[0].move(tabMemo[0].x, tabMemo[0].y + valOrd);
+			this.tabMemo[1].move(tabMemo[1].x - valOrd, tabMemo[1].y + valOrd);
+			this.tabMemo[2].move(tabMemo[2].x - valOrd, tabMemo[2].y);
+			this.tabMemo[3].move(tabMemo[3].x, tabMemo[3].y);
+		} else if (pt.equals(tabMemo[2])) {
+			this.tabMemo[0].move(tabMemo[0].x, tabMemo[0].y);
+			this.tabMemo[1].move(tabMemo[1].x + valOrd, tabMemo[1].y);
+			this.tabMemo[2].move(tabMemo[2].x + valOrd, tabMemo[2].y + valOrd);
+			this.tabMemo[3].move(tabMemo[3].x, tabMemo[3].y + valOrd);
+		} else if (pt.equals(tabMemo[3])) {
+			this.tabMemo[0].move(tabMemo[0].x - valOrd, tabMemo[0].y);
+			this.tabMemo[1].move(tabMemo[1].x, tabMemo[1].y);
+			this.tabMemo[2].move(tabMemo[2].x, tabMemo[2].y + valOrd);
+			this.tabMemo[3].move(tabMemo[3].x - valOrd, tabMemo[3].y + valOrd);
+		}
 	}
 }
