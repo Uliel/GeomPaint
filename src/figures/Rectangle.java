@@ -75,11 +75,34 @@ public class Rectangle extends Polygone {
 	}
 
 	// Méthode de deplacement de point specifique au rectangle
-	public void modifierTaille(int valAbs, int valOrd) {
-		this.tabMemo[0].move(-valAbs, -valOrd);
-		this.tabMemo[1].move(valAbs, -valOrd);
-		this.tabMemo[2].move(valAbs, valOrd);
-		this.tabMemo[3].move(-valAbs, valOrd);
+	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {
+		if(pt.equals(tabMemo[0])) {
+			this.tabMemo[0].move(tabMemo[0].x+valAbs, tabMemo[0].y+valOrd);
+			this.tabMemo[1].move(tabMemo[1].x, tabMemo[1].y+valOrd);
+			this.tabMemo[2].move(tabMemo[2].x, tabMemo[2].y);
+			this.tabMemo[3].move(tabMemo[3].x+valAbs, tabMemo[3].y);
+		}
+		else
+			if(pt.equals(tabMemo[1])) {
+				this.tabMemo[0].move(tabMemo[0].x, tabMemo[0].y+valOrd);
+				this.tabMemo[1].move(tabMemo[1].x+valAbs, tabMemo[1].y+valOrd);
+				this.tabMemo[2].move(tabMemo[2].x+valAbs, tabMemo[2].y);
+				this.tabMemo[3].move(tabMemo[3].x, tabMemo[3].y);
+			}
+			else
+				if(pt.equals(tabMemo[2])) {
+					this.tabMemo[0].move(tabMemo[0].x, tabMemo[0].y);
+					this.tabMemo[1].move(tabMemo[1].x+valAbs, tabMemo[1].y);
+					this.tabMemo[2].move(tabMemo[2].x+valAbs, tabMemo[2].y+valOrd);
+					this.tabMemo[3].move(tabMemo[3].x, tabMemo[3].y+valOrd);
+				}
+				else
+					if(pt.equals(tabMemo[3])) {
+						this.tabMemo[0].move(tabMemo[0].x+valAbs, tabMemo[0].y);
+						this.tabMemo[1].move(tabMemo[1].x, tabMemo[1].y);
+						this.tabMemo[2].move(tabMemo[2].x, tabMemo[2].y+valOrd);
+						this.tabMemo[3].move(tabMemo[3].x+valAbs, tabMemo[3].y+valOrd);
+					}
 	}
 
 	public void rotation(int r) {

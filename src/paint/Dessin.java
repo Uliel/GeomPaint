@@ -298,7 +298,7 @@ public class Dessin extends JPanel {
 				if (modifFigure) {
 				// Si le point appartient à un rectangle, il faut garder la forme rectangulaire
 					if(figModifiee instanceof Rectangle) {
-						((Rectangle)figModifiee).modifierTaille(e.getX() - ptSouris.x,
+						((Rectangle)figModifiee).modifierTaille(ptFigure, e.getX() - ptSouris.x,
 								e.getY() - ptSouris.y);
 					}
 						else {
