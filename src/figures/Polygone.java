@@ -29,4 +29,10 @@ public class Polygone extends FigureGeom {
 	public Polygone(Polygone pol) {
 		super(pol);
 	}
+
+	@Override
+	public void rotation(int r) {
+		// TODO Auto-generated method stub
+		
+	}
 }
