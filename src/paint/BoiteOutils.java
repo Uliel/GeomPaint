@@ -281,11 +281,10 @@ public class BoiteOutils extends JPanel {
 		palette.setFocusPainted(false);
 		
 		//Definition du mouseListener pour l'apparition de la palette de couleurs
-		JColorChooser jc=new JColorChooser(Color.black);
 		ActionListener paletteListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	     
 	            Color background = JColorChooser.showDialog(null,
-	                    "JColorChooser Sample", null);
+	                    "Choix d'une couleur", null);
 	            if (background != null) {
 	            	couleurCourante.setBackground(background);
 	            	dessin.changeCouleur(background);

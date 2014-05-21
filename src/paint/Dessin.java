@@ -32,6 +32,7 @@ public class Dessin extends JPanel {
 	private final int MARGE_SELECTION_POLY = 5;
 	private final int MARGE_SELECTION_CERCLE = 8;
 	private final int MARGE_SELECTION_POINT = 12;
+	private final int MARGE_ANNULE = 30;
 	private FigureGeom[] tabFigures;
 	private BoiteOutils boutons;
 	private MenuDeroulant menuD;
@@ -51,6 +52,7 @@ public class Dessin extends JPanel {
 	private UnPoint ptSouris = new UnPoint(0,0);
 	private UnPoint ptFigure;
 	private FigureGeom figModifiee;
+	private boolean annule=true;
 
 
 	// CONSTRUCTEURS
@@ -78,7 +80,7 @@ public class Dessin extends JPanel {
 
 			public void mouseReleased(MouseEvent e) {
 				modifFigure = false;
-
+				annule=true;
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -220,7 +222,6 @@ public class Dessin extends JPanel {
 				// Actions possibles avec le bouton "select" :
 				if (boutons.getSelect()) {
 					ptSouris.move(e.getX(), e.getY());
-					
 					// 1) Selection d'une ou plusieurs figures
 					if (!control)
 						listeFigSelectionnees.clear();
@@ -242,8 +243,6 @@ public class Dessin extends JPanel {
 						translation = false;
 					}
 						
-			
-					
 					// 2) Initialisation d'une modification de figure (couplage avec MouseDragged)
 					if(pointVoisin(ptSouris) != null) {
 						ptFigure = pointVoisin(ptSouris);
@@ -271,7 +270,6 @@ public class Dessin extends JPanel {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-
 			}
 		};
 		//Listener qui permet de modifier le curseur de la souris
@@ -302,9 +300,13 @@ public class Dessin extends JPanel {
 		MouseMotionListener mml = new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
 				if (modifFigure) {
+					if (annule) {
+						ajouterEtat();
+						annule=false;
+					}
 				// Si le point appartient à un rectangle, il faut garder la forme rectangulaire
 					if(figModifiee instanceof Rectangle) {
-						((Rectangle)figModifiee).modifierTaille(e.getX() - ptSouris.x,
+						((Rectangle)figModifiee).modifierTaille(ptFigure, e.getX() - ptSouris.x,
 								e.getY() - ptSouris.y);
 					}
 						else {
@@ -313,6 +315,10 @@ public class Dessin extends JPanel {
 							}
 				} else {
 					if(translation)
+						if (annule) {
+							ajouterEtat();
+							annule=false;
+						}
 						for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 								listeFigSelectionnees.get(i).translater(
 									e.getX() - ptSouris.x,
@@ -755,7 +761,7 @@ public class Dessin extends JPanel {
 				e.printStackTrace();
 			}
 		}
-		if (listeEtats.size()>=10) {
+		if (listeEtats.size()>=MARGE_ANNULE) {
 			listeEtats.remove(0);
 		}
 		listeEtats.add(tmp);

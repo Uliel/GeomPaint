@@ -157,6 +157,9 @@ public abstract class FigureGeom implements Cloneable {
 	public FigureGeom clone() throws CloneNotSupportedException {
 		FigureGeom copie = (FigureGeom) super.clone();
 		copie.tabMemo=tabMemo.clone();
+		for (int i = 0;i<tabMemo.length;i++) {
+			copie.tabMemo[i]=tabMemo[i].clone();
+		}
 		return copie;
 	}
 

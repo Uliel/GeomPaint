@@ -1,13 +1,8 @@
 package paint;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-
-import javax.swing.BorderFactory;
-import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,7 +19,7 @@ public class UnMenu extends JMenuBar {
 	 * Attribut Plateau auquel est associé le menu
 	 */
 	private Dessin d;
-	private BoiteOutils outils;
+
 	private JMenuItem annuler = new JMenuItem("Annuler");
 	private JMenuItem copier =new JMenuItem("Copier");
 	private JMenuItem couper = new JMenuItem("Couper");
@@ -51,7 +46,6 @@ public class UnMenu extends JMenuBar {
 	 */
 	public UnMenu(Dessin des, BoiteOutils o) {
 		this.d = des;
-		outils = o;
 		JMenu fichier = new JMenu("Fichier");
 		fichier.setFont(new Font("Arial", Font.BOLD, 14));
 		JMenu edition = new JMenu("Edition");
@@ -67,20 +61,16 @@ public class UnMenu extends JMenuBar {
 					System.exit(0);
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Supprimer")) {
-					outils.getSupprimer().doClick();
+					d.supprimer();
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Remplir/Vider")) {
-					outils.getRemplir().doClick();
+					d.remplir();
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Exporter en JPG")) {
-					outils.getExporterJPG().doClick();
+					d.exporter("jpg");
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Exporter en PNG")) {
-					outils.getExporterPNG().doClick();
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Couleurs ...")) {
-					outils.getPalette().doClick();
-					
+					d.exporter("png");
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Nouveau")) {
 					//Boîte du message préventif
@@ -88,10 +78,10 @@ public class UnMenu extends JMenuBar {
 							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);					
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Rotation vers la droite")) {
-					outils.getRotationDroite().doClick();	
+					d.rotation(1);
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Rotation vers la gauche")) {
-					outils.getRotationGauche().doClick();				
+					d.rotation(2);				
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Dupliquer")) {
 					d.dupliquer();				
@@ -105,7 +95,7 @@ public class UnMenu extends JMenuBar {
 			}
 		};
 		for (int i=0;i<tabMenu.length;i++) {
-			if (!tabMenu[i].getText().equals("Rotation")) {
+			if (!tabMenu[i].getText().equals("Rotation")&&tabMenu[i].getText().equals("Couleurs ...")) {
 				tabMenu[i].addActionListener(menuListener);
 			}
 		}	
@@ -121,7 +111,6 @@ public class UnMenu extends JMenuBar {
 		image.add(remplir);
 		image.add(rotation);
 		image.add(dupliquer);
-		image.add(couleurs);
 		fichier.add(nouveau);
 		fichier.add(exporterJPG);
 		fichier.add(exporterPNG);
