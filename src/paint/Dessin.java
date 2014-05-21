@@ -128,9 +128,9 @@ public class Dessin extends JPanel {
 							// case(7) :
 							// tabFigures[nbFigures] = new Losange();
 							// break;
-							// case(8) :
-							// tabFigures[nbFigures] = new Trait();
-							// break;
+						case(8) :
+							nbPoints = 2;
+							break;
 						}
 						// tabFigures[nbFigures].setCouleur(g.getColor());
 
@@ -178,9 +178,9 @@ public class Dessin extends JPanel {
 								// case(7) :
 								// tabFigures[nbFigures] = new Losange();
 								// break;
-								// case(8) :
-								// tabFigures[nbFigures] = new Trait();
-								// break;
+							case(8) :
+								tabFigures[nbFigures] = new Polygone(listePoints);
+								break;
 							}
 							nbClics = 0;
 							tabFigures[nbFigures].setCouleur(couleur);
@@ -190,10 +190,10 @@ public class Dessin extends JPanel {
 							listePoints.clear();
 						}
 					}
-					// Si on est en présence d'un polygone
+					// Si on est en presence d'un polygone
 					else {
 						UnPoint nouveauPoint = new UnPoint(e.getX(), e.getY());
-						// Le premier point est automatiquement ajouté à
+						// Le premier point est automatiquement ajoute à
 						// l'ArrayList
 						if (nbClics == 0) {
 							listePoints.add(nouveauPoint);
@@ -495,7 +495,7 @@ public class Dessin extends JPanel {
 					break;
 					
 				case 8 : // si la figure est un trait
-					
+					g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, currentX, currentY);
 					break;
 					
 			}
@@ -523,26 +523,32 @@ public class Dessin extends JPanel {
 				// Cas des polygones
 				if (tabFigures[i] instanceof Polygone) {
 					int nbSommets = tabFigures[i].getNbMemo();
-					if (tabFigures[i].getPlein()) {
-						if (tabFigures[i] instanceof Rectangle) {
-							g2d.fillRect(positions[0].x, positions[0].y,
-									positions[0].dist(positions[1]),
-									positions[0].dist(positions[3]));
-						} else {
-							int[] tabX = new int[nbSommets];
-							int[] tabY = new int[nbSommets];
-							for (int j = 0; j < nbSommets; j++) {
-								tabX[j] = positions[j].x;
-								tabY[j] = positions[j].y;
-							}
-							g2d.fillPolygon(tabX, tabY, nbSommets);
-						}
-					} else {
-						for (int j = 0; j < nbSommets; j++)
-							dessinLigne(g2d, positions[j], positions[(j + 1)
-									% nbSommets]);
+					if(nbSommets == 2)
+					{
+						g2d.drawLine(positions[0].x, positions[0].y, positions[1].x, positions[1].y);
 					}
-					
+					else
+					{
+						if (tabFigures[i].getPlein()) {
+							if (tabFigures[i] instanceof Rectangle) {
+								g2d.fillRect(positions[0].x, positions[0].y,
+										positions[0].dist(positions[1]),
+										positions[0].dist(positions[3]));
+							} else {
+								int[] tabX = new int[nbSommets];
+								int[] tabY = new int[nbSommets];
+								for (int j = 0; j < nbSommets; j++) {
+									tabX[j] = positions[j].x;
+									tabY[j] = positions[j].y;
+								}
+								g2d.fillPolygon(tabX, tabY, nbSommets);
+							}
+						} else {
+							for (int j = 0; j < nbSommets; j++)
+								dessinLigne(g2d, positions[j], positions[(j + 1)
+										% nbSommets]);
+						}
+					}
 				}
 			}
 			// Si la figure est selectionnee, on dessine les points de
