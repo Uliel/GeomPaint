@@ -440,6 +440,8 @@ public class Dessin extends JPanel {
 			boutons.getRemplir().setEnabled(true);
 			menu.getDupliquer().setEnabled(true);
 			menu.getSupprimer().setEnabled(true);
+			boutons.getRotationDroite().setEnabled(true);
+			boutons.getRotationGauche().setEnabled(true);
 
 		} else {
 			menuD.getSupprimer().setEnabled(false);
@@ -447,6 +449,8 @@ public class Dessin extends JPanel {
 			boutons.getRemplir().setEnabled(false);
 			menu.getDupliquer().setEnabled(false);
 			menu.getSupprimer().setEnabled(false);
+			boutons.getRotationDroite().setEnabled(false);
+			boutons.getRotationGauche().setEnabled(false);
 		}
 		if (listeEtats.isEmpty()) {
 			boutons.getAnnuler().setEnabled(false);
