@@ -83,21 +83,21 @@ public class Rectangle extends Polygone {
 	}
 
 	public void rotation(int r) {
-		UnPoint[] tmp = this.tabMemo;
+		int largeur = tabMemo[1].x-tabMemo[0].x;
+		int hauteur = tabMemo[2].y-tabMemo[1].y;
+		
 		if (r == 1) {
-			this.tabMemo[0] = new UnPoint(tmp[3].x, tmp[3].y
-					- tmp[0].dist(tmp[1]));
-			this.tabMemo[1] = new UnPoint(tabMemo[0].x + tmp[0].dist(tmp[3]),
+			this.tabMemo[0] = new UnPoint(tabMemo[3].x, tabMemo[3].y-largeur);
+			this.tabMemo[1] = new UnPoint(tabMemo[0].x + hauteur,
 					tabMemo[0].y);
-			this.tabMemo[2] = new UnPoint(tabMemo[1].x, tmp[3].y);
-			this.tabMemo[3] = tmp[3];
-		} else {
+			this.tabMemo[2] = new UnPoint(tabMemo[1].x, tabMemo[1].y+largeur);
+		} /*else {
 			this.tabMemo[1] = new UnPoint(tmp[2].x, tmp[2].y
 					- tmp[0].dist(tmp[1]));
 			this.tabMemo[2] = tmp[2];
 			this.tabMemo[3] = new UnPoint(tmp[2].y - tmp[0].dist(tmp[3]),
 					tmp[2].y);
 			this.tabMemo[0] = new UnPoint(tabMemo[3].x, tabMemo[1].y);
-		}
+		}*/
 	}
 }
