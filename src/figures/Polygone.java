@@ -61,7 +61,12 @@ public class Polygone extends FigureGeom {
 		UnPoint centreGravite = new UnPoint(graviteX,graviteY);
 		
 		for (int i = 0;i<tabMemo.length;i++) {
-			tabMemo[i]= UnPoint.rotatePoint(tabMemo[i], centreGravite, 90);
+			if (r==1) {
+				tabMemo[i].rotatePoint(centreGravite, 90);
+			}
+			else 
+				tabMemo[i].rotatePoint(centreGravite, -90);
+
 		}
 	}
 }
