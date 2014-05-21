@@ -101,14 +101,19 @@ public class Dessin extends JPanel {
 							// Rectangle
 							nbPoints = 2;
 							break;
-						// case(3) :
-						// tabFigures[nbFigures] = new Carre();
-						// break;
+						case(3) :
+						// Carre
+							nbPoints = 2;
+						  break;
 						case (4):
 							// Triangle
 							nbPoints = 3;
 							break;
 						case (5):
+							// Ovale
+							//nbPoints = 2;
+							//break;
+							
 							// tabFigures[nbFigures] = new Ovale();
 							// break;
 							// case(7) :
@@ -144,20 +149,21 @@ public class Dessin extends JPanel {
 								break;
 							case (2):
 								// Rectangle
-								tabFigures[nbFigures] = new Rectangle(
-										listePoints);
+								tabFigures[nbFigures] = new Rectangle(listePoints);
 								break;
-							// case(3) :
-							// tabFigures[nbFigures] = new Carre();
-							// break;
+							case(3) :
+								// Carre
+							  tabFigures[nbFigures] = new Carre(listePoints);
+							  break;
 							case (4):
 								// Triangle
-								tabFigures[nbFigures] = new Triangle(
-										listePoints);
+								tabFigures[nbFigures] = new Triangle(listePoints);
 								break;
 							case (5):
-								// tabFigures[nbFigures] = new Ovale();
-								// break;
+								// Ovale
+								// tabFigures[nbFigures] = new Ovale(
+								//		listePoints);
+								//break;
 								// case(7) :
 								// tabFigures[nbFigures] = new Losange();
 								// break;
@@ -298,8 +304,12 @@ public class Dessin extends JPanel {
 						ajouterEtat();
 						annule=false;
 					}
+				// Si le point appartient a  un carre, il faut garder tous les cotes de la meme longueur
+					if(figModifiee instanceof Carre) {
+						((Carre)figModifiee).modifierTaille(ptFigure, e.getY() - ptSouris.y);
+					}
 				// Si le point appartient Ã  un rectangle, il faut garder la forme rectangulaire
-					if(figModifiee instanceof Rectangle) {
+					else if(figModifiee instanceof Rectangle) {
 						((Rectangle)figModifiee).modifierTaille(ptFigure, e.getX() - ptSouris.x,
 								e.getY() - ptSouris.y);
 					}
