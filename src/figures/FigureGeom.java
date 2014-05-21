@@ -21,6 +21,7 @@ public abstract class FigureGeom implements Cloneable {
 	protected int nbSaisie;
 
 	// CONSTRUCTEURS
+	
 	/**
 	 * Contructeur vide
 	 */
