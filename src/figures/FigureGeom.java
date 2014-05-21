@@ -15,7 +15,6 @@ public abstract class FigureGeom implements Cloneable {
 	private Color couleur;
 	protected int epaisseur=1;
 	protected boolean plein;
-	protected boolean selection;
 	protected UnPoint[] tabMemo;
 	protected int nbMemo;
 	protected UnPoint[] tabSaisie;
@@ -26,7 +25,6 @@ public abstract class FigureGeom implements Cloneable {
 		// Constructeur vide
 	public FigureGeom() {
 		this.plein = false;
-		this.selection = true;
 	}
 	
 		// Constructeur par copie
@@ -34,7 +32,6 @@ public abstract class FigureGeom implements Cloneable {
 		this.plein = fig.getPlein();
 		this.couleur = fig.getCouleur();
 		this.epaisseur= fig.getEpaisseur();
-		this.selection = false;
 		this.nbMemo = fig.getNbMemo();
 		this.tabMemo = new UnPoint[nbMemo];
 		UnPoint[] tab = fig.getTabMemo();
@@ -52,7 +49,6 @@ public abstract class FigureGeom implements Cloneable {
 		// Constructeur prenant en paramètres une ArrayList
 	public FigureGeom(ArrayList<UnPoint> listePointsSaisie) {
 		this.plein = false;
-		this.selection = true;
 		this.nbSaisie = listePointsSaisie.size();
 		this.tabSaisie = new UnPoint[this.nbSaisie];
 		for(int i = 0 ; i < this.nbSaisie ; i++)
@@ -111,14 +107,6 @@ public abstract class FigureGeom implements Cloneable {
 	public void setEpaisseur(int epaisseur) {
 		this.epaisseur = epaisseur;
 	}
-
-	public boolean getSelection() {
-		return this.selection;
-	}
-	
-	public void setSelection(boolean b) {
-		this.selection = b;
-	}
 	
 	public boolean getPlein() {
 		return this.plein;
@@ -149,12 +137,6 @@ public abstract class FigureGeom implements Cloneable {
 			this.plein = true;
 	}
 
-	public void selectionner() {
-		if (this.selection)
-			this.selection = false;
-		else
-			this.selection = true;
-	}
     public FigureGeom clone() throws CloneNotSupportedException {
     	return (FigureGeom)super.clone();
     }

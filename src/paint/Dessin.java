@@ -511,13 +511,6 @@ public class Dessin extends JPanel {
 		return res;
 	}
 
-	// Fonction qui déselectionne toutes les figures
-	public void deselectionFig() {
-		for (int i = 0; i < nbFigures; i++) {
-			tabFigures[i].setSelection(false);
-		}
-	}
-
 	// Fonction qui renvoie la première figure situee au voisinage d'un point
 	// ou null sinon
 	public FigureGeom figVoisine(UnPoint pt) {

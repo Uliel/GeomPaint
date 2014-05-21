@@ -17,7 +17,6 @@ public class Cercle extends Ovale {
 		// Constructeur prenant en paramètre une ArrayList
 	public Cercle(ArrayList<UnPoint> listePointsSaisie) {
 		this.plein = false;
-		this.selection = true;
 		// Remplissage du tableau de points de saisie
 		this.nbSaisie = listePointsSaisie.size();
 		this.tabSaisie = new UnPoint[this.nbSaisie];
