@@ -53,5 +53,17 @@ public class UnPoint extends Point implements Cloneable {
 	public UnPoint clone() {
 		return (UnPoint) super.clone();
 	}
+	
+	public static UnPoint rotatePoint(UnPoint pt, UnPoint center, double angleDeg){
+	    double angleRad = (angleDeg/180)*Math.PI;
+	    double cosAngle = Math.cos(angleRad );
+	    double sinAngle = Math.sin(angleRad );
+	    double dx = (pt.x-center.x);
+	    double dy = (pt.y-center.y);
+
+	    pt.x = center.x + (int) (dx*cosAngle-dy*sinAngle);
+	    pt.y = center.y + (int) (dx*sinAngle+dy*cosAngle);
+	    return pt;
+	}
 
 }

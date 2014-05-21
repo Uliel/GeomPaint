@@ -265,7 +265,6 @@ public class Dessin extends JPanel {
 			}
 
 			public void mouseClicked(MouseEvent e) {
-
 			}
 		};
 		//Listener qui permet de modifier le curseur de la souris
