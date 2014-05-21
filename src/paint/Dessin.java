@@ -44,9 +44,13 @@ public class Dessin extends JPanel {
 	private Color couleur = Color.BLACK;
 	private int epaisseur = 1;
 	private int departTranslation = 0;
-	private UnPoint ptPrec = new UnPoint(0, 0);
 	private boolean control;
 	private UnMenu menu = new UnMenu(this, boutons);
+	private boolean translation;
+	private boolean modifFigure;
+	private UnPoint ptSourisPrec = new UnPoint(0,0);
+	private UnPoint ptFigure;
+	private FigureGeom figModifiee;
 
 
 	// CONSTRUCTEURS
@@ -68,14 +72,19 @@ public class Dessin extends JPanel {
 		this.nbClics = 0;
 		this.nbPoints = 0;
 		this.control = false;
+		
 
 		MouseListener ml = new MouseListener() {
 
 			public void mouseReleased(MouseEvent e) {
-				Graphics g = getGraphics();
-				g.setColor(couleur);
+
+			}
+
+			public void mousePressed(MouseEvent e) {
 				// On ne dessine que si un bouton dessin est appuy�
 				if (boutons.getDessiner()) {
+					Graphics g = getGraphics();
+					g.setColor(couleur);
 					// Si on clique pour la premiere fois :
 					if (nbClics == 0) {
 						// - Recuperation du nombre de points de selection de la
@@ -225,10 +234,6 @@ public class Dessin extends JPanel {
 				repaint();
 			}
 
-			public void mousePressed(MouseEvent e) {
-
-			}
-
 			public void mouseExited(MouseEvent e) {
 
 			}
@@ -268,38 +273,38 @@ public class Dessin extends JPanel {
 		};
 		MouseMotionListener mml = new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
-				if (boutons.getSelect()) {
-					if (departTranslation == 0) {
-						listeFigSelectionnees.clear();
-						ptPrec.move(e.getX(), e.getY());
-						FigureGeom fig = figVoisine(ptPrec);
-						if (fig != null)
-							listeFigSelectionnees.add(fig);
-						departTranslation++;
-					} else {
-						if (pointVoisin(ptPrec) != null) {
-							FigureGeom fig = figVoisine(pointVoisin(ptPrec));
-							// Si le point appartient à un rectangle, il faut garder la forme rectangulaire
-							if(fig instanceof Rectangle) {
-								((Rectangle)fig).modifierTaille(e.getX() - ptPrec.x,
-										e.getY() - ptPrec.y);
-							}
-								else {
-									pointVoisin(ptPrec).deplacerPt(e.getX() - ptPrec.x,
-											e.getY() - ptPrec.y);
-								}
-						} else {
-							for (int i = 0; i < listeFigSelectionnees.size(); i++) {
-									listeFigSelectionnees.get(i).translater(
-										e.getX() - ptPrec.x,
-										e.getY() - ptPrec.y);
-							}
-						}
-						ptPrec.move(e.getX(), e.getY());
-					}
-				}
-				repaint();
-
+//				if (boutons.getSelect()) {
+//					if (departTranslation == 0) {
+//						listeFigSelectionnees.clear();
+//						ptPrec.move(e.getX(), e.getY());
+//						FigureGeom fig = figVoisine(ptPrec);
+//						if (fig != null)
+//							listeFigSelectionnees.add(fig);
+//						departTranslation++;
+//					} else {
+//						if (pointVoisin(ptPrec) != null) {
+//							FigureGeom fig = figVoisine(pointVoisin(ptPrec));
+//							// Si le point appartient à un rectangle, il faut garder la forme rectangulaire
+//							if(fig instanceof Rectangle) {
+//								((Rectangle)fig).modifierTaille(e.getX() - ptPrec.x,
+//										e.getY() - ptPrec.y);
+//							}
+//								else {
+//									pointVoisin(ptPrec).deplacerPt(e.getX() - ptPrec.x,
+//											e.getY() - ptPrec.y);
+//								}
+//						} else {
+//							for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+//									listeFigSelectionnees.get(i).translater(
+//										e.getX() - ptPrec.x,
+//										e.getY() - ptPrec.y);
+//							}
+//						}
+//						ptPrec.move(e.getX(), e.getY());
+//					}
+//				}
+//				repaint();
+//
 			}
 
 			public void mouseMoved(MouseEvent e) {
