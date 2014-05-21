@@ -48,7 +48,7 @@ public class Dessin extends JPanel {
 	private UnMenu menu = new UnMenu(this, boutons);
 	private boolean translation;
 	private boolean modifFigure;
-	private UnPoint ptSourisPrec = new UnPoint(0,0);
+	private UnPoint ptSouris = new UnPoint(0,0);
 	private UnPoint ptFigure;
 	private FigureGeom figModifiee;
 
@@ -77,6 +77,7 @@ public class Dessin extends JPanel {
 		MouseListener ml = new MouseListener() {
 
 			public void mouseReleased(MouseEvent e) {
+
 
 			}
 
@@ -208,13 +209,16 @@ public class Dessin extends JPanel {
 				if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
 					setControl(true);
 				}
-				// Si le bouton selectionner est choisi, on passe en mode
-				// selection
+				
+				
+				// Actions possibles avec le bouton "select" :
 				if (boutons.getSelect()) {
-					UnPoint ptCourant = new UnPoint(e.getX(), e.getY());
+					ptSouris.move(e.getX(), e.getY());
+					
+					// 1) Selection d'une ou plusieurs figures
 					if (!control)
 						listeFigSelectionnees.clear();
-					FigureGeom fig = figVoisine(ptCourant);
+					FigureGeom fig = figVoisine(ptSouris);
 					boolean trouve = false;
 					if (fig != null) {
 						for (int i = 0; i < listeFigSelectionnees.size()
@@ -225,12 +229,31 @@ public class Dessin extends JPanel {
 						if (!trouve)
 							listeFigSelectionnees.add(fig);
 						else
-							listeFigSelectionnees.remove(fig);
-					} else
+								listeFigSelectionnees.remove(fig);
+					}
+					else {
 						listeFigSelectionnees.clear();
-					control = false;
-				}
-
+						translation = false;
+						modifFigure = false;
+					}
+						
+			
+					
+					// 2) Initialisation d'une modification de figure (couplage avec MouseDragged)
+					if(pointVoisin(ptSouris) != null) {
+						ptFigure = pointVoisin(ptSouris);
+						figModifiee = figVoisine(ptFigure);
+						modifFigure = true;
+					}
+					// 3) Initialisation d'une translation de figure(s) (couplage avec MouseDragged)
+					else {
+						if(figVoisine(ptSouris) != null) {
+							translation = true;
+							
+						}
+					}
+				}				
+				control = false;
 				repaint();
 			}
 
@@ -273,42 +296,31 @@ public class Dessin extends JPanel {
 		};
 		MouseMotionListener mml = new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
-//				if (boutons.getSelect()) {
-//					if (departTranslation == 0) {
-//						listeFigSelectionnees.clear();
-//						ptPrec.move(e.getX(), e.getY());
-//						FigureGeom fig = figVoisine(ptPrec);
-//						if (fig != null)
-//							listeFigSelectionnees.add(fig);
-//						departTranslation++;
-//					} else {
-//						if (pointVoisin(ptPrec) != null) {
-//							FigureGeom fig = figVoisine(pointVoisin(ptPrec));
-//							// Si le point appartient à un rectangle, il faut garder la forme rectangulaire
-//							if(fig instanceof Rectangle) {
-//								((Rectangle)fig).modifierTaille(e.getX() - ptPrec.x,
-//										e.getY() - ptPrec.y);
-//							}
-//								else {
-//									pointVoisin(ptPrec).deplacerPt(e.getX() - ptPrec.x,
-//											e.getY() - ptPrec.y);
-//								}
-//						} else {
-//							for (int i = 0; i < listeFigSelectionnees.size(); i++) {
-//									listeFigSelectionnees.get(i).translater(
-//										e.getX() - ptPrec.x,
-//										e.getY() - ptPrec.y);
-//							}
-//						}
-//						ptPrec.move(e.getX(), e.getY());
-//					}
-//				}
-//				repaint();
-//
+				if (modifFigure) {
+				// Si le point appartient à un rectangle, il faut garder la forme rectangulaire
+					if(figModifiee instanceof Rectangle) {
+						((Rectangle)figModifiee).modifierTaille(e.getX() - ptSouris.x,
+								e.getY() - ptSouris.y);
+					}
+						else {
+							pointVoisin(ptSouris).deplacerPt(e.getX() - ptSouris.x,
+									e.getY() - ptSouris.y);
+							}
+				} else {
+					if(translation)
+						for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+								listeFigSelectionnees.get(i).translater(
+									e.getX() - ptSouris.x,
+									e.getY() - ptSouris.y);
+						}
+				}
+				ptSouris.move(e.getX(), e.getY());
+				repaint();
 			}
 
+
+
 			public void mouseMoved(MouseEvent e) {
-				departTranslation = 0;
 			}
 
 		};
