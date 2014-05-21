@@ -29,6 +29,10 @@ private JMenuItem annuler = new JMenuItem("Annuler", new ImageIcon("images/annul
     	  else if (event.getActionCommand().equals("Supprimer")) {
     		  dessin.supprimer();
     	  }
+    	  else if (event.getActionCommand().equals("Annuler")) {
+    		  dessin.annuler();
+    	  }
+
 
 
     	  

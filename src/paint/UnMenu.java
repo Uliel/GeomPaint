@@ -99,6 +99,9 @@ public class UnMenu extends JMenuBar {
 				else if (((JMenuItem)(e.getSource())).getText().equals("Tout selectionner")) {
 					d.toutSelectionner();				
 				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Annuler")) {
+					d.annuler();				
+				}
 			}
 		};
 		for (int i=0;i<tabMenu.length;i++) {
@@ -139,6 +142,10 @@ public class UnMenu extends JMenuBar {
 
 	public JMenuItem getDupliquer() {
 		return dupliquer;
+	}
+
+	public JMenuItem getAnnuler() {
+		return annuler;
 	}
 	
 	

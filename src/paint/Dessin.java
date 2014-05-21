@@ -451,10 +451,13 @@ public class Dessin extends JPanel {
 		if (listeEtats.isEmpty()) {
 			boutons.getAnnuler().setEnabled(false);
 			menuD.getAnnuler().setEnabled(false);
+			menu.getAnnuler().setEnabled(false);
 		}
-		else 
+		else {
 			boutons.getAnnuler().setEnabled(true);
 			menuD.getAnnuler().setEnabled(true);
+			menu.getAnnuler().setEnabled(true);
+		}
 
 	}
 
@@ -740,6 +743,7 @@ public class Dessin extends JPanel {
 	}
 	
 	public void annuler() {
+		viderPoints();
 		listeFigSelectionnees.clear();
 		int n = listeEtats.size()-1;
 		nbFigures=listeEtats.get(n).length;
