@@ -12,6 +12,10 @@ import javax.swing.border.BevelBorder;
 public class MenuDeroulant extends JPopupMenu{
 private Dessin dessin;
 private JMenuItem supprimer;
+private JMenuItem couper;
+private JMenuItem copier;
+private JMenuItem coller;
+
 private JMenuItem annuler = new JMenuItem("Annuler", new ImageIcon("images/annuler.png"));
   public MenuDeroulant(Dessin d) {
 	  dessin=d;
@@ -65,6 +69,15 @@ private JMenuItem annuler = new JMenuItem("Annuler", new ImageIcon("images/annul
 	}
 	public JMenuItem getAnnuler() {
 		return annuler;
+	}
+	public JMenuItem getCouper() {
+		return couper;
+	}
+	public JMenuItem getCopier() {
+		return copier;
+	}
+	public JMenuItem getColler() {
+		return coller;
 	}
 	
 	

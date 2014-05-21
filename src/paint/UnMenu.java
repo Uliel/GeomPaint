@@ -44,7 +44,7 @@ public class UnMenu extends JMenuBar {
 	 * 
 	 * @param pl
 	 */
-	public UnMenu(Dessin des, BoiteOutils o) {
+	public UnMenu(Dessin des) {
 		this.d = des;
 		JMenu fichier = new JMenu("Fichier");
 		fichier.setFont(new Font("Arial", Font.BOLD, 14));
@@ -92,10 +92,19 @@ public class UnMenu extends JMenuBar {
 				else if (((JMenuItem)(e.getSource())).getText().equals("Annuler")) {
 					d.annuler();				
 				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Copier")) {
+					d.copier();				
+				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Couper")) {
+					d.couper();				
+				}
+				else if (((JMenuItem)(e.getSource())).getText().equals("Coller")) {
+					d.coller(2);				
+				}
 			}
 		};
 		for (int i=0;i<tabMenu.length;i++) {
-			if (!tabMenu[i].getText().equals("Rotation")&&tabMenu[i].getText().equals("Couleurs ...")) {
+			if (!tabMenu[i].getText().equals("Rotation")) {
 				tabMenu[i].addActionListener(menuListener);
 			}
 		}	
@@ -136,6 +145,19 @@ public class UnMenu extends JMenuBar {
 	public JMenuItem getAnnuler() {
 		return annuler;
 	}
+
+	public JMenuItem getCopier() {
+		return copier;
+	}
+
+	public JMenuItem getCouper() {
+		return couper;
+	}
+
+	public JMenuItem getColler() {
+		return coller;
+	}
+	
 	
 	
 	

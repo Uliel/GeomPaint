@@ -46,13 +46,17 @@ public class Dessin extends JPanel {
 	private int epaisseur = 1;
 	private int departTranslation = 0;
 	private boolean control;
-	private UnMenu menu = new UnMenu(this, boutons);
+	private UnMenu menu = new UnMenu(this);
 	private boolean translation;
 	private boolean modifFigure;
 	private UnPoint ptSouris = new UnPoint(0,0);
 	private UnPoint ptFigure;
 	private FigureGeom figModifiee;
 	private boolean annule=true;
+	private ArrayList<FigureGeom> listeTampon = new ArrayList<FigureGeom>(); 
+	private int absSouris=-1;
+	private int ordSouris=-1;
+	
 
 
 	// CONSTRUCTEURS
@@ -270,6 +274,8 @@ public class Dessin extends JPanel {
 			}
 
 			public void mouseClicked(MouseEvent e) {
+				absSouris=e.getX();
+				ordSouris=e.getY();
 			}
 		};
 		//Listener qui permet de modifier le curseur de la souris
@@ -304,7 +310,7 @@ public class Dessin extends JPanel {
 						ajouterEtat();
 						annule=false;
 					}
-				// Si le point appartient a� un carre, il faut garder tous les cotes de la meme longueur
+				// Si le point appartient a� un carre, il faut garder tous les cotes de la meme longueur
 					if(figModifiee instanceof Carre) {
 						((Carre)figModifiee).modifierTaille(ptFigure, e.getY() - ptSouris.y);
 					}
@@ -474,6 +480,9 @@ public class Dessin extends JPanel {
 			menu.getSupprimer().setEnabled(true);
 			boutons.getRotationDroite().setEnabled(true);
 			boutons.getRotationGauche().setEnabled(true);
+			menu.getCouper().setEnabled(true);
+			menu.getCopier().setEnabled(true);
+
 
 		} else {
 			menuD.getSupprimer().setEnabled(false);
@@ -483,7 +492,14 @@ public class Dessin extends JPanel {
 			menu.getSupprimer().setEnabled(false);
 			boutons.getRotationDroite().setEnabled(false);
 			boutons.getRotationGauche().setEnabled(false);
+			menu.getCouper().setEnabled(false);
+			menu.getCopier().setEnabled(false);
 		}
+		
+		if (listeTampon.isEmpty()) 
+			menu.getColler().setEnabled(false);
+		else 
+			menu.getColler().setEnabled(true);
 		if (listeEtats.isEmpty()) {
 			boutons.getAnnuler().setEnabled(false);
 			menuD.getAnnuler().setEnabled(false);
@@ -792,4 +808,44 @@ public class Dessin extends JPanel {
 		repaint();
 	}
 	
+	public void copier() {
+		viderPoints();
+		listeTampon.clear();
+		for (int i = 0; i <listeFigSelectionnees.size();i++) {
+			try {
+				listeTampon.add(listeFigSelectionnees.get(i).clone());
+			} catch (CloneNotSupportedException e) {
+				// TODO Bloc catch généré automatiquement
+				e.printStackTrace();
+			}
+		}
+	}
+	public void couper() {
+		viderPoints();
+		copier();
+		supprimer();
+	}
+	
+	public void coller(int a) {
+		viderPoints();
+		ajouterEtat();
+		int distX= absSouris-listeTampon.get(0).getTabMemo()[0].x;
+		int distY= ordSouris-listeTampon.get(0).getTabMemo()[0].y;
+		for (int i=0;i<listeTampon.size();i++) {
+			if (a==1)
+				listeTampon.get(i).translater(distX, distY);
+			else 
+				listeTampon.get(i).translater(10, 10);
+
+			try {
+				tabFigures[nbFigures]=listeTampon.get(i).clone();
+			} catch (CloneNotSupportedException e) {
+				// TODO Bloc catch généré automatiquement
+				e.printStackTrace();
+			}
+			nbFigures++;
+		}
+		
+		repaint();
+	}
 }
