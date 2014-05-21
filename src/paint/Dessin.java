@@ -32,6 +32,7 @@ public class Dessin extends JPanel {
 	private final int MARGE_SELECTION_POLY = 5;
 	private final int MARGE_SELECTION_CERCLE = 8;
 	private final int MARGE_SELECTION_POINT = 12;
+	private final int MARGE_ANNULE = 30;
 	private FigureGeom[] tabFigures;
 	private BoiteOutils boutons;
 	private MenuDeroulant menuD;
@@ -754,7 +755,7 @@ public class Dessin extends JPanel {
 				e.printStackTrace();
 			}
 		}
-		if (listeEtats.size()>=10) {
+		if (listeEtats.size()>=MARGE_ANNULE) {
 			listeEtats.remove(0);
 		}
 		listeEtats.add(tmp);
