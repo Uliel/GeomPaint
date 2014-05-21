@@ -77,7 +77,7 @@ public class Dessin extends JPanel {
 		MouseListener ml = new MouseListener() {
 
 			public void mouseReleased(MouseEvent e) {
-
+				modifFigure = false;
 
 			}
 
@@ -234,7 +234,6 @@ public class Dessin extends JPanel {
 					else {
 						listeFigSelectionnees.clear();
 						translation = false;
-						modifFigure = false;
 					}
 						
 			
@@ -303,7 +302,7 @@ public class Dessin extends JPanel {
 								e.getY() - ptSouris.y);
 					}
 						else {
-							pointVoisin(ptSouris).deplacerPt(e.getX() - ptSouris.x,
+							ptFigure.deplacerPt(e.getX() - ptSouris.x,
 									e.getY() - ptSouris.y);
 							}
 				} else {
