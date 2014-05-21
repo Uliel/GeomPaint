@@ -124,6 +124,7 @@ public class Dessin extends JPanel {
 						// l'ArrayList et on incrémente le nombre de figures
 						else {
 							listePoints.add(new UnPoint(e.getX(), e.getY()));
+							ajouterEtat();
 							switch (boutons.getNumFigCourante()) {
 							case (1):
 								// Cercle
@@ -176,6 +177,7 @@ public class Dessin extends JPanel {
 							// comme
 							// fini
 							if (estVoisin(20, nouveauPoint, listePoints.get(0))) {
+								ajouterEtat();
 								tabFigures[nbFigures] = new Polygone(
 										listePoints);
 								tabFigures[nbFigures].setCouleur(couleur);
@@ -431,7 +433,7 @@ public class Dessin extends JPanel {
 				}
 		}
 
-		// activation ou non de la fonction supprimer et remplir
+		// activation ou non de la fonction supprimer,dupliquer et remplir
 		if (figureSelectionne()) {
 			menuD.getSupprimer().setEnabled(true);
 			boutons.getSupprimer().setEnabled(true);
@@ -448,9 +450,11 @@ public class Dessin extends JPanel {
 		}
 		if (listeEtats.isEmpty()) {
 			boutons.getAnnuler().setEnabled(false);
+			menuD.getAnnuler().setEnabled(false);
 		}
 		else 
 			boutons.getAnnuler().setEnabled(true);
+			menuD.getAnnuler().setEnabled(true);
 
 	}
 
@@ -729,6 +733,9 @@ public class Dessin extends JPanel {
 				e.printStackTrace();
 			}
 		}
+		if (listeEtats.size()>=10) {
+			listeEtats.remove(0);
+		}
 		listeEtats.add(tmp);
 	}
 	
@@ -736,7 +743,6 @@ public class Dessin extends JPanel {
 		listeFigSelectionnees.clear();
 		int n = listeEtats.size()-1;
 		nbFigures=listeEtats.get(n).length;
-		System.out.print(listeEtats.get(n)[0].getCouleur());
 		for (int i=0;i<nbFigures;i++) {
 			tabFigures[i]=listeEtats.get(n)[i];
 		}

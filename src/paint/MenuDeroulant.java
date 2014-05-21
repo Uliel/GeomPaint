@@ -12,6 +12,7 @@ import javax.swing.border.BevelBorder;
 public class MenuDeroulant extends JPopupMenu{
 private Dessin dessin;
 private JMenuItem supprimer;
+private JMenuItem annuler = new JMenuItem("Annuler", new ImageIcon("images/annuler.png"));
   public MenuDeroulant(Dessin d) {
 	  dessin=d;
     ActionListener menuListener = new ActionListener() {
@@ -46,7 +47,7 @@ private JMenuItem supprimer;
     this.add(item = supprimer );
     item.setHorizontalTextPosition(JMenuItem.RIGHT);
     item.addActionListener(menuListener);
-    this.add(item = new JMenuItem("Annuler", new ImageIcon("images/annuler.png")));
+    this.add(item = annuler);
     item.setHorizontalTextPosition(JMenuItem.RIGHT);
     item.addActionListener(menuListener);
     this.addSeparator();
@@ -58,5 +59,10 @@ private JMenuItem supprimer;
 	public JMenuItem getSupprimer() {
 		return supprimer;
 	}
+	public JMenuItem getAnnuler() {
+		return annuler;
+	}
+	
+	
   
 }
