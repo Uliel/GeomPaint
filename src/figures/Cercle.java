@@ -19,12 +19,7 @@ public class Cercle extends FigureGeom {
 	 *            la liste de points saisis par l'utilisateur
 	 */
 	public Cercle(ArrayList<UnPoint> listePointsSaisie) {
-		this.plein = false;
-		// Remplissage du tableau de points de saisie
-		this.nbSaisie = listePointsSaisie.size();
-		this.tabSaisie = new UnPoint[this.nbSaisie];
-		for (int i = 0; i < this.nbSaisie; i++)
-			this.tabSaisie[i] = listePointsSaisie.get(i);
+		super(listePointsSaisie);
 		// Remplissage du tableau de points de memorisation
 		this.nbMemo = 2;
 		this.tabMemo = new UnPoint[this.nbMemo];
