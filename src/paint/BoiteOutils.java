@@ -14,7 +14,7 @@ import javax.swing.*;
 /**
  * 
  * @author Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
- *
+ * 
  */
 public class BoiteOutils extends JPanel {
 
@@ -65,15 +65,13 @@ public class BoiteOutils extends JPanel {
 			exporterJPG, exporterPNG, annuler };
 	private JLabel couleurCourante = new JLabel("            ");
 
-
 	// Boutons rotation
 	private Bouton rotationDroite = new Bouton(1, new ImageIcon(
 			"images/rotation_d.png"));
 	private Bouton rotationGauche = new Bouton(2, new ImageIcon(
 			"images/rotation_g.png"));
-	
-	private JMenu size = new JMenu("Taille");
 
+	private JMenu size = new JMenu("Taille");
 
 	// CONSTRUCTEUR
 	/**
@@ -86,7 +84,7 @@ public class BoiteOutils extends JPanel {
 		JMenuItem[] tailles = new JMenuItem[10];
 		JMenuItem image = new JMenuItem(new ImageIcon("images/taille.png"));
 		for (int i = 1; i <= 10; i++) {
-			final int n =i;
+			final int n = i;
 			tailles[i - 1] = new JMenuItem(new ImageIcon("images/epaisseur_"
 					+ i + ".png"));
 			size.add(tailles[i - 1]);
@@ -101,8 +99,7 @@ public class BoiteOutils extends JPanel {
 					dessin.viderPoints();
 					dessiner = false;
 					dessin.changeEpaisseur((epaisseur));
-					size.setIcon(new ImageIcon("images/epaisseur_"
-					+ n + ".png"));
+					size.setIcon(new ImageIcon("images/epaisseur_" + n + ".png"));
 					size.setText("");
 					selectionner.doClick();
 				}
@@ -112,9 +109,9 @@ public class BoiteOutils extends JPanel {
 		tailleBarre.setLayout(new BorderLayout());
 		image.setEnabled(false);
 		image.setDisabledIcon(image.getIcon());
-		image.setPreferredSize(new Dimension(30,30));
-		tailleBarre.add(size,BorderLayout.CENTER);
-		tailleBarre.add(image,BorderLayout.EAST);
+		image.setPreferredSize(new Dimension(30, 30));
+		tailleBarre.add(size, BorderLayout.CENTER);
+		tailleBarre.add(image, BorderLayout.EAST);
 
 		// JPanel contenant les boutons de rotation
 		JPanel rotation = new JPanel();
@@ -158,8 +155,8 @@ public class BoiteOutils extends JPanel {
 		polygone.setToolTipText("Polygone irregulier");
 		losange.setToolTipText("Losange");
 		trait.setToolTipText("Segment");
-		rotationDroite.setToolTipText("Rotation de 90� vers la droite");
-		rotationGauche.setToolTipText("Rotation de 90� vers la gauche");
+		rotationDroite.setToolTipText("Rotation de 90° vers la droite");
+		rotationGauche.setToolTipText("Rotation de 90° vers la gauche");
 		size.setToolTipText("Changer l'epaisseur du trait");
 
 		// On empeche les barres d'outils d'être déplacées
@@ -352,8 +349,7 @@ public class BoiteOutils extends JPanel {
 	}
 
 	// ACCESSEURS
-	
-	
+
 	public Bouton getPalette() {
 		return palette;
 	}
@@ -397,7 +393,7 @@ public class BoiteOutils extends JPanel {
 	public int getNumFigCourante() {
 		return this.numFigCourante;
 	}
-	
+
 	public Bouton getSupprimer() {
 		return supprimer;
 	}
