@@ -10,9 +10,6 @@ import java.util.ArrayList;
 
 public class Ovale extends Cercle {
 	
-	//ATTRIBUTS
-	private final static int OVALE_POINTS = 3;
-	
 	//CONSTRUCTEURS
 	public Ovale(ArrayList<UnPoint> listePointsSaisie) {
 		super(listePointsSaisie);

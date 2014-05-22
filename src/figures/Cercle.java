@@ -10,9 +10,6 @@ import java.util.ArrayList;
 
 public class Cercle extends FigureGeom {
 
-	// ATTRIBUTS
-	private final static int CERCLE_POINTS = 2;
-
 	// CONSTRUCTEUR
 
 	/**

@@ -33,7 +33,7 @@ public abstract class FigureGeom implements Cloneable {
 	 * Constructeur par copie
 	 * 
 	 * @param fig
-	 *            la figure � copier
+	 *            la figure a copier
 	 */
 	public FigureGeom(FigureGeom fig) {
 		this.plein = fig.getPlein();

@@ -10,18 +10,7 @@ import java.util.ArrayList;
 
 public class Rectangle extends Polygone {
 
-	// ATTRIBUTS
-	private final static int RECTANGLE_SAISIE = 2;
-	private final static int RECTANGLE_MEMO = 4;
-
 	// CONSTRUCTEURS
-
-	/**
-	 * Constructeur vide
-	 */
-	public Rectangle() {
-		super();
-	}
 
 	/**
 	 * Constructeur par copie
