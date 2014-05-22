@@ -991,6 +991,10 @@ public class Dessin extends JPanel {
 		viderPoints();
 		nbFigures=0;
 		listeEtats.clear();
+		couleur=Color.black;
+		epaisseur=1;
+		boutons.recupSize().setIcon(null);
+		boutons.recupSize().setText("Taille");
 		repaint();
 	}
 }

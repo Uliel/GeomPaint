@@ -69,6 +69,9 @@ public class BoiteOutils extends JPanel {
 			"images/rotation_d.png"));
 	private Bouton rotationGauche = new Bouton(2, new ImageIcon(
 			"images/rotation_g.png"));
+	
+	private JMenu size = new JMenu("Taille");
+
 
 	// CONSTRUCTEUR
 	/**
@@ -78,10 +81,10 @@ public class BoiteOutils extends JPanel {
 
 		supprimer.setEnabled(false);
 		// JMenuBar contenant la selection de la taille
-		JMenu size = new JMenu("Taille");
 		JMenuItem[] tailles = new JMenuItem[10];
 		JMenuItem image = new JMenuItem(new ImageIcon("images/taille.png"));
 		for (int i = 1; i <= 10; i++) {
+			final int n =i;
 			tailles[i - 1] = new JMenuItem(new ImageIcon("images/epaisseur_"
 					+ i + ".png"));
 			size.add(tailles[i - 1]);
@@ -96,6 +99,9 @@ public class BoiteOutils extends JPanel {
 					dessin.viderPoints();
 					dessiner = false;
 					dessin.changeEpaisseur((epaisseur));
+					size.setIcon(new ImageIcon("images/epaisseur_"
+					+ n + ".png"));
+					size.setText("");
 					selectionner.doClick();
 				}
 			});
@@ -426,5 +432,13 @@ public class BoiteOutils extends JPanel {
 	public Bouton getAnnuler() {
 		return annuler;
 	}
+
+	public JMenu recupSize() {
+		return size;
+	}
+
+	
+	
+	
 
 }
