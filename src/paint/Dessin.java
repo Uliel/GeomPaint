@@ -50,13 +50,13 @@ public class Dessin extends JPanel {
 	private UnMenu menu = new UnMenu(this);
 	private boolean translation;
 	private boolean modifFigure;
-	private UnPoint ptSouris = new UnPoint(0,0);
+	private UnPoint ptSouris = new UnPoint(0, 0);
 	private UnPoint ptFigure;
 	private FigureGeom figModifiee;
-	private boolean annule=true;
-	private ArrayList<FigureGeom> listeTampon = new ArrayList<FigureGeom>(); 
-	private int absSouris=-1;
-	private int ordSouris=-1;	
+	private boolean annule = true;
+	private ArrayList<FigureGeom> listeTampon = new ArrayList<FigureGeom>();
+	private int absSouris = -1;
+	private int ordSouris = -1;
 	private JPanel entete = new JPanel();
 
 	// CONSTRUCTEURS
@@ -76,13 +76,13 @@ public class Dessin extends JPanel {
 		this.nbFigures = 0;
 		this.nbClics = 0;
 		this.nbPoints = 0;
-		this.control = false;		
+		this.control = false;
 
 		MouseListener ml = new MouseListener() {
 
 			public void mouseReleased(MouseEvent e) {
 				modifFigure = false;
-				annule=true;
+				annule = true;
 
 			}
 
@@ -104,21 +104,22 @@ public class Dessin extends JPanel {
 							// Rectangle
 							nbPoints = 2;
 							break;
-						case(3) :
-						// Carre
+						case (3):
+							// Carre
 							nbPoints = 2;
-						  break;
+							break;
 						case (4):
 							// Triangle
 							nbPoints = 3;
 							break;
 						case (5):
 							// Ovale
-							//nbPoints = 2;
-							//break;
-							
+							// nbPoints = 2;
+							// break;
+
 							// tabFigures[nbFigures] = new Ovale();
 							// break;
+
 						case(7) :
 							nbPoints = 2;
 							break;
@@ -139,8 +140,7 @@ public class Dessin extends JPanel {
 						if (nbClics < nbPoints - 1) {
 							listePoints.add(new UnPoint(e.getX(), e.getY()));
 							nbClics++;
-							
-							
+
 						}
 						// Dernier clic : on instancie la figure, on supprime
 						// l'ArrayList et on incrémente le nombre de figures
@@ -154,20 +154,21 @@ public class Dessin extends JPanel {
 								break;
 							case (2):
 								// Rectangle
-								tabFigures[nbFigures] = new Rectangle(listePoints);
+								tabFigures[nbFigures] = new Rectangle(
+										listePoints);
 								break;
-							case (3) :
+							case (3):
 								// Carre
-							  tabFigures[nbFigures] = new Carre(listePoints);
-							  break;
+								tabFigures[nbFigures] = new Carre(listePoints);
+								break;
 							case (4):
 								// Triangle
-								tabFigures[nbFigures] = new Triangle(listePoints);
+								tabFigures[nbFigures] = new Triangle(
+										listePoints);
 								break;
 							case (5):
 								// Ovale
-								// tabFigures[nbFigures] = new Ovale(
-								//		listePoints);
+								// tabFigures[nbFigures] = new Ovale(listePoints);
 								//break;
 							case(7) :
 								tabFigures[nbFigures] = new Losange(listePoints);
@@ -222,8 +223,7 @@ public class Dessin extends JPanel {
 				if ((e.getModifiers() & ActionEvent.CTRL_MASK) == ActionEvent.CTRL_MASK) {
 					setControl(true);
 				}
-				
-				
+
 				// Actions possibles avec le bouton "select" :
 				if (boutons.getSelect()) {
 					ptSouris.move(e.getX(), e.getY());
@@ -241,27 +241,28 @@ public class Dessin extends JPanel {
 						if (!trouve)
 							listeFigSelectionnees.add(fig);
 						else
-								listeFigSelectionnees.remove(fig);
-					}
-					else {
+							listeFigSelectionnees.remove(fig);
+					} else {
 						listeFigSelectionnees.clear();
 						translation = false;
 					}
-						
-					// 2) Initialisation d'une modification de figure (couplage avec MouseDragged)
-					if(pointVoisin(ptSouris) != null) {
+
+					// 2) Initialisation d'une modification de figure (couplage
+					// avec MouseDragged)
+					if (pointVoisin(ptSouris) != null) {
 						ptFigure = pointVoisin(ptSouris);
 						figModifiee = figVoisine(ptFigure);
 						modifFigure = true;
 					}
-					// 3) Initialisation d'une translation de figure(s) (couplage avec MouseDragged)
+					// 3) Initialisation d'une translation de figure(s)
+					// (couplage avec MouseDragged)
 					else {
-						if(figVoisine(ptSouris) != null) {
+						if (figVoisine(ptSouris) != null) {
 							translation = true;
-							
+
 						}
 					}
-				}				
+				}
 				control = false;
 				repaint();
 			}
@@ -278,35 +279,34 @@ public class Dessin extends JPanel {
 
 			}
 		};
-		//Listener qui permet de modifier le curseur de la souris
-		
+		// Listener qui permet de modifier le curseur de la souris
+
 		MouseMotionListener apparenceSouris = new MouseMotionListener() {
 
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
 				// TODO Stub de la méthode généré automatiquement
-				
+
 			}
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				// TODO Stub de la méthode généré automatiquement
-				if (figVoisine(new UnPoint(e.getX(),e.getY()))!=null&&boutons.getSelectionner().isSelected()
-						&&pointVoisin(new UnPoint(e.getX(),e.getY()))==null) {
-				    setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR) );	
+				if (figVoisine(new UnPoint(e.getX(), e.getY())) != null
+						&& boutons.getSelectionner().isSelected()
+						&& pointVoisin(new UnPoint(e.getX(), e.getY())) == null) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+				} else if (pointVoisin(new UnPoint(e.getX(), e.getY())) != null
+						&& boutons.getSelectionner().isSelected()) {
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				} else {
+					setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 				}
-				else if(pointVoisin(new UnPoint(e.getX(),e.getY()))!=null&&boutons.getSelectionner().isSelected()){
-					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR) );	
-				}
-				else {
-				    setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR) );	
-				}
-				
-			  //quand on est en train de construire une figure !
+
+				// quand on est en train de construire une figure !
 				ptSouris.x = e.getX();
 				ptSouris.y = e.getY();
-				if(listePoints.size() > 0)
-				{
+				if (listePoints.size() > 0) {
 					repaint();
 				}
 			}
@@ -316,40 +316,41 @@ public class Dessin extends JPanel {
 				if (modifFigure) {
 					if (annule) {
 						ajouterEtat();
-						annule=false;
+						annule = false;
 					}
-				// Si le point appartient a un carre, il faut garder tous les cotes de la meme longueur
-					if(figModifiee instanceof Carre) {
-						((Carre)figModifiee).modifierTaille(ptFigure, e.getY() - ptSouris.y);
+					// Si le point appartient a un carre, il faut garder tous
+					// les cotes de la meme longueur
+					if (figModifiee instanceof Carre) {
+						((Carre) figModifiee).modifierTaille(ptFigure, e.getY()
+								- ptSouris.y);
 					}
-				// Si le point appartient à un rectangle, il faut garder la forme rectangulaire
-					else if(figModifiee instanceof Rectangle) {
-						((Rectangle)figModifiee).modifierTaille(ptFigure, e.getX() - ptSouris.x,
-								e.getY() - ptSouris.y);
+					// Si le point appartient à un rectangle, il faut garder la
+					// forme rectangulaire
+					else if (figModifiee instanceof Rectangle) {
+						((Rectangle) figModifiee).modifierTaille(ptFigure,
+								e.getX() - ptSouris.x, e.getY() - ptSouris.y);
+					} else {
+						ptFigure.deplacerPt(e.getX() - ptSouris.x, e.getY()
+								- ptSouris.y);
 					}
-						else {
-							ptFigure.deplacerPt(e.getX() - ptSouris.x,
-									e.getY() - ptSouris.y);
-							}
 				} else {
-					if(translation)
+					if (translation)
 						if (annule) {
 							ajouterEtat();
-							annule=false;
+							annule = false;
 						}
-						for (int i = 0; i < listeFigSelectionnees.size(); i++) {
-								listeFigSelectionnees.get(i).translater(
-									e.getX() - ptSouris.x,
-									e.getY() - ptSouris.y);
-						}
+					for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+						listeFigSelectionnees.get(i).translater(
+								e.getX() - ptSouris.x, e.getY() - ptSouris.y);
+					}
 				}
 				ptSouris.move(e.getX(), e.getY());
 				repaint();
 			}
 
 			public void mouseMoved(MouseEvent e) {
-				absSouris=e.getX();
-				ordSouris=e.getY();
+				absSouris = e.getX();
+				ordSouris = e.getY();
 			}
 
 		};
@@ -382,7 +383,7 @@ public class Dessin extends JPanel {
 
 	}
 
-	// METHODES
+	// ACCESSEURS
 
 	public Color getCouleur() {
 		return couleur;
@@ -392,124 +393,160 @@ public class Dessin extends JPanel {
 		couleur = c;
 	}
 
+	public void setControl(boolean control) {
+		this.control = control;
+	}
+
+	public void setEpaisseur(int e) {
+		this.epaisseur = e;
+	}
+	
+	//AUTRES METHODES
+	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		super.paintComponent(g2d);
-		
-	  // si une figure est en cours de construction
-		if(listePoints.size() > 0)
-		{
-			//recuperation de la couleur active
+
+		// si une figure est en cours de construction
+		if (listePoints.size() > 0) {
+			// recuperation de la couleur active
 			g2d.setColor(couleur);
-			
-			//recuperation de l'epaisseur de trait active
+
+			// recuperation de l'epaisseur de trait active
 			g2d.setStroke(new BasicStroke(epaisseur));
-			
-			//calcul de variables utiles pour le pre-rendu du carre, du rectangle
+
+			// calcul de variables utiles pour le pre-rendu du carre, du
+			// rectangle
 			int longueur = ptSouris.x - listePoints.get(0).x;
-			if(longueur < 0) { longueur = -longueur; }
+			if (longueur < 0) {
+				longueur = -longueur;
+			}
 			int hauteur = ptSouris.y - listePoints.get(0).y;
-			if(hauteur < 0) { hauteur = -hauteur; }
-			
+			if (hauteur < 0) {
+				hauteur = -hauteur;
+			}
+
 			switch (boutons.getNumFigCourante()) {
-				case 1://si la figure est un cercle
-					g2d.drawOval(listePoints.get(0).x - listePoints.get(0).dist(new UnPoint(ptSouris.x, ptSouris.y)), 
-											 listePoints.get(0).y - listePoints.get(0).dist(new UnPoint(ptSouris.x, ptSouris.y)), 
-											 listePoints.get(0).dist(new UnPoint(ptSouris.x, ptSouris.y))*2,
-											 listePoints.get(0).dist(new UnPoint(ptSouris.x, ptSouris.y))*2);
-					break;
-				
-				case 2 : //si la figure est un rectangle
-					//si le curseur de la souris est en dessous du point d'origine
-					if(ptSouris.y > listePoints.get(0).y)
-					{
-						//si le curseur de la souris est a droite du point d'origine
-						if(ptSouris.x > listePoints.get(0).x)
-							g2d.drawRect(listePoints.get(0).x, listePoints.get(0).y, longueur, hauteur);
-					  //si le curseur de la souris est a gauche du point d'origine
-						else
-							g2d.drawRect(listePoints.get(0).x - longueur, listePoints.get(0).y , longueur, hauteur);
-					}
-				  //si le curseur de la souris est au dessus du point d'origine
+			case 1:// si la figure est un cercle
+				g2d.drawOval(
+						listePoints.get(0).x
+								- listePoints.get(0).dist(
+										new UnPoint(ptSouris.x, ptSouris.y)),
+						listePoints.get(0).y
+								- listePoints.get(0).dist(
+										new UnPoint(ptSouris.x, ptSouris.y)),
+						listePoints.get(0).dist(
+								new UnPoint(ptSouris.x, ptSouris.y)) * 2,
+						listePoints.get(0).dist(
+								new UnPoint(ptSouris.x, ptSouris.y)) * 2);
+				break;
+
+			case 2: // si la figure est un rectangle
+				// si le curseur de la souris est en dessous du point d'origine
+				if (ptSouris.y > listePoints.get(0).y) {
+					// si le curseur de la souris est a droite du point
+					// d'origine
+					if (ptSouris.x > listePoints.get(0).x)
+						g2d.drawRect(listePoints.get(0).x,
+								listePoints.get(0).y, longueur, hauteur);
+					// si le curseur de la souris est a gauche du point
+					// d'origine
 					else
-					{
-					  //si le curseur de la souris est a droite du point d'origine
-						if(ptSouris.x > listePoints.get(0).x)
-							g2d.drawRect(listePoints.get(0).x , listePoints.get(0).y -hauteur, longueur, hauteur);
-					  //si le curseur de la souris est a gauche du point d'origine
-						else
-							g2d.drawRect(listePoints.get(0).x - longueur,listePoints.get(0).y - hauteur, longueur, hauteur);
-					}
-					break;
-					
-				case 3 : //si la figure est un carre					
-					//si le curseur de la souris est en dessous du point d'origine
-					if(ptSouris.y > listePoints.get(0).y)
-					{
-						//si le curseur de la souris est a droite du point d'origine
-						if(ptSouris.x > listePoints.get(0).x)
-							g2d.drawRect(listePoints.get(0).x, listePoints.get(0).y, longueur, longueur);
-					  //si le curseur de la souris est a gauche du point d'origine
-						else
-							g2d.drawRect(listePoints.get(0).x - longueur, listePoints.get(0).y , longueur, longueur);
-					}
-				  //si le curseur de la souris est au dessus du point d'origine
+						g2d.drawRect(listePoints.get(0).x - longueur,
+								listePoints.get(0).y, longueur, hauteur);
+				}
+				// si le curseur de la souris est au dessus du point d'origine
+				else {
+					// si le curseur de la souris est a droite du point
+					// d'origine
+					if (ptSouris.x > listePoints.get(0).x)
+						g2d.drawRect(listePoints.get(0).x, listePoints.get(0).y
+								- hauteur, longueur, hauteur);
+					// si le curseur de la souris est a gauche du point
+					// d'origine
 					else
-					{
-					  //si le curseur de la souris est a droite du point d'origine
-						if(ptSouris.x > listePoints.get(0).x)
-							g2d.drawRect(listePoints.get(0).x , listePoints.get(0).y -longueur, longueur, longueur);
-					  //si le curseur de la souris est a gauche du point d'origine
-						else
-							g2d.drawRect(listePoints.get(0).x - longueur,listePoints.get(0).y - longueur, longueur, longueur);
-					}
-					break;
-					
-				case 4 : // si la figure est un triangle
-					if(listePoints.size() == 1)
-					{
-						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, ptSouris.x, ptSouris.y);
-					}
+						g2d.drawRect(listePoints.get(0).x - longueur,
+								listePoints.get(0).y - hauteur, longueur,
+								hauteur);
+				}
+				break;
+
+			case 3: // si la figure est un carre
+				// si le curseur de la souris est en dessous du point d'origine
+				if (ptSouris.y > listePoints.get(0).y) {
+					// si le curseur de la souris est a droite du point
+					// d'origine
+					if (ptSouris.x > listePoints.get(0).x)
+						g2d.drawRect(listePoints.get(0).x,
+								listePoints.get(0).y, longueur, longueur);
+					// si le curseur de la souris est a gauche du point
+					// d'origine
 					else
-					{
-						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, listePoints.get(1).x, listePoints.get(1).y);
-						g2d.drawLine(listePoints.get(1).x, listePoints.get(1).y, ptSouris.x, ptSouris.y);
-						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, ptSouris.x, ptSouris.y);
-					}
-					break;
-					
-				case 5 : // si la figure est un ovale
-					
-					break;
-					
-				case 6 : // si la figure est un polygone
-					int i;
-					for(i=0; i<listePoints.size()-1; i++)
-					{
-						g2d.drawLine(listePoints.get(i).x, listePoints.get(i).y,
-												 listePoints.get(i+1).x, listePoints.get(i+1).y);
-					}
-					g2d.drawLine(listePoints.get(i).x, listePoints.get(i).y, ptSouris.x, ptSouris.y);
-					break;
-					
-				case 7 : // si la figure est un losange
-					g2d.drawLine(listePoints.get(0).x-longueur, listePoints.get(0).y,
-							 				 listePoints.get(0).x, listePoints.get(0).y-hauteur);
-					g2d.drawLine(listePoints.get(0).x-longueur, listePoints.get(0).y,
-			 				 listePoints.get(0).x, listePoints.get(0).y+hauteur);
-					g2d.drawLine(listePoints.get(0).x+longueur, listePoints.get(0).y,
-			 				 listePoints.get(0).x, listePoints.get(0).y-hauteur);
-					g2d.drawLine(listePoints.get(0).x+longueur, listePoints.get(0).y,
-			 				 listePoints.get(0).x, listePoints.get(0).y+hauteur);
-					break;
-					
-				case 8 : // si la figure est un trait
-					g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, ptSouris.x, ptSouris.y);
-					break;
-					
+						g2d.drawRect(listePoints.get(0).x - longueur,
+								listePoints.get(0).y, longueur, longueur);
+				}
+				// si le curseur de la souris est au dessus du point d'origine
+				else {
+					// si le curseur de la souris est a droite du point
+					// d'origine
+					if (ptSouris.x > listePoints.get(0).x)
+						g2d.drawRect(listePoints.get(0).x, listePoints.get(0).y
+								- longueur, longueur, longueur);
+					// si le curseur de la souris est a gauche du point
+					// d'origine
+					else
+						g2d.drawRect(listePoints.get(0).x - longueur,
+								listePoints.get(0).y - longueur, longueur,
+								longueur);
+				}
+				break;
+
+			case 4: // si la figure est un triangle
+				if (listePoints.size() == 1) {
+					g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y,
+							ptSouris.x, ptSouris.y);
+				} else {
+					g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y,
+							listePoints.get(1).x, listePoints.get(1).y);
+					g2d.drawLine(listePoints.get(1).x, listePoints.get(1).y,
+							ptSouris.x, ptSouris.y);
+					g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y,
+							ptSouris.x, ptSouris.y);
+				}
+				break;
+
+			case 5: // si la figure est un ovale
+
+				break;
+
+			case 6: // si la figure est un polygone
+				int i;
+				for (i = 0; i < listePoints.size() - 1; i++) {
+					g2d.drawLine(listePoints.get(i).x, listePoints.get(i).y,
+							listePoints.get(i + 1).x, listePoints.get(i + 1).y);
+				}
+				g2d.drawLine(listePoints.get(i).x, listePoints.get(i).y,
+						ptSouris.x, ptSouris.y);
+				break;
+
+			case 7: // si la figure est un losange
+				g2d.drawLine(listePoints.get(0).x-longueur, listePoints.get(0).y,
+		 				 				 listePoints.get(0).x, listePoints.get(0).y-hauteur);
+				g2d.drawLine(listePoints.get(0).x-longueur, listePoints.get(0).y,
+						 				 listePoints.get(0).x, listePoints.get(0).y+hauteur);
+				g2d.drawLine(listePoints.get(0).x+longueur, listePoints.get(0).y,
+						 				 listePoints.get(0).x, listePoints.get(0).y-hauteur);
+				g2d.drawLine(listePoints.get(0).x+longueur, listePoints.get(0).y,
+						 				 listePoints.get(0).x, listePoints.get(0).y+hauteur);
+				break;
+
+			case 8: // si la figure est un trait
+				g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y,
+						ptSouris.x, ptSouris.y);
+				break;
 			}
 		}
-		
+
 		// Dessin du tableau de figures
 		if (nbFigures > 0) {
 			for (int i = 0; i < nbFigures; i++) {
@@ -532,12 +569,10 @@ public class Dessin extends JPanel {
 				// Cas des polygones
 				if (tabFigures[i] instanceof Polygone) {
 					int nbSommets = tabFigures[i].getNbMemo();
-					if(nbSommets == 2)
-					{
-						g2d.drawLine(positions[0].x, positions[0].y, positions[1].x, positions[1].y);
-					}
-					else
-					{
+					if (nbSommets == 2) {
+						g2d.drawLine(positions[0].x, positions[0].y,
+								positions[1].x, positions[1].y);
+					} else {
 						if (tabFigures[i].getPlein()) {
 							if (tabFigures[i] instanceof Rectangle) {
 								g2d.fillRect(positions[0].x, positions[0].y,
@@ -554,8 +589,8 @@ public class Dessin extends JPanel {
 							}
 						} else {
 							for (int j = 0; j < nbSommets; j++)
-								dessinLigne(g2d, positions[j], positions[(j + 1)
-										% nbSommets]);
+								dessinLigne(g2d, positions[j],
+										positions[(j + 1) % nbSommets]);
 						}
 					}
 				}
@@ -564,7 +599,7 @@ public class Dessin extends JPanel {
 			// selection (et pas les points de memorisation
 			// je pense qu'il y a une faute dans l'enonce, a discuter)
 			for (int i = 0; i < listeFigSelectionnees.size(); i++) {
-				
+
 				if (listeFigSelectionnees.get(i).getPlein()
 						&& couleur.getRed() < 150 && couleur.getBlue() < 150
 						&& couleur.getGreen() < 150)
@@ -601,7 +636,7 @@ public class Dessin extends JPanel {
 		}
 
 		// activation ou non de la fonction supprimer,dupliquer et remplir
-		if (figureSelectionne()) {
+		if (!listeFigSelectionnees.isEmpty()) {
 			menuD.getSupprimer().setEnabled(true);
 			boutons.getSupprimer().setEnabled(true);
 			boutons.getRemplir().setEnabled(true);
@@ -613,7 +648,6 @@ public class Dessin extends JPanel {
 			menu.getCopier().setEnabled(true);
 			menuD.getCouper().setEnabled(true);
 			menuD.getCopier().setEnabled(true);
-
 
 		} else {
 			menuD.getSupprimer().setEnabled(false);
@@ -628,12 +662,12 @@ public class Dessin extends JPanel {
 			menuD.getCouper().setEnabled(false);
 			menuD.getCopier().setEnabled(false);
 		}
-		
+
 		if (listeTampon.isEmpty()) {
 			menu.getColler().setEnabled(false);
 			menuD.getColler().setEnabled(false);
 		}
-		
+
 		else {
 			menu.getColler().setEnabled(true);
 			menuD.getColler().setEnabled(true);
@@ -642,8 +676,7 @@ public class Dessin extends JPanel {
 			boutons.getAnnuler().setEnabled(false);
 			menuD.getAnnuler().setEnabled(false);
 			menu.getAnnuler().setEnabled(false);
-		}
-		else {
+		} else {
 			boutons.getAnnuler().setEnabled(true);
 			menuD.getAnnuler().setEnabled(true);
 			menu.getAnnuler().setEnabled(true);
@@ -777,7 +810,7 @@ public class Dessin extends JPanel {
 	// Fonction qui permet d'exporter une image
 	public void exporter(String format) {
 		ArrayList<FigureGeom> tampon = new ArrayList<FigureGeom>();
-		tampon=(ArrayList<FigureGeom>) listeFigSelectionnees.clone();
+		tampon = (ArrayList<FigureGeom>) listeFigSelectionnees.clone();
 		listeFigSelectionnees.clear();
 		JFileChooser filechoose = new JFileChooser();
 		filechoose.setCurrentDirectory(new File(".")); /*
@@ -835,11 +868,15 @@ public class Dessin extends JPanel {
 				e1.printStackTrace();
 			}
 			entete.setVisible(true);
-			listeFigSelectionnees=(ArrayList<FigureGeom>) tampon.clone();
+			listeFigSelectionnees = (ArrayList<FigureGeom>) tampon.clone();
 
 		}
 	}
-
+	
+	/**
+	 * Methode permettant de changer la couleur
+	 * @param c la nouvelle couleur
+	 */
 	public void changeCouleur(Color c) {
 		if (!listeFigSelectionnees.isEmpty())
 			ajouterEtat();
@@ -850,6 +887,10 @@ public class Dessin extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Methode permettant de changer l'epaisseur
+	 * @param e la nouvelle epaisseur
+	 */
 	public void changeEpaisseur(int e) {
 		if (!listeFigSelectionnees.isEmpty())
 			ajouterEtat();
@@ -859,22 +900,12 @@ public class Dessin extends JPanel {
 		}
 		repaint();
 	}
+	
+	
 
-	public boolean figureSelectionne() {
-		if (listeFigSelectionnees.isEmpty())
-			return false;
-		else
-			return true;
-	}
-
-	public void setControl(boolean control) {
-		this.control = control;
-	}
-
-	public void setEpaisseur(int e) {
-		this.epaisseur = e;
-	}
-
+	/**
+	 * Methode permettant de vider listePoints
+	 */
 	public void viderPoints() {
 		if (nbClics != 0) {
 			nbClics = 0;
@@ -883,7 +914,10 @@ public class Dessin extends JPanel {
 			repaint();
 		}
 	}
-
+	
+	/**
+	 * Methode permettant de dupliquer une ou plusieurs figures
+	 */
 	public void dupliquer() {
 		if (!listeFigSelectionnees.isEmpty()) {
 			ajouterEtat();
@@ -905,7 +939,10 @@ public class Dessin extends JPanel {
 		}
 		repaint();
 	}
-	
+
+	/**
+	 * Methode permettant de selectionner toutes les figures
+	 */
 	public void toutSelectionner() {
 		listeFigSelectionnees.clear();
 		for (int i = 0; i < nbFigures; i++) {
@@ -913,36 +950,45 @@ public class Dessin extends JPanel {
 			repaint();
 		}
 	}
-	
+	/**
+	 * Methode permettant d'ajouter un etat à listeEtats
+	 */
 	public void ajouterEtat() {
 		FigureGeom tmp[] = new FigureGeom[nbFigures];
-		for (int i=0;i<nbFigures;i++) {
+		for (int i = 0; i < nbFigures; i++) {
 			try {
-				tmp[i]=tabFigures[i].clone();
+				tmp[i] = tabFigures[i].clone();
 			} catch (CloneNotSupportedException e) {
 				// TODO Bloc catch généré automatiquement
 				e.printStackTrace();
 			}
 		}
-		if (listeEtats.size()>=MARGE_ANNULE) {
+		if (listeEtats.size() >= MARGE_ANNULE) {
 			listeEtats.remove(0);
 		}
 		listeEtats.add(tmp);
 	}
-	
+
+	/*
+	 * Methode permettant d'annuler une action
+	 */
 	public void annuler() {
 		viderPoints();
 		listeFigSelectionnees.clear();
-		int n = listeEtats.size()-1;
-		nbFigures=listeEtats.get(n).length;
-		for (int i=0;i<nbFigures;i++) {
-			tabFigures[i]=listeEtats.get(n)[i];
+		int n = listeEtats.size() - 1;
+		nbFigures = listeEtats.get(n).length;
+		for (int i = 0; i < nbFigures; i++) {
+			tabFigures[i] = listeEtats.get(n)[i];
 		}
 		repaint();
 		listeEtats.remove(n);
-		
+
 	}
 
+	/**
+	 * Methode permettant d'effectuer la rotation d'une ou plusieurs figures
+	 * @param r 1 pour la droite, 2 pour la gauche
+	 */
 	public void rotation(int r) {
 		ajouterEtat();
 		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
@@ -950,12 +996,15 @@ public class Dessin extends JPanel {
 		}
 		repaint();
 	}
-	
+
+	/**
+	 * Methode permettant de copier une ou plusieurs figures
+	 */
 	public void copier() {
 		repaint();
 		viderPoints();
 		listeTampon.clear();
-		for (int i = 0; i <listeFigSelectionnees.size();i++) {
+		for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 			try {
 				listeTampon.add(listeFigSelectionnees.get(i).clone());
 			} catch (CloneNotSupportedException e) {
@@ -964,25 +1013,33 @@ public class Dessin extends JPanel {
 			}
 		}
 	}
+	
+	/**
+	 * Methode permettant de couper une ou plusieurs figures
+	 */
 	public void couper() {
 		viderPoints();
 		copier();
 		supprimer();
 	}
 	
+	/**
+	 * Methode qui permet de coller une figure copiée soit à l'emplcement de la souris soit à proximité de la figure copiée
+	 * @param a 
+	 */
 	public void coller(int a) {
 		viderPoints();
 		ajouterEtat();
-		int distX= absSouris-listeTampon.get(0).getTabMemo()[0].x;
-		int distY= ordSouris-listeTampon.get(0).getTabMemo()[0].y;
-		for (int i=0;i<listeTampon.size();i++) {
-			if (a==1)
+		int distX = absSouris - listeTampon.get(0).getTabMemo()[0].x;
+		int distY = ordSouris - listeTampon.get(0).getTabMemo()[0].y;
+		for (int i = 0; i < listeTampon.size(); i++) {
+			if (a == 1)
 				listeTampon.get(i).translater(distX, distY);
-			else 
+			else
 				listeTampon.get(i).translater(10, 10);
 
 			try {
-				tabFigures[nbFigures]=listeTampon.get(i).clone();
+				tabFigures[nbFigures] = listeTampon.get(i).clone();
 			} catch (CloneNotSupportedException e) {
 				// TODO Bloc catch généré automatiquement
 				e.printStackTrace();
@@ -991,16 +1048,18 @@ public class Dessin extends JPanel {
 		}
 		repaint();
 	}
-	
+	/**
+	 * Methode qui permet de reinitiliser un nouveau dessin
+	 */
 	public void nouveau() {
-		tabFigures=new FigureGeom[MAXTAILLE];
+		tabFigures = new FigureGeom[MAXTAILLE];
 		listeFigSelectionnees.clear();
 		viderPoints();
-		nbFigures=0;
+		nbFigures = 0;
 		listeEtats.clear();
-		couleur=Color.black;
+		couleur = Color.black;
 		boutons.setCouleurCourante(Color.black);
-		epaisseur=1;
+		epaisseur = 1;
 		boutons.recupSize().setIcon(null);
 		boutons.recupSize().setText("Taille");
 		repaint();
