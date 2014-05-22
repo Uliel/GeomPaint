@@ -153,7 +153,7 @@ public class Dessin extends JPanel {
 							case (5): // Ellipse
 								tabFigures[nbFigures] = new Ellipse(listePoints);
 								break;
-												//Le cas du Polygone est traité a part
+												//Le cas du Polygone est traitï¿½ a part
 							case(7) : // Losange
 								tabFigures[nbFigures] = new Losange(listePoints);
 								break;
@@ -172,7 +172,7 @@ public class Dessin extends JPanel {
 					// Si on est en presence d'un polygone
 					else {
 						UnPoint nouveauPoint = new UnPoint(e.getX(), e.getY());
-						// Le premier point est automatiquement ajoute a 
+						// Le premier point est automatiquement ajoute aï¿½
 						// l'ArrayList
 						if (nbClics == 0) {
 							listePoints.add(nouveauPoint);
@@ -308,7 +308,7 @@ public class Dessin extends JPanel {
 						((Carre) figModifiee).modifierTaille(ptFigure, e.getY()
 								- ptSouris.y);
 					}
-					// Si le point appartient a  un rectangle, il faut garder la
+					// Si le point appartient aï¿½ un rectangle, il faut garder la
 					// forme rectangulaire
 					else if (figModifiee instanceof Rectangle) {
 						((Rectangle) figModifiee).modifierTaille(ptFigure,
@@ -780,7 +780,7 @@ public class Dessin extends JPanel {
 		g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
 	}
 
-	// Methode qui teste si un point se trouve a  moins d'une certaine distance
+	// Methode qui teste si un point se trouve aï¿½ moins d'une certaine distance
 	// d'un autre point
 	public boolean estVoisin(int distance, UnPoint p1, UnPoint p2) {
 		boolean res = false;
@@ -839,7 +839,7 @@ public class Dessin extends JPanel {
 		// possede un segment a proximite du point courant
 		while (i < nbFigures && !trouve) {
 			// Si la figure est un polygone
-			if (tabFigures[i] instanceof Polygone) {
+			if (tabFigures[i] instanceof Polygone || tabFigures[i] instanceof Ellipse) {
 				for (int j = 0; j < tabFigures[i].getNbMemo(); j++) {
 					// Si c'est le cas, selection de cette figure
 					if (estVoisin(MARGE_SELECTION_POINT, pt,
@@ -850,7 +850,7 @@ public class Dessin extends JPanel {
 				}
 			}
 			// Si la figure est un cercle
-			if (tabFigures[i] instanceof Cercle) {
+			if (tabFigures[i] instanceof Cercle && !(tabFigures[i] instanceof Ellipse)) {
 				if (estVoisin(MARGE_SELECTION_POINT, pt,
 						tabFigures[i].getTabMemo()[1])) {
 					res = tabFigures[i].getTabMemo()[1];
@@ -982,7 +982,7 @@ public class Dessin extends JPanel {
 		}
 	}
 	/**
-	 * Methode permettant d'ajouter un etat a  listeEtats
+	 * Methode permettant d'ajouter un etat aï¿½ listeEtats
 	 */
 	public void ajouterEtat() {
 		FigureGeom tmp[] = new FigureGeom[nbFigures];
@@ -1054,8 +1054,8 @@ public class Dessin extends JPanel {
 	}
 	
 	/**
-	 * Methode qui permet de coller une figure copiee soit a  l'emplacement de la souris 
-	 * soit a  proximite de la figure copiee
+	 * Methode qui permet de coller une figure copiee soit aï¿½ l'emplacement de la souris 
+	 * soit aï¿½ proximite de la figure copiee
 	 * @param a 
 	 */
 	public void coller(int a) {

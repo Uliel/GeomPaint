@@ -16,6 +16,12 @@ public class Ellipse extends Cercle {
 		// Remplissage du tableau de points de memorisation
 		this.nbMemo = 2;
 		this.tabMemo = new UnPoint[this.nbMemo];
+		
+		int longueur = listePointsSaisie.get(0).x - listePointsSaisie.get(1).x;
+		if(longueur < 0) {longueur = -longueur;}
+		int hauteur = listePointsSaisie.get(0).y - listePointsSaisie.get(1).y;
+		if(hauteur < 0) {hauteur = -hauteur;}
+		
 		// 1er point de saisie en haut a gauche, 2nd en bas a droite
 		if (listePointsSaisie.get(1).x > listePointsSaisie.get(0).x) {
 			if (listePointsSaisie.get(1).y > listePointsSaisie.get(0).y) {
