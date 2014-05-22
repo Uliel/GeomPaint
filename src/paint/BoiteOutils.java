@@ -63,6 +63,8 @@ public class BoiteOutils extends JPanel {
 	private Bouton annuler = new Bouton(6, new ImageIcon("images/annuler.png"));
 	private Bouton[] tabBoutonsOutils = { supprimer, selectionner, remplir,
 			exporterJPG, exporterPNG, annuler };
+	private JLabel couleurCourante = new JLabel("            ");
+
 
 	// Boutons rotation
 	private Bouton rotationDroite = new Bouton(1, new ImageIcon(
@@ -254,7 +256,6 @@ public class BoiteOutils extends JPanel {
 				new Color(112, 146, 190), Color.gray };
 
 		// JLabel qui représente la couleur courante utilisée pour le dessin
-		final JLabel couleurCourante = new JLabel("            ");
 		couleurCourante.setBackground(Color.black);
 		couleurCourante.setOpaque(true);
 
@@ -341,8 +342,13 @@ public class BoiteOutils extends JPanel {
 
 	// ACCESSEURS
 	
+	
 	public Bouton getPalette() {
 		return palette;
+	}
+
+	public void setCouleurCourante(Color c) {
+		couleurCourante.setBackground(c);
 	}
 
 	public Bouton getExporterJPG() {
@@ -380,6 +386,26 @@ public class BoiteOutils extends JPanel {
 	public int getNumFigCourante() {
 		return this.numFigCourante;
 	}
+	
+	public Bouton getSupprimer() {
+		return supprimer;
+	}
+
+	public Bouton getRemplir() {
+		return remplir;
+	}
+
+	public Bouton getSelectionner() {
+		return selectionner;
+	}
+
+	public Bouton getAnnuler() {
+		return annuler;
+	}
+
+	public JMenu recupSize() {
+		return size;
+	}
 
 	// methodes pour deselectionner les boutons
 	public void desactiverFormes() {
@@ -416,29 +442,4 @@ public class BoiteOutils extends JPanel {
 		rotationGauche.setBorder(BorderFactory.createLineBorder(
 				Color.lightGray, 1));
 	}
-
-	public Bouton getSupprimer() {
-		return supprimer;
-	}
-
-	public Bouton getRemplir() {
-		return remplir;
-	}
-
-	public Bouton getSelectionner() {
-		return selectionner;
-	}
-
-	public Bouton getAnnuler() {
-		return annuler;
-	}
-
-	public JMenu recupSize() {
-		return size;
-	}
-
-	
-	
-	
-
 }

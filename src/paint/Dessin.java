@@ -992,6 +992,7 @@ public class Dessin extends JPanel {
 		nbFigures=0;
 		listeEtats.clear();
 		couleur=Color.black;
+		boutons.setCouleurCourante(Color.black);
 		epaisseur=1;
 		boutons.recupSize().setIcon(null);
 		boutons.recupSize().setText("Taille");
