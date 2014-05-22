@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public abstract class FigureGeom implements Cloneable {
 
 	// ATTRIBUTS
+	
 	private Color couleur;
 	protected int epaisseur = 1;
 	protected boolean plein;
@@ -20,15 +21,9 @@ public abstract class FigureGeom implements Cloneable {
 	protected UnPoint[] tabSaisie;
 	protected int nbSaisie;
 
+	
 	// CONSTRUCTEURS
 	
-	/**
-	 * Contructeur vide
-	 */
-	public FigureGeom() {
-		this.plein = false;
-	}
-
 	/**
 	 * Constructeur par copie
 	 * 
@@ -67,6 +62,7 @@ public abstract class FigureGeom implements Cloneable {
 			this.tabSaisie[i] = listePointsSaisie.get(i);
 	}
 
+	
 	// ACCESSEURS
 
 	public int getNbSaisie() {
@@ -125,6 +121,7 @@ public abstract class FigureGeom implements Cloneable {
 		this.plein = b;
 	}
 
+	
 	// METHODES
 
 	/**
@@ -164,7 +161,7 @@ public abstract class FigureGeom implements Cloneable {
 	}
 
 	/**
-	 * TODO m�thode rotation pour le polygone
+	 * Methode rotation pour le polygone
 	 */
 	public void rotation(int r) {
 		if(this instanceof Polygone || this instanceof Ellipse) {
@@ -184,7 +181,6 @@ public abstract class FigureGeom implements Cloneable {
 				}
 				else 
 					tabMemo[i].rotatePoint(centreGravite, -90);
-	
 			}
 		}
 	}

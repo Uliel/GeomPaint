@@ -12,13 +12,7 @@ public class Polygone extends FigureGeom {
 
 	// CONSTRUCTEURS
 
-	/**
-	 * Constructeur vide
-	 */
-	public Polygone() {
-		super();
 
-	}
 
 	/**
 	 * Constructeur par copie

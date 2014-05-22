@@ -49,9 +49,9 @@ public class Ellipse extends Cercle {
 	 * @param pt
 	 *            le point modifie
 	 * @param valAbs
-	 *            le déplacement selon l'axe des abscisses
+	 *            deplacement selon l'axe des abscisses
 	 * @param valOrd
-	 *            le déplacement selon l'axe des ordonnees
+	 *            deplacement selon l'axe des ordonnees
 	 */
 	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {
 		if (pt.equals(tabMemo[0])) {

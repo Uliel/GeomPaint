@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class Losange extends Polygone {
 	
+	// CONSTRUCTEURS
+	
 	/**
 	 * Constructeur par copie
 	 * 
@@ -32,7 +34,6 @@ public class Losange extends Polygone {
 		this.nbMemo = 4;
 		this.tabMemo = new UnPoint[this.nbMemo];
 		
-
 		int longueur = listePointsSaisie.get(0).x - listePointsSaisie.get(1).x;
 		if(longueur < 0) {longueur = -longueur;}
 		int hauteur = listePointsSaisie.get(0).y - listePointsSaisie.get(1).y;
@@ -46,8 +47,10 @@ public class Losange extends Polygone {
 																	listePointsSaisie.get(0).y);
 		this.tabMemo[3] = new UnPoint(listePointsSaisie.get(0).x,
 																	listePointsSaisie.get(0).y-hauteur);
-			
 	}
+	
+	
+	// METHODES
 	
 	/**
 	 * Deplacement d'un point specifique au losange
@@ -55,9 +58,9 @@ public class Losange extends Polygone {
 	 * @param pt
 	 *            le point modifie
 	 * @param valAbs
-	 *            la nouvelle valeur de l'abscisse
+	 *            deplacement selon l'axe des abscisses
 	 * @param valOrd
-	 *            la nouvelle valeur de l'ordonnee
+	 *            deplacement selon l'axe des ordonnees
 	 */
 	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {		
 		if (pt.equals(tabMemo[0])) {
