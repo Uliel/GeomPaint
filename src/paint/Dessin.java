@@ -404,6 +404,13 @@ public class Dessin extends JPanel {
 	  // si une figure est en cours de construction
 		if(listePoints.size() > 0)
 		{
+			//recuperation de la couleur active
+			g2d.setColor(couleur);
+			
+			//recuperation de l'epaisseur de trait active
+			g2d.setStroke(new BasicStroke(epaisseur));
+			
+			//calcul de variables utiles pour le pre-rendu du carre, du rectangle
 			int longueur = currentX - listePoints.get(0).x;
 			if(longueur < 0) { longueur = -longueur; }
 			int hauteur = currentY - listePoints.get(0).y;
