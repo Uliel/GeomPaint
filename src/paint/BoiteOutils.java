@@ -101,10 +101,12 @@ public class BoiteOutils extends JPanel {
 			});
 		}
 		JMenuBar tailleBarre = new JMenuBar();
+		tailleBarre.setLayout(new BorderLayout());
 		image.setEnabled(false);
 		image.setDisabledIcon(image.getIcon());
-		tailleBarre.add(size);
-		tailleBarre.add(image);
+		image.setPreferredSize(new Dimension(30,30));
+		tailleBarre.add(size,BorderLayout.CENTER);
+		tailleBarre.add(image,BorderLayout.EAST);
 
 		// JPanel contenant les boutons de rotation
 		JPanel rotation = new JPanel();

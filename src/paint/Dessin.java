@@ -9,6 +9,7 @@ package paint;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -944,6 +945,7 @@ public class Dessin extends JPanel {
 	}
 	
 	public void copier() {
+		repaint();
 		viderPoints();
 		listeTampon.clear();
 		for (int i = 0; i <listeFigSelectionnees.size();i++) {
@@ -980,7 +982,6 @@ public class Dessin extends JPanel {
 			}
 			nbFigures++;
 		}
-		
 		repaint();
 	}
 	
