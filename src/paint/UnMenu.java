@@ -78,7 +78,7 @@ public class UnMenu extends JMenuBar {
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Nouveau")) {
 					//Boîte du message préventif
-					String[]choix = {"oui","non"};
+					String[]choix = {"Oui","Non"};
 					int res =JOptionPane.showOptionDialog(null, "Voulez-vous vraiment tout effacer ?", "Attention !",
 							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("images/attention.png"),choix,choix[1]);	
 					if (res == JOptionPane.YES_OPTION) {
