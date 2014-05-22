@@ -22,13 +22,6 @@ public class Carre extends Rectangle {
 	 */
 	public Carre(ArrayList<UnPoint> listePointsSaisie) {
 		super(listePointsSaisie);
-		this.plein = false;
-		// Remplissage du tableau de points de saisie
-		this.nbSaisie = listePointsSaisie.size();
-		this.tabSaisie = new UnPoint[this.nbSaisie];
-		for (int i = 0; i < this.nbSaisie; i++)
-			this.tabSaisie[i] = listePointsSaisie.get(i);
-
 		// Remplissage du tableau de points de memorisation
 		this.nbMemo = 4;
 		this.tabMemo = new UnPoint[this.nbMemo];
