@@ -23,7 +23,7 @@ public class Rectangle extends Polygone {
 	}
 
 	/**
-	 * Constructeur prenant en parametre une ArrayListe
+	 * Constructeur prenant en parametre une ArrayList
 	 * 
 	 * @param listePointsSaisie
 	 *            la liste de points saisis par l'utilisateur
@@ -41,6 +41,7 @@ public class Rectangle extends Polygone {
 				listePointsSaisie.get(1).y);
 	}
 
+	
 	// METHODES
 
 	/**
@@ -49,9 +50,9 @@ public class Rectangle extends Polygone {
 	 * @param pt
 	 *            le point modifie
 	 * @param valAbs
-	 *            la nouvelle valeur de l'abscisse
+	 *            deplacement selon l'axe des abscisses
 	 * @param valOrd
-	 *            la nouvelle valeur de l'ordonnee
+	 *            deplacement selon l'axe des ordonnees
 	 */
 	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {
 		if (pt.equals(tabMemo[0])) {
@@ -93,6 +94,5 @@ public class Rectangle extends Polygone {
 				+ largeur / 2);
 		this.tabMemo[3] = new UnPoint(gravite.x - hauteur / 2, gravite.y
 				+ largeur / 2);
-
 	}
 }

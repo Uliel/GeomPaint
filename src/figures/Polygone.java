@@ -12,8 +12,6 @@ public class Polygone extends FigureGeom {
 
 	// CONSTRUCTEURS
 
-
-
 	/**
 	 * Constructeur par copie
 	 * 
@@ -37,8 +35,4 @@ public class Polygone extends FigureGeom {
 		for (int i = 0; i < this.nbMemo; i++)
 			this.tabMemo[i] = listePoints.get(i);
 	}
-
-	// METHODES
-	
-
 }
