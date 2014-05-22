@@ -45,12 +45,12 @@ public class UnMenu extends JMenuBar {
 
 	// CONSTRUCTEUR
 	/**
-	 * Constructeur qui permet d'initialiser le menu
-	 * 
-	 * @param pl
+	 * Constructeur qui permet d'initialiser le menu à partir de
+	 * @param des attribut Dessin qui permet de lier le menu deroulant au dessin
 	 */
 	public UnMenu(Dessin des) {
 		this.d = des;
+		//Ajout des JMenus
 		JMenu fichier = new JMenu("Fichier");
 		fichier.setFont(new Font("Arial", Font.BOLD, 14));
 		JMenu edition = new JMenu("Edition");
@@ -60,6 +60,7 @@ public class UnMenu extends JMenuBar {
 		rotation.add(rotationDroite);
 		rotation.add(rotationGauche);
 
+		//ActionListner lie au menu
 		ActionListener menuListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (((JMenuItem) (e.getSource())).getText().equals("Quitter")) {
@@ -115,13 +116,17 @@ public class UnMenu extends JMenuBar {
 				}
 			}
 		};
+		//on ajoute l'actionListener
 		for (int i = 0; i < tabMenu.length; i++) {
 			if (!tabMenu[i].getText().equals("Rotation")) {
 				tabMenu[i].addActionListener(menuListener);
 			}
+			
 		}
 		rotationDroite.addActionListener(menuListener);
 		rotationGauche.addActionListener(menuListener);
+		
+		//Raccourcis clavier
 		copier.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
 				KeyEvent.CTRL_MASK));
 		coller.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,
@@ -143,8 +148,10 @@ public class UnMenu extends JMenuBar {
 		exporterPNG.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,
 				KeyEvent.CTRL_MASK));
 
+		//On ajoute les JMenuItem
 		edition.add(annuler);
 		edition.add(toutSelectionner);
+		edition.addSeparator();
 		edition.add(copier);
 		edition.add(couper);
 		edition.add(coller);
