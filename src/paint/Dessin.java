@@ -113,13 +113,9 @@ public class Dessin extends JPanel {
 							nbPoints = 3;
 							break;
 						case (5):
-							// Ovale
-							// nbPoints = 2;
-							// break;
-
-							// tabFigures[nbFigures] = new Ovale();
-							// break;
-
+							// Ellipse
+							nbPoints = 2;
+							break;
 						case(7) :
 							nbPoints = 2;
 							break;
@@ -167,9 +163,9 @@ public class Dessin extends JPanel {
 										listePoints);
 								break;
 							case (5):
-								// Ovale
-								// tabFigures[nbFigures] = new Ovale(listePoints);
-								//break;
+								// Ellipse
+								tabFigures[nbFigures] = new Ellipse(listePoints);
+								break;
 							case(7) :
 								tabFigures[nbFigures] = new Losange(listePoints);
 								break;
@@ -416,7 +412,7 @@ public class Dessin extends JPanel {
 			g2d.setStroke(new BasicStroke(epaisseur));
 
 			// calcul de variables utiles pour le pre-rendu du carre, du
-			// rectangle
+			// rectangle, de l'ellipse
 			int longueur = ptSouris.x - listePoints.get(0).x;
 			if (longueur < 0) {
 				longueur = -longueur;
@@ -516,7 +512,33 @@ public class Dessin extends JPanel {
 				break;
 
 			case 5: // si la figure est un ovale
-
+				// si le curseur de la souris est en dessous du point d'origine
+				if (ptSouris.y > listePoints.get(0).y) {
+					// si le curseur de la souris est a droite du point
+					// d'origine
+					if (ptSouris.x > listePoints.get(0).x)
+						g2d.drawOval(listePoints.get(0).x,
+								listePoints.get(0).y, longueur, hauteur);
+					// si le curseur de la souris est a gauche du point
+					// d'origine
+					else
+						g2d.drawOval(listePoints.get(0).x - longueur,
+								listePoints.get(0).y, longueur, hauteur);
+				}
+				// si le curseur de la souris est au dessus du point d'origine
+				else {
+					// si le curseur de la souris est a droite du point
+					// d'origine
+					if (ptSouris.x > listePoints.get(0).x)
+						g2d.drawOval(listePoints.get(0).x, listePoints.get(0).y
+								- hauteur, longueur, hauteur);
+					// si le curseur de la souris est a gauche du point
+					// d'origine
+					else
+						g2d.drawOval(listePoints.get(0).x - longueur,
+								listePoints.get(0).y - hauteur, longueur,
+								hauteur);
+				}
 				break;
 
 			case 6: // si la figure est un polygone
@@ -565,6 +587,18 @@ public class Dessin extends JPanel {
 						g2d.drawOval(positions[0].x - rayon, positions[0].y
 								- rayon, rayon * 2, rayon * 2);
 				}
+				
+				// Cas de l'ellipse
+				if (tabFigures[i] instanceof Ellipse) {
+					if (tabFigures[i].getPlein())
+						g2d.fillOval(positions[0].x, positions[0].y, 
+								positions[1].x - positions[0].x, 
+								positions[1].y - positions[0].y);
+					else
+						g2d.drawOval(positions[0].x, positions[0].y, 
+								positions[1].x - positions[0].x, 
+								positions[1].y - positions[0].y);
+				}
 
 				// Cas des polygones
 				if (tabFigures[i] instanceof Polygone) {
@@ -573,12 +607,16 @@ public class Dessin extends JPanel {
 						g2d.drawLine(positions[0].x, positions[0].y,
 								positions[1].x, positions[1].y);
 					} else {
+						// Si les polygones sont remplis
 						if (tabFigures[i].getPlein()) {
+							// Cas du rectangle
 							if (tabFigures[i] instanceof Rectangle) {
 								g2d.fillRect(positions[0].x, positions[0].y,
 										positions[0].dist(positions[1]),
 										positions[0].dist(positions[3]));
-							} else {
+							} 
+							// Autres cas
+							else {
 								int[] tabX = new int[nbSommets];
 								int[] tabY = new int[nbSommets];
 								for (int j = 0; j < nbSommets; j++) {
@@ -587,6 +625,7 @@ public class Dessin extends JPanel {
 								}
 								g2d.fillPolygon(tabX, tabY, nbSommets);
 							}
+						// Si les polygones ne sont pas remplis
 						} else {
 							for (int j = 0; j < nbSommets; j++)
 								dessinLigne(g2d, positions[j],
