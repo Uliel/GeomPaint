@@ -145,8 +145,8 @@ public class BoiteOutils extends JPanel {
 		remplir.setToolTipText("Remplir ou vider une figure");
 		exporterJPG.setToolTipText("Exporter l'image en .jpg");
 		exporterPNG.setToolTipText("Exporter l'image en .png");
-		annuler.setToolTipText("Annuler la dernière modification");
-		palette.setToolTipText("Sélectionner une couleur dans la palette");
+		annuler.setToolTipText("Annuler la derniere modification");
+		palette.setToolTipText("Selectionner une couleur dans la palette");
 		cercle.setToolTipText("Cercle");
 		rectangle.setToolTipText("Rectangle");
 		carre.setToolTipText("Carre");
@@ -155,8 +155,8 @@ public class BoiteOutils extends JPanel {
 		polygone.setToolTipText("Polygone irregulier");
 		losange.setToolTipText("Losange");
 		trait.setToolTipText("Segment");
-		rotationDroite.setToolTipText("Rotation de 90° vers la droite");
-		rotationGauche.setToolTipText("Rotation de 90° vers la gauche");
+		rotationDroite.setToolTipText("Rotation de 90 degres vers la droite");
+		rotationGauche.setToolTipText("Rotation de 90 degres vers la gauche");
 		size.setToolTipText("Changer l'epaisseur du trait");
 
 		// On empeche les barres d'outils d'être déplacées
