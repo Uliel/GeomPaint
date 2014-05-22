@@ -56,8 +56,6 @@ public class Dessin extends JPanel {
 	private ArrayList<FigureGeom> listeTampon = new ArrayList<FigureGeom>(); 
 	private int absSouris=-1;
 	private int ordSouris=-1;	
-	private int currentX;
-	private int currentY;
 
 
 	// CONSTRUCTEURS
@@ -309,8 +307,8 @@ public class Dessin extends JPanel {
 				}
 				
 			  //quand on est en train de construire une figure !
-				currentX = e.getX();
-				currentY = e.getY();
+				ptSouris.x = e.getX();
+				ptSouris.y = e.getY();
 				if(listePoints.size() > 0)
 				{
 					repaint();
@@ -324,7 +322,7 @@ public class Dessin extends JPanel {
 						ajouterEtat();
 						annule=false;
 					}
-				// Si le point appartient a� un carre, il faut garder tous les cotes de la meme longueur
+				// Si le point appartient a un carre, il faut garder tous les cotes de la meme longueur
 					if(figModifiee instanceof Carre) {
 						((Carre)figModifiee).modifierTaille(ptFigure, e.getY() - ptSouris.y);
 					}
@@ -352,7 +350,6 @@ public class Dessin extends JPanel {
 				ptSouris.move(e.getX(), e.getY());
 				repaint();
 			}
-
 
 			public void mouseMoved(MouseEvent e) {
 			}
@@ -411,25 +408,25 @@ public class Dessin extends JPanel {
 			g2d.setStroke(new BasicStroke(epaisseur));
 			
 			//calcul de variables utiles pour le pre-rendu du carre, du rectangle
-			int longueur = currentX - listePoints.get(0).x;
+			int longueur = ptSouris.x - listePoints.get(0).x;
 			if(longueur < 0) { longueur = -longueur; }
-			int hauteur = currentY - listePoints.get(0).y;
+			int hauteur = ptSouris.y - listePoints.get(0).y;
 			if(hauteur < 0) { hauteur = -hauteur; }
 			
 			switch (boutons.getNumFigCourante()) {
 				case 1://si la figure est un cercle
-					g2d.drawOval(listePoints.get(0).x - listePoints.get(0).dist(new UnPoint(currentX, currentY)), 
-											 listePoints.get(0).y - listePoints.get(0).dist(new UnPoint(currentX, currentY)), 
-											 listePoints.get(0).dist(new UnPoint(currentX, currentY))*2,
-											 listePoints.get(0).dist(new UnPoint(currentX, currentY))*2);
+					g2d.drawOval(listePoints.get(0).x - listePoints.get(0).dist(new UnPoint(ptSouris.x, ptSouris.y)), 
+											 listePoints.get(0).y - listePoints.get(0).dist(new UnPoint(ptSouris.x, ptSouris.y)), 
+											 listePoints.get(0).dist(new UnPoint(ptSouris.x, ptSouris.y))*2,
+											 listePoints.get(0).dist(new UnPoint(ptSouris.x, ptSouris.y))*2);
 					break;
 				
 				case 2 : //si la figure est un rectangle
 					//si le curseur de la souris est en dessous du point d'origine
-					if(currentY > listePoints.get(0).y)
+					if(ptSouris.y > listePoints.get(0).y)
 					{
 						//si le curseur de la souris est a droite du point d'origine
-						if(currentX > listePoints.get(0).x)
+						if(ptSouris.x > listePoints.get(0).x)
 							g2d.drawRect(listePoints.get(0).x, listePoints.get(0).y, longueur, hauteur);
 					  //si le curseur de la souris est a gauche du point d'origine
 						else
@@ -439,7 +436,7 @@ public class Dessin extends JPanel {
 					else
 					{
 					  //si le curseur de la souris est a droite du point d'origine
-						if(currentX > listePoints.get(0).x)
+						if(ptSouris.x > listePoints.get(0).x)
 							g2d.drawRect(listePoints.get(0).x , listePoints.get(0).y -hauteur, longueur, hauteur);
 					  //si le curseur de la souris est a gauche du point d'origine
 						else
@@ -449,10 +446,10 @@ public class Dessin extends JPanel {
 					
 				case 3 : //si la figure est un carre					
 					//si le curseur de la souris est en dessous du point d'origine
-					if(currentY > listePoints.get(0).y)
+					if(ptSouris.y > listePoints.get(0).y)
 					{
 						//si le curseur de la souris est a droite du point d'origine
-						if(currentX > listePoints.get(0).x)
+						if(ptSouris.x > listePoints.get(0).x)
 							g2d.drawRect(listePoints.get(0).x, listePoints.get(0).y, longueur, longueur);
 					  //si le curseur de la souris est a gauche du point d'origine
 						else
@@ -462,7 +459,7 @@ public class Dessin extends JPanel {
 					else
 					{
 					  //si le curseur de la souris est a droite du point d'origine
-						if(currentX > listePoints.get(0).x)
+						if(ptSouris.x > listePoints.get(0).x)
 							g2d.drawRect(listePoints.get(0).x , listePoints.get(0).y -longueur, longueur, longueur);
 					  //si le curseur de la souris est a gauche du point d'origine
 						else
@@ -473,13 +470,13 @@ public class Dessin extends JPanel {
 				case 4 : // si la figure est un triangle
 					if(listePoints.size() == 1)
 					{
-						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, currentX, currentY);
+						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, ptSouris.x, ptSouris.y);
 					}
 					else
 					{
 						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, listePoints.get(1).x, listePoints.get(1).y);
-						g2d.drawLine(listePoints.get(1).x, listePoints.get(1).y, currentX, currentY);
-						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, currentX, currentY);
+						g2d.drawLine(listePoints.get(1).x, listePoints.get(1).y, ptSouris.x, ptSouris.y);
+						g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, ptSouris.x, ptSouris.y);
 					}
 					break;
 					
@@ -494,7 +491,7 @@ public class Dessin extends JPanel {
 						g2d.drawLine(listePoints.get(i).x, listePoints.get(i).y,
 												 listePoints.get(i+1).x, listePoints.get(i+1).y);
 					}
-					g2d.drawLine(listePoints.get(i).x, listePoints.get(i).y, currentX, currentY);
+					g2d.drawLine(listePoints.get(i).x, listePoints.get(i).y, ptSouris.x, ptSouris.y);
 					break;
 					
 				case 7 : // si la figure est un losange
@@ -502,7 +499,7 @@ public class Dessin extends JPanel {
 					break;
 					
 				case 8 : // si la figure est un trait
-					g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, currentX, currentY);
+					g2d.drawLine(listePoints.get(0).x, listePoints.get(0).y, ptSouris.x, ptSouris.y);
 					break;
 					
 			}
