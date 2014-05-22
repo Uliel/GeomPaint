@@ -82,10 +82,7 @@ public class Dessin extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 				modifFigure = false;
 				annule=true;
-				if(SwingUtilities.isRightMouseButton(e)) {
-					absSouris=e.getX();
-					ordSouris=e.getY();
-				}
+
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -350,6 +347,8 @@ public class Dessin extends JPanel {
 			}
 
 			public void mouseMoved(MouseEvent e) {
+				absSouris=e.getX();
+				ordSouris=e.getY();
 			}
 
 		};
