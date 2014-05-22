@@ -163,6 +163,28 @@ public abstract class FigureGeom implements Cloneable {
 		return copie;
 	}
 
-	public abstract void rotation(int r);
+	/**
+	 * TODO m�thode rotation pour le polygone
+	 */
+	public void rotation(int r) {
+		int graviteX=0;
+		int graviteY=0;
+		for (int i = 0;i<tabMemo.length;i++) {
+			graviteX = graviteX + tabMemo[i].x;
+			graviteY = graviteY + tabMemo[i].y;
+		}
+		graviteX=graviteX/nbMemo;
+		graviteY=graviteY/nbMemo;
+		UnPoint centreGravite = new UnPoint(graviteX,graviteY);
+		
+		for (int i = 0;i<tabMemo.length;i++) {
+			if (r==1) {
+				tabMemo[i].rotatePoint(centreGravite, 90);
+			}
+			else 
+				tabMemo[i].rotatePoint(centreGravite, -90);
+
+		}
+	}
 
 }

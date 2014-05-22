@@ -39,9 +39,4 @@ public class Cercle extends FigureGeom {
 		super(c);
 	}
 	
-	@Override
-	public void rotation(int r) {
-		// TODO Auto-generated method stub
-		
-	}
 }
