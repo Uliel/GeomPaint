@@ -629,7 +629,8 @@ public class Dessin extends JPanel {
 					g2d.setColor(Color.YELLOW);
 				else
 					g2d.setColor(Color.BLACK);
-				for (int j = 0; j < listeFigSelectionnees.get(i).getNbMemo(); j++) {
+				for (int j = 0; j < listeFigSelectionnees.get(i).getNbMemo(); j++) {					
+					
 					g2d.setStroke(new BasicStroke(1));
 					g2d.drawRect(listeFigSelectionnees.get(i).getTabMemo()[j].x
 							- 3 - listeFigSelectionnees.get(i).getEpaisseur()
@@ -1047,7 +1048,8 @@ public class Dessin extends JPanel {
 	}
 	
 	/**
-	 * Methode qui permet de coller une figure copiée soit à l'emplcement de la souris soit à proximité de la figure copiée
+	 * Methode qui permet de coller une figure copiee soit a� l'emplacement de la souris 
+	 * soit a� proximite de la figure copiee
 	 * @param a 
 	 */
 	public void coller(int a) {
