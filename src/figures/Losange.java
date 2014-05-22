@@ -65,7 +65,7 @@ public class Losange extends Polygone {
 	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {
 		
 		//si l'axe tabMemo[0] tabMemo[2] est horizontal
-		if(tabMemo[0].y == tabMemo[2].y)
+		if(tabMemo[0].y == tabMemo[2].y && tabMemo[1].x == tabMemo[3].x)
 		{
 			if (pt.equals(tabMemo[0])) {
 				this.tabMemo[0].move(tabMemo[0].x + valAbs*2, tabMemo[0].y);

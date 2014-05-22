@@ -711,6 +711,18 @@ public class Dessin extends JPanel {
 					g2d.setColor(Color.BLACK);
 				for (int j = 0; j < listeFigSelectionnees.get(i).getNbMemo(); j++) {					
 					
+					//utilise a des fins de debuggages
+					//colore les points de selection des figures
+					/*
+					switch (j)
+					{
+					case 0 : g2d.setColor(Color.black);break;
+					case 1 : g2d.setColor(Color.red);break;
+					case 2 : g2d.setColor(Color.blue);break;
+					case 3 : g2d.setColor(Color.green);break;
+					}
+					*/
+					
 					g2d.setStroke(new BasicStroke(1));
 					g2d.drawRect(listeFigSelectionnees.get(i).getTabMemo()[j].x
 							- 3 - listeFigSelectionnees.get(i).getEpaisseur()
