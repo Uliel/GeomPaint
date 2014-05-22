@@ -115,7 +115,7 @@ public class Dessin extends JPanel {
 			}
 
 			public void mousePressed(MouseEvent e) {
-				// On ne dessine que si un bouton dessin est appuy�
+				// On ne dessine que si un bouton dessin est appuye
 				if (boutons.getDessiner()) {
 					Graphics g = getGraphics();
 					g.setColor(couleur);
@@ -182,7 +182,7 @@ public class Dessin extends JPanel {
 							case (5): // Ellipse
 								tabFigures[nbFigures] = new Ellipse(listePoints);
 								break;
-												//Le cas du Polygone est trait� a part
+												//Le cas du Polygone est traite a part
 							case(7) : // Losange
 								tabFigures[nbFigures] = new Losange(listePoints);
 								break;
@@ -201,8 +201,7 @@ public class Dessin extends JPanel {
 					// Si on est en presence d'un polygone
 					else {
 						UnPoint nouveauPoint = new UnPoint(e.getX(), e.getY());
-						// Le premier point est automatiquement ajoute a�
-						// l'ArrayList
+						// Le premier point est automatiquement ajoute a l'ArrayList
 						if (nbClics == 0) {
 							listePoints.add(nouveauPoint);
 							nbClics++;
@@ -211,8 +210,7 @@ public class Dessin extends JPanel {
 						else {
 							// Si le nouveau point est positionne au voisinage
 							// du premier point, le polygone est considere
-							// comme
-							// fini
+							// comme fini
 							if (estVoisin(20, nouveauPoint, listePoints.get(0))) {
 								ajouterEtat();
 								tabFigures[nbFigures] = new Polygone(
@@ -269,10 +267,6 @@ public class Dessin extends JPanel {
 					}
 					// 3) Initialisation d'une translation de figure(s)
 					// (couplage avec MouseDragged)
-					else if (figVoisine(ptSouris) != null) {
-						
-					}
-					//    (couplage avec MouseDragged)
 					else if (figVoisine(ptSouris) != null) {
 							translation = true;
 					}
@@ -342,13 +336,13 @@ public class Dessin extends JPanel {
 						((Carre) figModifiee).modifierTaille(ptFigure, e.getY()
 								- ptSouris.y);
 					}
-					// Si le point appartient a� un rectangle, il faut garder la
+					// Si le point appartient a un rectangle, il faut garder la
 					// forme rectangulaire
 					else if (figModifiee instanceof Rectangle) {
 						((Rectangle) figModifiee).modifierTaille(ptFigure,
 								e.getX() - ptSouris.x, e.getY() - ptSouris.y);
 					} 
-					// Si le point appartient à une ellipse, il faut garder la
+					// Si le point appartient a une ellipse, il faut garder la
 					// forme rectangulaire
 					else if (figModifiee instanceof Ellipse) {
 						((Ellipse) figModifiee).modifierTaille(ptFigure,
