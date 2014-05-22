@@ -1,7 +1,6 @@
 /**
- * 
-
- * @authors Nicolas Gambarini, Sarah Lequeuvre
+ *
+ * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
  *
  */
 
@@ -260,8 +259,8 @@ public class Dessin extends JPanel {
 						translation = false;
 					}
 
-					// 2) Initialisation d'une modification de figure (couplage
-					// avec MouseDragged)
+					// 2) Initialisation d'une modification de figure 
+					//	  (couplage avec MouseDragged)
 					if (pointVoisin(ptSouris) != null) {
 						ptFigure = pointVoisin(ptSouris);
 						figModifiee = figVoisine(ptFigure);
@@ -269,6 +268,10 @@ public class Dessin extends JPanel {
 					}
 					// 3) Initialisation d'une translation de figure(s)
 					// (couplage avec MouseDragged)
+					else if (figVoisine(ptSouris) != null) {
+						
+					}
+					//    (couplage avec MouseDragged)
 					else if (figVoisine(ptSouris) != null) {
 							translation = true;
 					}
@@ -281,26 +284,19 @@ public class Dessin extends JPanel {
 				repaint();
 			}
 
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e) {		}
 
-			}
+			public void mouseEntered(MouseEvent e) {		}
 
-			public void mouseEntered(MouseEvent e) {
-
-			}
-
-			public void mouseClicked(MouseEvent e) {
-
-			}
+			public void mouseClicked(MouseEvent e) {		}
 		};
+		
 		// Listener qui permet de modifier le curseur de la souris
-
 		MouseMotionListener apparenceSouris = new MouseMotionListener() {
 
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
 				// TODO Stub de la methode genere automatiquement
-
 			}
 
 			@Override
@@ -317,7 +313,7 @@ public class Dessin extends JPanel {
 					setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 				}
 
-				// quand on est en train de construire une figure !
+				// pour quand on est en train de construire une figure !
 				ptSouris.x = e.getX();
 				ptSouris.y = e.getY();
 				if (listePoints.size() > 0) {
@@ -325,6 +321,7 @@ public class Dessin extends JPanel {
 				}
 			}
 		};
+		
 		MouseMotionListener mml = new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
 				if (modifFigure) {
@@ -390,7 +387,6 @@ public class Dessin extends JPanel {
 	}
 
 	// ACCESSEURS
-
 	public Color getCouleur() {
 		return couleur;
 	}
@@ -408,7 +404,6 @@ public class Dessin extends JPanel {
 	}
 	
 	//AUTRES METHODES
-	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		super.paintComponent(g2d);
@@ -711,8 +706,7 @@ public class Dessin extends JPanel {
 				}
 			}
 			// Si la figure est selectionnee, on dessine les points de
-			// selection (et pas les points de memorisation
-			// je pense qu'il y a une faute dans l'enonce, a discuter)
+			// selection
 			for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 
 				if (listeFigSelectionnees.get(i).getPlein()
@@ -764,7 +758,6 @@ public class Dessin extends JPanel {
 			menu.getCopier().setEnabled(true);
 			menuD.getCouper().setEnabled(true);
 			menuD.getCopier().setEnabled(true);
-
 		} else {
 			menuD.getSupprimer().setEnabled(false);
 			boutons.getSupprimer().setEnabled(false);
@@ -782,12 +775,11 @@ public class Dessin extends JPanel {
 		if (listeTampon.isEmpty()) {
 			menu.getColler().setEnabled(false);
 			menuD.getColler().setEnabled(false);
-		}
-
-		else {
+		}	else {
 			menu.getColler().setEnabled(true);
 			menuD.getColler().setEnabled(true);
 		}
+		
 		if (listeEtats.isEmpty()) {
 			boutons.getAnnuler().setEnabled(false);
 			menuD.getAnnuler().setEnabled(false);
@@ -797,7 +789,6 @@ public class Dessin extends JPanel {
 			menuD.getAnnuler().setEnabled(true);
 			menu.getAnnuler().setEnabled(true);
 		}
-
 	}
 
 	/**
@@ -900,7 +891,7 @@ public class Dessin extends JPanel {
 		// possede un segment a proximite du point courant
 		while (i < nbFigures && !trouve) {
 			// Si la figure est un polygone
-			if (tabFigures[i] instanceof Polygone) {
+			if (tabFigures[i] instanceof Polygone || tabFigures[i] instanceof Ellipse) {
 				for (int j = 0; j < tabFigures[i].getNbMemo(); j++) {
 					// Si c'est le cas, selection de cette figure
 					if (estVoisin(MARGE_SELECTION_POINT, pt,
@@ -911,7 +902,7 @@ public class Dessin extends JPanel {
 				}
 			}
 			// Si la figure est un cercle
-			if (tabFigures[i] instanceof Cercle) {
+			if (tabFigures[i] instanceof Cercle && !(tabFigures[i] instanceof Ellipse)) {
 				if (estVoisin(MARGE_SELECTION_POINT, pt,
 						tabFigures[i].getTabMemo()[1])) {
 					res = tabFigures[i].getTabMemo()[1];
@@ -929,46 +920,26 @@ public class Dessin extends JPanel {
 		tampon = (ArrayList<FigureGeom>) listeFigSelectionnees.clone();
 		listeFigSelectionnees.clear();
 		JFileChooser filechoose = new JFileChooser();
-		filechoose.setCurrentDirectory(new File(".")); /*
-														 * ouvrir la boite de
-														 * dialogue dans
-														 * repertoire courant
-														 */
-		filechoose.setDialogTitle("Exporter une image"); /*
-														 * nom de la boite de
-														 * dialogue
-														 */
+		/* ouvrir la boite de dialogue dans repertoire courant */
+		filechoose.setCurrentDirectory(new File("."));
+		
+		/* nom de la boite de dialogue */
+		filechoose.setDialogTitle("Exporter une image"); 
 
-		filechoose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); /*
-																		 * pour
-																		 * afficher
-																		 * seulement
-																		 * les
-																		 * repertoires
-																		 */
-
-		String approve = new String("Exporter"); /*
-												 * Le bouton pour valider
-												 */
+		/* pour afficher seulement les repertoires */
+		filechoose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		
+		/* Le bouton pour valider */
+		String approve = new String("Exporter"); 
 		int resultatEnregistrer = filechoose.showDialog(filechoose, approve);
-		if (resultatEnregistrer == JFileChooser.APPROVE_OPTION) { /*
-																 * Si
-																 * l'utilisateur
-																 * clique sur le
-																 * bouton
-																 * Exporter
-																 */
-			String chemin = filechoose.getSelectedFile().getAbsolutePath(); /*
-																			 * pour
-																			 * avoir
-																			 * le
-																			 * chemin
-																			 * absolu
-																			 */
-			/*
-			 * on enregistre le fichier dans le repertoire desire avec pour nom
-			 * image + date en millisecondes
-			 */
+		
+		/* Si l'utilisateur clique sur le bouton Exporter */
+		if (resultatEnregistrer == JFileChooser.APPROVE_OPTION) { 
+			/* pour avoir le chemin absolu */
+			String chemin = filechoose.getSelectedFile().getAbsolutePath(); 
+			
+			/* on enregistre le fichier dans le repertoire desire avec pour nom
+			   image + date en millisecondes */
 			GregorianCalendar intCal = new GregorianCalendar();
 			long tmp = intCal.getTimeInMillis();
 			entete.setVisible(false);
@@ -984,7 +955,6 @@ public class Dessin extends JPanel {
 			}
 			entete.setVisible(true);
 			listeFigSelectionnees = (ArrayList<FigureGeom>) tampon.clone();
-
 		}
 	}
 	
@@ -1016,8 +986,6 @@ public class Dessin extends JPanel {
 		repaint();
 	}
 	
-	
-
 	/**
 	 * Methode permettant de vider listePoints
 	 */
@@ -1084,7 +1052,7 @@ public class Dessin extends JPanel {
 		listeEtats.add(tmp);
 	}
 
-	/*
+	/**
 	 * Methode permettant d'annuler une action
 	 */
 	public void annuler() {
@@ -1097,7 +1065,6 @@ public class Dessin extends JPanel {
 		}
 		repaint();
 		listeEtats.remove(n);
-
 	}
 
 	/**
