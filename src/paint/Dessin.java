@@ -318,9 +318,15 @@ public class Dessin extends JPanel {
 						ajouterEtat();
 						annule = false;
 					}
+					// Si le point appartient a un losange, il faut garder tous
+					// les cotes de la meme longueur et les angles deux a deux egaux
+					if (figModifiee instanceof Losange) {
+						((Losange) figModifiee).modifierTaille(ptFigure, e.getX()
+								- ptSouris.x,  e.getY() - ptSouris.y);
+					}
 					// Si le point appartient a un carre, il faut garder tous
 					// les cotes de la meme longueur
-					if (figModifiee instanceof Carre) {
+					else if (figModifiee instanceof Carre) {
 						((Carre) figModifiee).modifierTaille(ptFigure, e.getY()
 								- ptSouris.y);
 					}
@@ -354,28 +360,6 @@ public class Dessin extends JPanel {
 			}
 
 		};
-
-		// public void mouseMoved(MouseEvent e) {
-		// if (boutons.getDessiner() && nbClics > 0) {
-		// //Tentative pour dessiner avec le mouvement de la souris (loup�)
-		// Graphics g = getGraphics();
-		// tabFigures[nbFigures].ajouterSaisie(nbClics, e.getX(), e.getY());
-		// Point[] positions = tabFigures[nbFigures].getTabPoints();
-		// g.drawRect(positions[0].x - 3, positions[0].y - 3, 6, 6);
-		// int diametre = ((int) Math.sqrt((positions[0].x - e.getX())
-		// * (positions[0].x - e.getX())
-		// + (positions[0].y - e.getY())
-		// * (positions[0].y - e.getY()))) * 2;
-		// g.drawOval(positions[0].x - diametre / 2, positions[0].y
-		// - diametre / 2, diametre, diametre);
-		// }
-		// repaint();
-		// }
-		//
-		// public void mouseDragged(MouseEvent e) {
-		//
-		// }
-		// };
 
 		addMouseListener(ml);
 		addMouseMotionListener(mml);
