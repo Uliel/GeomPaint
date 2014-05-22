@@ -3,11 +3,14 @@ package paint;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 /**
  * 
@@ -113,7 +116,11 @@ public class UnMenu extends JMenuBar {
 		}	
 		rotationDroite.addActionListener(menuListener);
 		rotationGauche.addActionListener(menuListener);
-		
+		copier.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_MASK));
+		coller.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_MASK));
+		couper.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_MASK));
+
+
 		edition.add(annuler);
 		edition.add(toutSelectionner);
 		edition.add(copier);

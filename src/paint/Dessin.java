@@ -75,8 +75,7 @@ public class Dessin extends JPanel {
 		this.nbFigures = 0;
 		this.nbClics = 0;
 		this.nbPoints = 0;
-		this.control = false;
-		
+		this.control = false;		
 
 		MouseListener ml = new MouseListener() {
 

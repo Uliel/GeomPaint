@@ -154,6 +154,7 @@ public class BoiteOutils extends JPanel {
 		// Creation d'un auditeur commun a tous les boutons de forme
 		ActionListener selectionForme = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dessin.viderPoints();
 				dessiner = true;
 				select = false;
 				desactiverOutils();
