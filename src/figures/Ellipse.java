@@ -9,8 +9,8 @@ package figures;
 import java.util.ArrayList;
 
 public class Ellipse extends Cercle {
-	
-	//CONSTRUCTEURS
+
+		//CONSTRUCTEURS
 	public Ellipse(ArrayList<UnPoint> listePointsSaisie) {
 		super(listePointsSaisie);
 		// Remplissage du tableau de points de memorisation

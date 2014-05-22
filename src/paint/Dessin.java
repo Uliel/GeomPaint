@@ -32,6 +32,7 @@ public class Dessin extends JPanel {
 	private final int MARGE_SELECTION_POLY = 5;
 	private final int MARGE_SELECTION_CERCLE = 8;
 	private final int MARGE_SELECTION_POINT = 12;
+	private final int MARGE_SELECTION_ELLIPSE = 10;
 	private final int MARGE_ANNULE = 30;
 	private FigureGeom[] tabFigures;
 	private BoiteOutils boutons;
@@ -814,13 +815,58 @@ public class Dessin extends JPanel {
 				}
 			}
 			// Si la figure est un cercle
-			if (tabFigures[i] instanceof Cercle) {
+			if (tabFigures[i] instanceof Cercle && !(tabFigures[i] instanceof Ellipse)) {
 				int rayonCercle = tabFigures[i].getTabMemo()[0]
 						.dist(tabFigures[i].getTabMemo()[1]);
 				int rayonPtCourant = pt.dist(tabFigures[i].getTabMemo()[0]);
 				if (Math.abs(rayonCercle - rayonPtCourant) < MARGE_SELECTION_CERCLE) {
 					res = tabFigures[i];
 					trouve = true;
+				}
+			}
+			
+			// Si la figure est une ellipse
+			if (tabFigures[i] instanceof Ellipse) {
+				// Calcul des dimensions de l'ellipse
+				int rayonX = Math.abs(tabFigures[i].getTabMemo()[0].x - tabFigures[i].getTabMemo()[1].x)/2;
+				int rayonY = Math.abs(tabFigures[i].getTabMemo()[0].y - tabFigures[i].getTabMemo()[1].y)/2;
+				// Calcul des coordonnées du centre
+				int centreX = (tabFigures[i].getTabMemo()[0].x + tabFigures[i].getTabMemo()[1].x)/2;
+				int centreY = (tabFigures[i].getTabMemo()[0].y + tabFigures[i].getTabMemo()[1].y)/2;
+				// Calcul des coordonnées des foyers
+				int foyer1X;
+				int foyer1Y;
+				int foyer2X;
+				int foyer2Y;
+				double c = Math.sqrt(Math.abs(rayonX*rayonX - rayonY*rayonY));
+				if(rayonX > rayonY) {
+					foyer1X = centreX - (int)c;
+					foyer1Y = centreY;
+					foyer2X = centreX + (int)c;
+					foyer2Y = centreY;
+				}
+				else {
+					foyer1X = centreX;
+					foyer1Y = centreY - (int)c;
+					foyer2X = centreX;
+					foyer2Y = centreY + (int)c;
+				}
+				// Calcul de la somme des distances du point aux 2 foyers
+				double distanceF1 = pt.distance(foyer1X, foyer1Y);
+				double distanceF2 = pt.distance(foyer2X, foyer2Y);
+				int sommeDist = (int)(distanceF1 + distanceF2);
+				// Test de voisinage
+				if(rayonX > rayonY) {
+					if(Math.abs(sommeDist-rayonX*2) < MARGE_SELECTION_ELLIPSE) {
+						trouve = true;
+						res = tabFigures[i];
+					}
+				}
+				else {
+					if(Math.abs(sommeDist-rayonY*2) < MARGE_SELECTION_ELLIPSE) {
+						trouve = true;
+						res = tabFigures[i];
+					}
 				}
 			}
 			i++;
