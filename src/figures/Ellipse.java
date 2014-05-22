@@ -50,4 +50,27 @@ public class Ellipse extends Cercle {
 	public Ellipse(Ellipse ov) {
 		super(ov);
 	}
+
+
+	// METHODES
+	
+	/**
+	 * Deplacement specifique à l'ellipse
+	 * 
+	 * @param pt
+	 *            le point modifie
+	 * @param valAbs
+	 *            la nouvelle valeur de l'abscisse
+	 * @param valOrd
+	 *            la nouvelle valeur de l'ordonnee
+	 */
+	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {
+		if (pt.equals(tabMemo[0])) {
+			this.tabMemo[0].move(tabMemo[0].x + valAbs, tabMemo[0].y + valOrd);
+			this.tabMemo[1].move(tabMemo[1].x, tabMemo[1].y);
+		} else if (pt.equals(tabMemo[1])) {
+			this.tabMemo[0].move(tabMemo[0].x, tabMemo[0].y + valOrd);
+			this.tabMemo[1].move(tabMemo[1].x + valAbs, tabMemo[1].y);
+		}
+	}
 }

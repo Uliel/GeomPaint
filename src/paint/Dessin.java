@@ -313,7 +313,14 @@ public class Dessin extends JPanel {
 					else if (figModifiee instanceof Rectangle) {
 						((Rectangle) figModifiee).modifierTaille(ptFigure,
 								e.getX() - ptSouris.x, e.getY() - ptSouris.y);
-					} else {
+					} 
+					// Si le point appartient à une ellipse, il faut garder la
+					// forme rectangulaire
+					else if (figModifiee instanceof Ellipse) {
+						((Ellipse) figModifiee).modifierTaille(ptFigure,
+								e.getX() - ptSouris.x, e.getY() - ptSouris.y);
+					}
+					else {
 						ptFigure.deplacerPt(e.getX() - ptSouris.x, e.getY()
 								- ptSouris.y);
 					}
@@ -540,29 +547,77 @@ public class Dessin extends JPanel {
 				g2d.setColor(tabFigures[i].getCouleur());
 				UnPoint[] positions = tabFigures[i].getTabMemo();
 
-				// Cas du cercle
+				// Cas du cercle et de l'ellipse
 				if (tabFigures[i] instanceof Cercle) {
-					// Calcul du rayon et dessin
-					int rayon = positions[0].dist(positions[1]);
-					if (tabFigures[i].getPlein())
-						g2d.fillOval(positions[0].x - rayon, positions[0].y
-								- rayon, rayon * 2, rayon * 2);
-					else
-						g2d.drawOval(positions[0].x - rayon, positions[0].y
-								- rayon, rayon * 2, rayon * 2);
+					// Cas de l'ellipse
+					if (tabFigures[i] instanceof Ellipse) {
+						if (tabFigures[i].getPlein())
+							if (positions[1].x > positions[0].x) {
+								// 1er point en haut a gauche, 2nd en bas a droite
+								if (positions[1].y > positions[0].y) {
+									g2d.fillOval(positions[0].x, positions[0].y, 
+											positions[1].x - positions[0].x, 
+											positions[1].y - positions[0].y);
+								} // 1er point en bas a gauche, 2nd en haut a droite
+								else {
+									g2d.fillOval(positions[0].x, positions[1].y, 
+											positions[1].x - positions[0].x, 
+											positions[0].y - positions[1].y);
+								}
+							} // 1er point en haut a droite, 2nd en bas a gauche
+							else {
+								if (positions[1].y > positions[0].y) {
+									g2d.fillOval(positions[1].x, positions[0].y, 
+											positions[0].x - positions[1].x, 
+											positions[1].y - positions[0].y);
+								} // 1er point en bas a droite, 2nd en haut a gauche
+								else {
+									g2d.fillOval(positions[1].x, positions[1].y, 
+											positions[0].x - positions[1].x, 
+											positions[0].y - positions[1].y);
+								}
+							}
+						else
+							if (positions[1].x > positions[0].x) {
+								// 1er point en haut a gauche, 2nd en bas a droite
+								if (positions[1].y > positions[0].y) {
+									g2d.drawOval(positions[0].x, positions[0].y, 
+											positions[1].x - positions[0].x, 
+											positions[1].y - positions[0].y);
+								} // 1er point en bas a gauche, 2nd en haut a droite
+								else {
+									g2d.drawOval(positions[0].x, positions[1].y, 
+											positions[1].x - positions[0].x, 
+											positions[0].y - positions[1].y);
+								}
+							} // 1er point en haut a droite, 2nd en bas a gauche
+							else {
+								if (positions[1].y > positions[0].y) {
+									g2d.drawOval(positions[1].x, positions[0].y, 
+											positions[0].x - positions[1].x, 
+											positions[1].y - positions[0].y);
+								} // 1er point en bas a droite, 2nd en haut a gauche
+								else {
+									g2d.drawOval(positions[1].x, positions[1].y, 
+											positions[0].x - positions[1].x, 
+											positions[0].y - positions[1].y);
+								}
+							}
+					}
+					// Cas du cercle
+					else {
+						// Calcul du rayon et dessin
+						int rayon = positions[0].dist(positions[1]);
+						if (tabFigures[i].getPlein())
+							g2d.fillOval(positions[0].x - rayon, positions[0].y
+									- rayon, rayon * 2, rayon * 2);
+						else
+							g2d.drawOval(positions[0].x - rayon, positions[0].y
+									- rayon, rayon * 2, rayon * 2);
+					}
 				}
 				
-				// Cas de l'ellipse
-				if (tabFigures[i] instanceof Ellipse) {
-					if (tabFigures[i].getPlein())
-						g2d.fillOval(positions[0].x, positions[0].y, 
-								positions[1].x - positions[0].x, 
-								positions[1].y - positions[0].y);
-					else
-						g2d.drawOval(positions[0].x, positions[0].y, 
-								positions[1].x - positions[0].x, 
-								positions[1].y - positions[0].y);
-				}
+
 
 				// Cas des polygones
 				if (tabFigures[i] instanceof Polygone) {
