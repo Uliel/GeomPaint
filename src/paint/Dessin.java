@@ -56,7 +56,7 @@ public class Dessin extends JPanel {
 	private ArrayList<FigureGeom> listeTampon = new ArrayList<FigureGeom>(); 
 	private int absSouris=-1;
 	private int ordSouris=-1;	
-
+	private JPanel entete = new JPanel();
 
 	// CONSTRUCTEURS
 	public Dessin() {
@@ -68,7 +68,6 @@ public class Dessin extends JPanel {
 		this.tabFigures = new FigureGeom[Dessin.MAXTAILLE];
 		this.boutons = new BoiteOutils(this);
 		this.setLayout(new BorderLayout());
-		JPanel entete = new JPanel();
 		entete.setLayout(new BorderLayout(2, 2));
 		entete.add(boutons, BorderLayout.CENTER);
 		entete.add(menu, BorderLayout.NORTH);
@@ -771,6 +770,9 @@ public class Dessin extends JPanel {
 
 	// Fonction qui permet d'exporter une image
 	public void exporter(String format) {
+		ArrayList<FigureGeom> tampon = new ArrayList<FigureGeom>();
+		tampon=(ArrayList<FigureGeom>) listeFigSelectionnees.clone();
+		listeFigSelectionnees.clear();
 		JFileChooser filechoose = new JFileChooser();
 		filechoose.setCurrentDirectory(new File(".")); /*
 														 * ouvrir la boite de
@@ -815,7 +817,7 @@ public class Dessin extends JPanel {
 			 */
 			GregorianCalendar intCal = new GregorianCalendar();
 			long tmp = intCal.getTimeInMillis();
-			boutons.setVisible(false);
+			entete.setVisible(false);
 			BufferedImage img = new BufferedImage(this.getWidth(),
 					this.getHeight(), BufferedImage.TYPE_INT_RGB);
 			Graphics2D g2 = img.createGraphics();
@@ -826,7 +828,9 @@ public class Dessin extends JPanel {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-			boutons.setVisible(true);
+			entete.setVisible(true);
+			listeFigSelectionnees=(ArrayList<FigureGeom>) tampon.clone();
+
 		}
 	}
 
