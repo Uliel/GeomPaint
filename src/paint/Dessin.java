@@ -28,7 +28,7 @@ import figures.Rectangle;
 public class Dessin extends JPanel {
 
 	// ATTRIBUTS
-	private final static int MAXTAILLE = 100;
+	private final static int MAXTAILLE = 1000000;
 	private final int MARGE_SELECTION_POLY = 5;
 	private final int MARGE_SELECTION_CERCLE = 8;
 	private final int MARGE_SELECTION_POINT = 12;
@@ -991,6 +991,15 @@ public class Dessin extends JPanel {
 			nbFigures++;
 		}
 		
+		repaint();
+	}
+	
+	public void nouveau() {
+		tabFigures=new FigureGeom[MAXTAILLE];
+		listeFigSelectionnees.clear();
+		viderPoints();
+		nbFigures=0;
+		listeEtats.clear();
 		repaint();
 	}
 }

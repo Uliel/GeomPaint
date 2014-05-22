@@ -74,8 +74,11 @@ public class UnMenu extends JMenuBar {
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Nouveau")) {
 					//Boîte du message préventif
-					JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment tout effacer ?", "Attention !",
-							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);					
+					int res =JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment tout effacer ?", "Attention !",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);	
+					if (res == JOptionPane.YES_OPTION) {
+						d.nouveau();
+					}
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Rotation vers la droite")) {
 					d.rotation(1);
