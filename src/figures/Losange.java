@@ -62,27 +62,57 @@ public class Losange extends Polygone {
 	 * @param valOrd
 	 *            deplacement selon l'axe des ordonnees
 	 */
-	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {		
-		if (pt.equals(tabMemo[0])) {
-			this.tabMemo[0].move(tabMemo[0].x + valAbs*2, tabMemo[0].y);
-			this.tabMemo[1].move(tabMemo[1].x + valAbs, tabMemo[1].y - valOrd);
-			this.tabMemo[2].move(tabMemo[2].x, tabMemo[2].y);
-			this.tabMemo[3].move(tabMemo[3].x + valAbs, tabMemo[3].y + valOrd);
-		} else if (pt.equals(tabMemo[1])) {
-			this.tabMemo[0].move(tabMemo[0].x - valAbs, tabMemo[0].y + valOrd);
-			this.tabMemo[1].move(tabMemo[1].x, tabMemo[1].y + valOrd*2);
-			this.tabMemo[2].move(tabMemo[2].x + valAbs, tabMemo[2].y+ valOrd);
-			this.tabMemo[3].move(tabMemo[3].x, tabMemo[3].y);
-		} else if (pt.equals(tabMemo[2])) {
-			this.tabMemo[0].move(tabMemo[0].x, tabMemo[0].y);
-			this.tabMemo[1].move(tabMemo[1].x + valAbs, tabMemo[1].y - valOrd);
-			this.tabMemo[2].move(tabMemo[2].x + valAbs*2, tabMemo[2].y );
-			this.tabMemo[3].move(tabMemo[3].x + valAbs, tabMemo[3].y + valOrd);
-		} else if (pt.equals(tabMemo[3])) {
-			this.tabMemo[0].move(tabMemo[0].x + valAbs, tabMemo[0].y + valOrd);
-			this.tabMemo[1].move(tabMemo[1].x, tabMemo[1].y);
-			this.tabMemo[2].move(tabMemo[2].x - valAbs, tabMemo[2].y + valOrd);
-			this.tabMemo[3].move(tabMemo[3].x, tabMemo[3].y + valOrd*2 );
+	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {
+		
+		//si l'axe tabMemo[0] tabMemo[2] est horizontal
+		if(tabMemo[0].y == tabMemo[2].y)
+		{
+			if (pt.equals(tabMemo[0])) {
+				this.tabMemo[0].move(tabMemo[0].x + valAbs*2, tabMemo[0].y);
+				this.tabMemo[1].move(tabMemo[1].x + valAbs, tabMemo[1].y - valOrd);
+				this.tabMemo[2].move(tabMemo[2].x, tabMemo[2].y);
+				this.tabMemo[3].move(tabMemo[3].x + valAbs, tabMemo[3].y + valOrd);
+			} else if (pt.equals(tabMemo[1])) {
+				this.tabMemo[0].move(tabMemo[0].x - valAbs, tabMemo[0].y + valOrd);
+				this.tabMemo[1].move(tabMemo[1].x, tabMemo[1].y + valOrd*2);
+				this.tabMemo[2].move(tabMemo[2].x + valAbs, tabMemo[2].y+ valOrd);
+				this.tabMemo[3].move(tabMemo[3].x, tabMemo[3].y);
+			} else if (pt.equals(tabMemo[2])) {
+				this.tabMemo[0].move(tabMemo[0].x, tabMemo[0].y);
+				this.tabMemo[1].move(tabMemo[1].x + valAbs, tabMemo[1].y - valOrd);
+				this.tabMemo[2].move(tabMemo[2].x + valAbs*2, tabMemo[2].y );
+				this.tabMemo[3].move(tabMemo[3].x + valAbs, tabMemo[3].y + valOrd);
+			} else if (pt.equals(tabMemo[3])) {
+				this.tabMemo[0].move(tabMemo[0].x + valAbs, tabMemo[0].y + valOrd);
+				this.tabMemo[1].move(tabMemo[1].x, tabMemo[1].y);
+				this.tabMemo[2].move(tabMemo[2].x - valAbs, tabMemo[2].y + valOrd);
+				this.tabMemo[3].move(tabMemo[3].x, tabMemo[3].y + valOrd*2 );
+			}
+		}
+		//si l'axe tabMemo[0] tabMemo[2] est vertical
+		else if(tabMemo[1].y == tabMemo[3].y && tabMemo[0].x == tabMemo[2].x)
+		{
+			if (pt.equals(tabMemo[0])) {
+				this.tabMemo[0].move(tabMemo[0].x , tabMemo[0].y + valOrd*2);
+				this.tabMemo[1].move(tabMemo[1].x - valAbs, tabMemo[1].y + valOrd);
+				this.tabMemo[2].move(tabMemo[2].x, tabMemo[2].y);
+				this.tabMemo[3].move(tabMemo[3].x + valAbs, tabMemo[3].y + valOrd);
+			} else if (pt.equals(tabMemo[1])) {
+				this.tabMemo[0].move(tabMemo[0].x + valAbs, tabMemo[0].y - valOrd);
+				this.tabMemo[1].move(tabMemo[1].x + valAbs*2, tabMemo[1].y);
+				this.tabMemo[2].move(tabMemo[2].x + valAbs, tabMemo[2].y+ valOrd);
+				this.tabMemo[3].move(tabMemo[3].x, tabMemo[3].y);
+			} else if (pt.equals(tabMemo[2])) {
+				this.tabMemo[0].move(tabMemo[0].x, tabMemo[0].y);
+				this.tabMemo[1].move(tabMemo[1].x - valAbs, tabMemo[1].y + valOrd);
+				this.tabMemo[2].move(tabMemo[2].x, tabMemo[2].y +valOrd*2);
+				this.tabMemo[3].move(tabMemo[3].x + valAbs, tabMemo[3].y + valOrd);
+			} else if (pt.equals(tabMemo[3])) {
+				this.tabMemo[0].move(tabMemo[0].x + valAbs, tabMemo[0].y + valOrd);
+				this.tabMemo[1].move(tabMemo[1].x, tabMemo[1].y);
+				this.tabMemo[2].move(tabMemo[2].x + valAbs, tabMemo[2].y - valOrd);
+				this.tabMemo[3].move(tabMemo[3].x + valAbs*2, tabMemo[3].y);
+			}
 		}
 	}
 }
