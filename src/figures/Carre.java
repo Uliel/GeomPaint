@@ -1,6 +1,6 @@
 /**
  * 
- * @authors Frédéric Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * @authors Frï¿½dï¿½ric Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
  *
  */
 
@@ -53,11 +53,11 @@ public class Carre extends Rectangle {
 			else {
 				this.tabMemo[0] = new UnPoint(listePointsSaisie.get(0).x,
 						listePointsSaisie.get(0).y - d);
-				this.tabMemo[1] = listePointsSaisie.get(0);
+				this.tabMemo[1] = new UnPoint(listePointsSaisie.get(0).x + d,
+						listePointsSaisie.get(0).y - d);
 				this.tabMemo[2] = new UnPoint(listePointsSaisie.get(0).x + d,
 						listePointsSaisie.get(0).y);
-				this.tabMemo[3] = new UnPoint(listePointsSaisie.get(0).x + d,
-						listePointsSaisie.get(0).y - d);
+				this.tabMemo[3] = listePointsSaisie.get(0);
 			}
 		} // 1er point en haut a droite, 2nd en bas a gauche
 		else {
