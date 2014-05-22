@@ -8,7 +8,6 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-import paint.ControleClavier;
 import paint.Dessin;
 import paint.MenuDeroulant;
 import figures.*;
