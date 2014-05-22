@@ -598,57 +598,42 @@ public class Dessin extends JPanel {
 				if (tabFigures[i] instanceof Cercle) {
 					// Cas de l'ellipse
 					if (tabFigures[i] instanceof Ellipse) {
+						int longueur = Math.abs(positions[1].x - positions[0].x);
+						int hauteur = Math.abs(positions[1].y - positions[0].y);
+						// Si l'ellipse est pleine
 						if (tabFigures[i].getPlein())
 							if (positions[1].x > positions[0].x) {
 								// 1er point en haut a gauche, 2nd en bas a droite
-								if (positions[1].y > positions[0].y) {
-									g2d.fillOval(positions[0].x, positions[0].y, 
-											positions[1].x - positions[0].x, 
-											positions[1].y - positions[0].y);
-								} // 1er point en bas a gauche, 2nd en haut a droite
-								else {
-									g2d.fillOval(positions[0].x, positions[1].y, 
-											positions[1].x - positions[0].x, 
-											positions[0].y - positions[1].y);
-								}
-							} // 1er point en haut a droite, 2nd en bas a gauche
+								if (positions[1].y > positions[0].y)
+									g2d.fillOval(positions[0].x, positions[0].y, longueur, hauteur);
+								 // 1er point en bas a gauche, 2nd en haut a droite
+								else
+									g2d.fillOval(positions[0].x, positions[1].y, longueur, hauteur);
+							} 
 							else {
-								if (positions[1].y > positions[0].y) {
-									g2d.fillOval(positions[1].x, positions[0].y, 
-											positions[0].x - positions[1].x, 
-											positions[1].y - positions[0].y);
-								} // 1er point en bas a droite, 2nd en haut a gauche
-								else {
-									g2d.fillOval(positions[1].x, positions[1].y, 
-											positions[0].x - positions[1].x, 
-											positions[0].y - positions[1].y);
-								}
+								// 1er point en haut a droite, 2nd en bas a gauche
+								if (positions[1].y > positions[0].y)
+									g2d.fillOval(positions[1].x, positions[0].y, longueur, hauteur);
+								// 1er point en bas a droite, 2nd en haut a gauche
+								else
+									g2d.fillOval(positions[1].x, positions[1].y, longueur, hauteur);
 							}
+						// Si l'ellipse est vide
 						else
 							if (positions[1].x > positions[0].x) {
 								// 1er point en haut a gauche, 2nd en bas a droite
-								if (positions[1].y > positions[0].y) {
-									g2d.drawOval(positions[0].x, positions[0].y, 
-											positions[1].x - positions[0].x, 
-											positions[1].y - positions[0].y);
-								} // 1er point en bas a gauche, 2nd en haut a droite
-								else {
-									g2d.drawOval(positions[0].x, positions[1].y, 
-											positions[1].x - positions[0].x, 
-											positions[0].y - positions[1].y);
-								}
+								if (positions[1].y > positions[0].y)
+									g2d.drawOval(positions[0].x, positions[0].y, longueur, hauteur);
+								// 1er point en bas a gauche, 2nd en haut a droite
+								else
+									g2d.drawOval(positions[0].x, positions[1].y, longueur, hauteur);
 							} // 1er point en haut a droite, 2nd en bas a gauche
 							else {
-								if (positions[1].y > positions[0].y) {
-									g2d.drawOval(positions[1].x, positions[0].y, 
-											positions[0].x - positions[1].x, 
-											positions[1].y - positions[0].y);
-								} // 1er point en bas a droite, 2nd en haut a gauche
-								else {
-									g2d.drawOval(positions[1].x, positions[1].y, 
-											positions[0].x - positions[1].x, 
-											positions[0].y - positions[1].y);
-								}
+								if (positions[1].y > positions[0].y)
+									g2d.drawOval(positions[1].x, positions[0].y, longueur, hauteur);
+								// 1er point en bas a droite, 2nd en haut a gauche
+								else
+									g2d.drawOval(positions[1].x, positions[1].y, longueur, hauteur);
 							}
 					}
 					// Cas du cercle
@@ -669,19 +654,34 @@ public class Dessin extends JPanel {
 				// Cas des polygones
 				if (tabFigures[i] instanceof Polygone) {
 					int nbSommets = tabFigures[i].getNbMemo();
+					// Cas du trait
 					if (nbSommets == 2) {
 						g2d.drawLine(positions[0].x, positions[0].y,
 								positions[1].x, positions[1].y);
 					} else {
-						// Si les polygones sont remplis
+						// Cas des polygones remplis
 						if (tabFigures[i].getPlein()) {
 							// Cas du rectangle
 							if (tabFigures[i] instanceof Rectangle) {
-								g2d.fillRect(positions[0].x, positions[0].y,
-										positions[0].dist(positions[1]),
-										positions[0].dist(positions[3]));
+								int longueur = Math.abs(positions[2].x - positions[0].x);
+								int hauteur = Math.abs(positions[2].y - positions[0].y);
+								if (positions[2].x > positions[0].x) {
+									// 1er point de saisie en haut a gauche, 2nd en bas a droite
+									if (positions[2].y > positions[0].y)
+										g2d.fillRect(positions[0].x, positions[0].y, longueur, hauteur);
+									// 1er point en bas a gauche, 2nd en haut a droite
+									else
+										g2d.fillRect(positions[0].x, positions[2].y, longueur, hauteur);
+								} // 1er point en haut a droite, 2nd en bas a gauche
+								else {
+									if (positions[2].y > positions[0].y)
+										g2d.fillRect(positions[2].x, positions[0].y, longueur, hauteur);
+									// 1er point en bas a droite, 2nd en haut a gauche
+									else
+										g2d.fillRect(positions[2].x, positions[2].y, longueur, hauteur);
+								}		
 							} 
-							// Autres cas
+							// Cas des autres polygones
 							else {
 								int[] tabX = new int[nbSommets];
 								int[] tabY = new int[nbSommets];
@@ -691,7 +691,7 @@ public class Dessin extends JPanel {
 								}
 								g2d.fillPolygon(tabX, tabY, nbSommets);
 							}
-						// Si les polygones ne sont pas remplis
+						// Cas des polygones non remplis
 						} else {
 							for (int j = 0; j < nbSommets; j++)
 								dessinLigne(g2d, positions[j],
@@ -700,10 +700,9 @@ public class Dessin extends JPanel {
 					}
 				}
 			}
-			// Si la figure est selectionnee, on dessine les points de
-			// selection
+			
+			// Si la figure est selectionnee, on dessine les points de selection
 			for (int i = 0; i < listeFigSelectionnees.size(); i++) {
-
 				if (listeFigSelectionnees.get(i).getPlein()
 						&& couleur.getRed() < 150 && couleur.getBlue() < 150
 						&& couleur.getGreen() < 150)
@@ -723,6 +722,7 @@ public class Dessin extends JPanel {
 				}
 			}
 		}
+		
 		// Affichage des points d'une ArrayList si existante
 		g2d.setColor(Color.black);
 		if (!listePoints.isEmpty()) {
@@ -740,7 +740,7 @@ public class Dessin extends JPanel {
 				}
 		}
 
-		// activation ou non de la fonction supprimer,dupliquer et remplir
+		// Activation ou non de la fonction supprimer,dupliquer et remplir
 		if (!listeFigSelectionnees.isEmpty()) {
 			menuD.getSupprimer().setEnabled(true);
 			boutons.getSupprimer().setEnabled(true);
