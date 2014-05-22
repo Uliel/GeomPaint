@@ -63,12 +63,17 @@ public class BoiteOutils extends JPanel {
 	private Bouton annuler = new Bouton(6, new ImageIcon("images/annuler.png"));
 	private Bouton[] tabBoutonsOutils = { supprimer, selectionner, remplir,
 			exporterJPG, exporterPNG, annuler };
+	private JLabel couleurCourante = new JLabel("            ");
+
 
 	// Boutons rotation
 	private Bouton rotationDroite = new Bouton(1, new ImageIcon(
 			"images/rotation_d.png"));
 	private Bouton rotationGauche = new Bouton(2, new ImageIcon(
 			"images/rotation_g.png"));
+	
+	private JMenu size = new JMenu("Taille");
+
 
 	// CONSTRUCTEUR
 	/**
@@ -78,10 +83,10 @@ public class BoiteOutils extends JPanel {
 
 		supprimer.setEnabled(false);
 		// JMenuBar contenant la selection de la taille
-		JMenu size = new JMenu("Taille");
 		JMenuItem[] tailles = new JMenuItem[10];
 		JMenuItem image = new JMenuItem(new ImageIcon("images/taille.png"));
 		for (int i = 1; i <= 10; i++) {
+			final int n =i;
 			tailles[i - 1] = new JMenuItem(new ImageIcon("images/epaisseur_"
 					+ i + ".png"));
 			size.add(tailles[i - 1]);
@@ -96,6 +101,9 @@ public class BoiteOutils extends JPanel {
 					dessin.viderPoints();
 					dessiner = false;
 					dessin.changeEpaisseur((epaisseur));
+					size.setIcon(new ImageIcon("images/epaisseur_"
+					+ n + ".png"));
+					size.setText("");
 					selectionner.doClick();
 				}
 			});
@@ -142,6 +150,17 @@ public class BoiteOutils extends JPanel {
 		exporterPNG.setToolTipText("Exporter l'image en .png");
 		annuler.setToolTipText("Annuler la dernière modification");
 		palette.setToolTipText("Sélectionner une couleur dans la palette");
+		cercle.setToolTipText("Cercle");
+		rectangle.setToolTipText("Rectangle");
+		carre.setToolTipText("Carre");
+		triangle.setToolTipText("Triangle");
+		ellipse.setToolTipText("Ellipse");
+		polygone.setToolTipText("Polygone irregulier");
+		losange.setToolTipText("Losange");
+		trait.setToolTipText("Segment");
+		rotationDroite.setToolTipText("Rotation de 90� vers la droite");
+		rotationGauche.setToolTipText("Rotation de 90� vers la gauche");
+		size.setToolTipText("Changer l'epaisseur du trait");
 
 		// On empeche les barres d'outils d'être déplacées
 		formes.setFloatable(false);
@@ -248,7 +267,6 @@ public class BoiteOutils extends JPanel {
 				new Color(112, 146, 190), Color.gray };
 
 		// JLabel qui représente la couleur courante utilisée pour le dessin
-		final JLabel couleurCourante = new JLabel("            ");
 		couleurCourante.setBackground(Color.black);
 		couleurCourante.setOpaque(true);
 
@@ -335,8 +353,13 @@ public class BoiteOutils extends JPanel {
 
 	// ACCESSEURS
 	
+	
 	public Bouton getPalette() {
 		return palette;
+	}
+
+	public void setCouleurCourante(Color c) {
+		couleurCourante.setBackground(c);
 	}
 
 	public Bouton getExporterJPG() {
@@ -374,6 +397,26 @@ public class BoiteOutils extends JPanel {
 	public int getNumFigCourante() {
 		return this.numFigCourante;
 	}
+	
+	public Bouton getSupprimer() {
+		return supprimer;
+	}
+
+	public Bouton getRemplir() {
+		return remplir;
+	}
+
+	public Bouton getSelectionner() {
+		return selectionner;
+	}
+
+	public Bouton getAnnuler() {
+		return annuler;
+	}
+
+	public JMenu recupSize() {
+		return size;
+	}
 
 	// methodes pour deselectionner les boutons
 	public void desactiverFormes() {
@@ -410,21 +453,4 @@ public class BoiteOutils extends JPanel {
 		rotationGauche.setBorder(BorderFactory.createLineBorder(
 				Color.lightGray, 1));
 	}
-
-	public Bouton getSupprimer() {
-		return supprimer;
-	}
-
-	public Bouton getRemplir() {
-		return remplir;
-	}
-
-	public Bouton getSelectionner() {
-		return selectionner;
-	}
-
-	public Bouton getAnnuler() {
-		return annuler;
-	}
-
 }
