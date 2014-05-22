@@ -96,30 +96,25 @@ public class Dessin extends JPanel {
 						// - Recuperation du nombre de points de selection de la
 						// figure desiree
 						switch (boutons.getNumFigCourante()) {
-						case (1):
-							// Cercle
+						case (1): // Cercle
 							nbPoints = 2;
 							break;
-						case (2):
-							// Rectangle
+						case (2): // Rectangle
 							nbPoints = 2;
 							break;
-						case (3):
-							// Carre
+						case (3):	// Carre
 							nbPoints = 2;
 							break;
-						case (4):
-							// Triangle
+						case (4): // Triangle
 							nbPoints = 3;
 							break;
-						case (5):
-							// Ellipse
+						case (5): // Ellipse
 							nbPoints = 2;
 							break;
-						case(7) :
+						case(7) : // Losange
 							nbPoints = 2;
 							break;
-						case(8) :
+						case(8) : // Trait
 							nbPoints = 2;
 							break;
 						}
@@ -132,44 +127,38 @@ public class Dessin extends JPanel {
 					// Si on a une figure autre qu'un polygone
 					if (boutons.getNumFigCourante() != 6) {
 						// Tant que l'on a pas le nombre de points requis pour
-						// la figure, on incrémente une ArrayList
+						// la figure, on incremente une ArrayList
 						if (nbClics < nbPoints - 1) {
 							listePoints.add(new UnPoint(e.getX(), e.getY()));
 							nbClics++;
 
 						}
 						// Dernier clic : on instancie la figure, on supprime
-						// l'ArrayList et on incrémente le nombre de figures
+						// l'ArrayList et on incremente le nombre de figures
 						else {
 							listePoints.add(new UnPoint(e.getX(), e.getY()));
 							ajouterEtat();
 							switch (boutons.getNumFigCourante()) {
-							case (1):
-								// Cercle
+							case (1):	// Cercle
 								tabFigures[nbFigures] = new Cercle(listePoints);
 								break;
-							case (2):
-								// Rectangle
-								tabFigures[nbFigures] = new Rectangle(
-										listePoints);
+							case (2): // Rectangle
+								tabFigures[nbFigures] = new Rectangle(listePoints);
 								break;
-							case (3):
-								// Carre
+							case (3): // Carre
 								tabFigures[nbFigures] = new Carre(listePoints);
 								break;
-							case (4):
-								// Triangle
-								tabFigures[nbFigures] = new Triangle(
-										listePoints);
+							case (4): // Triangle
+								tabFigures[nbFigures] = new Triangle(listePoints);
 								break;
-							case (5):
-								// Ellipse
+							case (5): // Ellipse
 								tabFigures[nbFigures] = new Ellipse(listePoints);
 								break;
-							case(7) :
+												//Le cas du Polygone est trait� a part
+							case(7) : // Losange
 								tabFigures[nbFigures] = new Losange(listePoints);
 								break;
-							case(8) :
+							case(8) : // Trait
 								tabFigures[nbFigures] = new Polygone(listePoints);
 								break;
 							}
@@ -184,7 +173,7 @@ public class Dessin extends JPanel {
 					// Si on est en presence d'un polygone
 					else {
 						UnPoint nouveauPoint = new UnPoint(e.getX(), e.getY());
-						// Le premier point est automatiquement ajoute à
+						// Le premier point est automatiquement ajoute a�
 						// l'ArrayList
 						if (nbClics == 0) {
 							listePoints.add(nouveauPoint);
@@ -192,8 +181,8 @@ public class Dessin extends JPanel {
 						}
 						// Gestion des points suivants
 						else {
-							// Si le nouveau point est positionné au voisinage
-							// du premier point, le polygone est considéré
+							// Si le nouveau point est positionne au voisinage
+							// du premier point, le polygone est considere
 							// comme
 							// fini
 							if (estVoisin(20, nouveauPoint, listePoints.get(0))) {
@@ -208,7 +197,7 @@ public class Dessin extends JPanel {
 								nbClics = 0;
 								nbFigures++;
 							}
-							// Sinon, on incrémente l'ArrayList
+							// Sinon, on incremente l'ArrayList
 							else {
 								listePoints.add(nouveauPoint);
 								nbClics++;
@@ -281,13 +270,13 @@ public class Dessin extends JPanel {
 
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
-				// TODO Stub de la méthode généré automatiquement
+				// TODO Stub de la methode genere automatiquement
 
 			}
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				// TODO Stub de la méthode généré automatiquement
+				// TODO Stub de la methode genere automatiquement
 				if (figVoisine(new UnPoint(e.getX(), e.getY())) != null
 						&& boutons.getSelectionner().isSelected()
 						&& pointVoisin(new UnPoint(e.getX(), e.getY())) == null) {
@@ -326,7 +315,7 @@ public class Dessin extends JPanel {
 						((Carre) figModifiee).modifierTaille(ptFigure, e.getY()
 								- ptSouris.y);
 					}
-					// Si le point appartient à un rectangle, il faut garder la
+					// Si le point appartient a� un rectangle, il faut garder la
 					// forme rectangulaire
 					else if (figModifiee instanceof Rectangle) {
 						((Rectangle) figModifiee).modifierTaille(ptFigure,
@@ -744,12 +733,12 @@ public class Dessin extends JPanel {
 		repaint();
 	}
 
-	// Methode de dessin d'une ligne avec 2 paramètres de type UnPoint
+	// Methode de dessin d'une ligne avec 2 parametres de type UnPoint
 	public void dessinLigne(Graphics2D g2d, UnPoint p1, UnPoint p2) {
 		g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
 	}
 
-	// Methode qui teste si un point se trouve à moins d'une certaine distance
+	// Methode qui teste si un point se trouve a� moins d'une certaine distance
 	// d'un autre point
 	public boolean estVoisin(int distance, UnPoint p1, UnPoint p2) {
 		boolean res = false;
@@ -758,7 +747,7 @@ public class Dessin extends JPanel {
 		return res;
 	}
 
-	// Fonction qui renvoie la première figure situee au voisinage d'un point
+	// Fonction qui renvoie la premiere figure situee au voisinage d'un point
 	// ou null sinon
 	public FigureGeom figVoisine(UnPoint pt) {
 		FigureGeom res = null;
@@ -797,7 +786,7 @@ public class Dessin extends JPanel {
 		return res;
 	}
 
-	// Fonction qui renvoie le premier point d'une figure située au voisinage
+	// Fonction qui renvoie le premier point d'une figure situee au voisinage
 	// d'un point, ou null sinon
 	public UnPoint pointVoisin(UnPoint pt) {
 		UnPoint res = null;
@@ -840,7 +829,7 @@ public class Dessin extends JPanel {
 		filechoose.setCurrentDirectory(new File(".")); /*
 														 * ouvrir la boite de
 														 * dialogue dans
-														 * répertoire courant
+														 * repertoire courant
 														 */
 		filechoose.setDialogTitle("Exporter une image"); /*
 														 * nom de la boite de
@@ -852,8 +841,7 @@ public class Dessin extends JPanel {
 																		 * afficher
 																		 * seulement
 																		 * les
-																		 * ré
-																		 * pertoires
+																		 * repertoires
 																		 */
 
 		String approve = new String("Exporter"); /*
@@ -862,7 +850,7 @@ public class Dessin extends JPanel {
 		int resultatEnregistrer = filechoose.showDialog(filechoose, approve);
 		if (resultatEnregistrer == JFileChooser.APPROVE_OPTION) { /*
 																 * Si
-																 * l’utilisateur
+																 * l'utilisateur
 																 * clique sur le
 																 * bouton
 																 * Exporter
@@ -875,7 +863,7 @@ public class Dessin extends JPanel {
 																			 * absolu
 																			 */
 			/*
-			 * on enregistre le fichier dans le repertoire desiré avec pour nom
+			 * on enregistre le fichier dans le repertoire desire avec pour nom
 			 * image + date en millisecondes
 			 */
 			GregorianCalendar intCal = new GregorianCalendar();
@@ -975,7 +963,7 @@ public class Dessin extends JPanel {
 		}
 	}
 	/**
-	 * Methode permettant d'ajouter un etat à listeEtats
+	 * Methode permettant d'ajouter un etat a� listeEtats
 	 */
 	public void ajouterEtat() {
 		FigureGeom tmp[] = new FigureGeom[nbFigures];
@@ -983,7 +971,7 @@ public class Dessin extends JPanel {
 			try {
 				tmp[i] = tabFigures[i].clone();
 			} catch (CloneNotSupportedException e) {
-				// TODO Bloc catch généré automatiquement
+				// TODO Bloc catch genere automatiquement
 				e.printStackTrace();
 			}
 		}
@@ -1032,7 +1020,7 @@ public class Dessin extends JPanel {
 			try {
 				listeTampon.add(listeFigSelectionnees.get(i).clone());
 			} catch (CloneNotSupportedException e) {
-				// TODO Bloc catch généré automatiquement
+				// TODO Bloc catch genere automatiquement
 				e.printStackTrace();
 			}
 		}
@@ -1066,7 +1054,7 @@ public class Dessin extends JPanel {
 			try {
 				tabFigures[nbFigures] = listeTampon.get(i).clone();
 			} catch (CloneNotSupportedException e) {
-				// TODO Bloc catch généré automatiquement
+				// TODO Bloc catch genere automatiquement
 				e.printStackTrace();
 			}
 			nbFigures++;

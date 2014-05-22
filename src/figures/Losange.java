@@ -59,12 +59,7 @@ public class Losange extends Polygone {
 	 * @param valOrd
 	 *            la nouvelle valeur de l'ordonnee
 	 */
-	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {
-		
-	//calcul du centre du losange
-			UnPoint centre = new UnPoint(tabMemo[1].x + tabMemo[1].x - tabMemo[3].x,
-																	 tabMemo[0].y + tabMemo[0].y - tabMemo[2].y);
-		
+	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {		
 		if (pt.equals(tabMemo[0])) {
 			this.tabMemo[0].move(tabMemo[0].x + valAbs*2, tabMemo[0].y);
 			this.tabMemo[1].move(tabMemo[1].x + valAbs, tabMemo[1].y - valOrd);
@@ -87,5 +82,4 @@ public class Losange extends Polygone {
 			this.tabMemo[3].move(tabMemo[3].x, tabMemo[3].y + valOrd*2 );
 		}
 	}
-
 }
