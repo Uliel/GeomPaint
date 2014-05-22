@@ -119,9 +119,9 @@ public class Dessin extends JPanel {
 							
 							// tabFigures[nbFigures] = new Ovale();
 							// break;
-							// case(7) :
-							// tabFigures[nbFigures] = new Losange();
-							// break;
+						case(7) :
+							nbPoints = 2;
+							break;
 						case(8) :
 							nbPoints = 2;
 							break;
@@ -169,9 +169,9 @@ public class Dessin extends JPanel {
 								// tabFigures[nbFigures] = new Ovale(
 								//		listePoints);
 								//break;
-								// case(7) :
-								// tabFigures[nbFigures] = new Losange();
-								// break;
+							case(7) :
+								tabFigures[nbFigures] = new Losange(listePoints);
+								break;
 							case(8) :
 								tabFigures[nbFigures] = new Polygone(listePoints);
 								break;
@@ -493,7 +493,14 @@ public class Dessin extends JPanel {
 					break;
 					
 				case 7 : // si la figure est un losange
-					
+					g2d.drawLine(listePoints.get(0).x-longueur, listePoints.get(0).y,
+							 				 listePoints.get(0).x, listePoints.get(0).y-hauteur);
+					g2d.drawLine(listePoints.get(0).x-longueur, listePoints.get(0).y,
+			 				 listePoints.get(0).x, listePoints.get(0).y+hauteur);
+					g2d.drawLine(listePoints.get(0).x+longueur, listePoints.get(0).y,
+			 				 listePoints.get(0).x, listePoints.get(0).y-hauteur);
+					g2d.drawLine(listePoints.get(0).x+longueur, listePoints.get(0).y,
+			 				 listePoints.get(0).x, listePoints.get(0).y+hauteur);
 					break;
 					
 				case 8 : // si la figure est un trait
