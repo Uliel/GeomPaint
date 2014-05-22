@@ -58,6 +58,8 @@ public class Dessin extends JPanel {
 	private int absSouris = -1;
 	private int ordSouris = -1;
 	private JPanel entete = new JPanel();
+	private boolean selectionMultiple=false;
+	private UnPoint ptSelectionMultiple; 
 
 	// CONSTRUCTEURS
 	public Dessin() {
@@ -83,6 +85,32 @@ public class Dessin extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 				modifFigure = false;
 				annule = true;
+				if (selectionMultiple) {
+					int maxX=ptSelectionMultiple.x;
+					int minX=ptSouris.x;
+					int minY=ptSouris.y;
+					int maxY=ptSelectionMultiple.y;
+					if (ptSouris.x>ptSelectionMultiple.x) {
+						minX= ptSelectionMultiple.x;
+						maxX=ptSouris.x;
+					}
+					if (ptSouris.y>ptSelectionMultiple.y) {
+						minY= ptSelectionMultiple.y;
+						maxY=ptSouris.y;
+					}
+					for(int i=0;i<nbFigures;i++) {
+						boolean select = true;
+						for (int j=0;j<tabFigures[i].getNbMemo();j++) {
+							if(tabFigures[i].getTabMemo()[j].x>maxX||tabFigures[i].getTabMemo()[j].x<minX||
+									tabFigures[i].getTabMemo()[j].y>maxY||tabFigures[i].getTabMemo()[j].y<minY)
+								select=false;
+						}
+						if (select)
+							listeFigSelectionnees.add(tabFigures[i]);
+					}
+					selectionMultiple=false;
+				}
+				repaint();
 
 			}
 
@@ -244,6 +272,10 @@ public class Dessin extends JPanel {
 					else if (figVoisine(ptSouris) != null) {
 							translation = true;
 					}
+					else {
+						selectionMultiple=true;
+						ptSelectionMultiple = new UnPoint(e.getX(),e.getY());
+					}
 				}
 				control = false;
 				repaint();
@@ -328,8 +360,8 @@ public class Dessin extends JPanel {
 						ptFigure.deplacerPt(e.getX() - ptSouris.x, e.getY()
 								- ptSouris.y);
 					}
-				} else {
-					if (translation)
+				} 
+				else if (translation) {
 						if (annule) {
 							ajouterEtat();
 							annule = false;
@@ -342,6 +374,7 @@ public class Dessin extends JPanel {
 				ptSouris.move(e.getX(), e.getY());
 				repaint();
 			}
+
 
 			public void mouseMoved(MouseEvent e) {
 				absSouris = e.getX();
@@ -379,7 +412,25 @@ public class Dessin extends JPanel {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		super.paintComponent(g2d);
-
+		if (selectionMultiple) {
+			float []dash = {5.0f, 4.0f};
+			g2d.setColor(Color.GRAY);
+			g2d.setStroke(new BasicStroke(1.5f,BasicStroke.CAP_SQUARE,BasicStroke.JOIN_MITER,10.0f,dash,.0f));
+			if (ptSelectionMultiple.x<ptSouris.x&&ptSelectionMultiple.y<ptSouris.y)
+				g2d.drawRect(ptSelectionMultiple.x,ptSelectionMultiple.y,ptSouris.x-ptSelectionMultiple.x , 
+						ptSouris.y-ptSelectionMultiple.y);
+			else if (ptSelectionMultiple.x<ptSouris.x&&ptSelectionMultiple.y>ptSouris.y) {
+				g2d.drawRect(ptSelectionMultiple.x,ptSouris.y,ptSouris.x-ptSelectionMultiple.x , 
+						Math.abs(ptSouris.y-ptSelectionMultiple.y));
+			}
+			else if (ptSelectionMultiple.x>ptSouris.x&&ptSelectionMultiple.y<ptSouris.y) {
+				g2d.drawRect(ptSouris.x,ptSelectionMultiple.y,Math.abs(ptSouris.x-ptSelectionMultiple.x) , 
+						Math.abs(ptSouris.y-ptSelectionMultiple.y));
+			}
+			else 
+				g2d.drawRect(ptSouris.x,ptSouris.y,Math.abs(ptSouris.x-ptSelectionMultiple.x) , 
+						Math.abs(ptSouris.y-ptSelectionMultiple.y));
+		}
 		// si une figure est en cours de construction
 		if (listePoints.size() > 0) {
 			// recuperation de la couleur active
