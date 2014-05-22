@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 public class Cercle extends FigureGeom {
 
-	// CONSTRUCTEUR
+	// CONSTRUCTEURS
 
 	/**
 	 * Constructeur prenant en parametre une ArrayList
 	 * 
-	 * @param listePointsSaisie
+	 * @param lstePointsSaisie
 	 *            la liste de points saisis par l'utilisateur
 	 */
 	public Cercle(ArrayList<UnPoint> listePointsSaisie) {

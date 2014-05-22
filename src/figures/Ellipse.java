@@ -1,6 +1,6 @@
 /**
  * 
- * @authors Fr�d�ric Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
  *
  */
 
@@ -11,6 +11,11 @@ import java.util.ArrayList;
 public class Ellipse extends Cercle {
 
 		//CONSTRUCTEURS
+	/** 
+	 * Constructeur construisant une ellipse a partir d'une ArrayList
+	 * 
+	 * @param listePointsSaisie liste des points
+	 */
 	public Ellipse(ArrayList<UnPoint> listePointsSaisie) {
 		super(listePointsSaisie);
 		// Remplissage du tableau de points de memorisation
@@ -22,43 +27,21 @@ public class Ellipse extends Cercle {
 		int hauteur = listePointsSaisie.get(0).y - listePointsSaisie.get(1).y;
 		if(hauteur < 0) {hauteur = -hauteur;}
 		
-		// 1er point de saisie en haut a gauche, 2nd en bas a droite
-		if (listePointsSaisie.get(1).x > listePointsSaisie.get(0).x) {
-			if (listePointsSaisie.get(1).y > listePointsSaisie.get(0).y) {
-				this.tabMemo[0] = listePointsSaisie.get(0);
-				this.tabMemo[1] = listePointsSaisie.get(1);
-			} // 1er point en bas a gauche, 2nd en haut a droite
-			else {
-				this.tabMemo[0] = new UnPoint(listePointsSaisie.get(0).x,
-						listePointsSaisie.get(1).y);
-				this.tabMemo[1] = new UnPoint(listePointsSaisie.get(1).x,
-						listePointsSaisie.get(0).y);
-			}
-		} // 1er point en haut a droite, 2nd en bas a gauche
-		else {
-			if (listePointsSaisie.get(1).y > listePointsSaisie.get(0).y) {
-				this.tabMemo[0] = new UnPoint(listePointsSaisie.get(1).x,
-						listePointsSaisie.get(0).y);
-				this.tabMemo[1] = new UnPoint(listePointsSaisie.get(0).x,
-						listePointsSaisie.get(1).y);
-			} // 1er point en bas a droite, 2nd en haut a gauche
-			else {
-				this.tabMemo[0] = listePointsSaisie.get(1);
-				this.tabMemo[1] = listePointsSaisie.get(0);
-			}
-		}
+		this.tabMemo[0] = listePointsSaisie.get(0);
+		this.tabMemo[1] = listePointsSaisie.get(1);
 	}
 	
-	/** constructeur par copie
+	/** 
+	 * Constructeur par copie
 	 * 
-	 * @param ov
+	 * @param e ellipse a copier 
 	 */
-	public Ellipse(Ellipse ov) {
-		super(ov);
+	public Ellipse(Ellipse e) {
+		super(e);
 	}
 
 
-	// METHODES
+	// METHODE
 	
 	/**
 	 * Deplacement specifique à l'ellipse
@@ -66,9 +49,9 @@ public class Ellipse extends Cercle {
 	 * @param pt
 	 *            le point modifie
 	 * @param valAbs
-	 *            la nouvelle valeur de l'abscisse
+	 *            le déplacement selon l'axe des abscisses
 	 * @param valOrd
-	 *            la nouvelle valeur de l'ordonnee
+	 *            le déplacement selon l'axe des ordonnees
 	 */
 	public void modifierTaille(UnPoint pt, int valAbs, int valOrd) {
 		if (pt.equals(tabMemo[0])) {
