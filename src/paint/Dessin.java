@@ -962,20 +962,8 @@ public class Dessin extends JPanel {
 	public void coller(int a) {
 		viderPoints();
 		ajouterEtat();
-		int nbpt=0;
-		int graviteX=0;
-		int graviteY=0;
-		for (int i = 0;i<listeTampon.size();i++) {
-			for (int j=0;j<listeTampon.get(i).getTabMemo().length;j++ ) {
-				graviteX = graviteX + listeTampon.get(i).getTabMemo()[j].x;
-				graviteY = graviteY + listeTampon.get(i).getTabMemo()[j].y;
-				nbpt ++;
-			}
-		}
-		graviteX=graviteX/nbpt;
-		graviteY=graviteY/nbpt;
-		int distX= absSouris-graviteX;
-		int distY= ordSouris-graviteY;
+		int distX= absSouris-listeTampon.get(0).getTabMemo()[0].x;
+		int distY= ordSouris-listeTampon.get(0).getTabMemo()[0].y;
 		for (int i=0;i<listeTampon.size();i++) {
 			if (a==1)
 				listeTampon.get(i).translater(distX, distY);
