@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -77,8 +78,9 @@ public class UnMenu extends JMenuBar {
 				}
 				else if (((JMenuItem)(e.getSource())).getText().equals("Nouveau")) {
 					//Boîte du message préventif
-					int res =JOptionPane.showConfirmDialog(null, "Voulez-vous vraiment tout effacer ?", "Attention !",
-							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);	
+					String[]choix = {"oui","non"};
+					int res =JOptionPane.showOptionDialog(null, "Voulez-vous vraiment tout effacer ?", "Attention !",
+							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("images/attention.png"),choix,choix[1]);	
 					if (res == JOptionPane.YES_OPTION) {
 						d.nouveau();
 					}
