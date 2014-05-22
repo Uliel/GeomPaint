@@ -15,17 +15,16 @@ import javax.swing.KeyStroke;
 
 /**
  * 
- * @author Nicolas Gambarini
+ * @author Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
  * 
  */
 public class UnMenu extends JMenuBar {
-	/**
-	 * Attribut Plateau auquel est associé le menu
-	 */
+
+	// ATTRIBUTS
 	private Dessin d;
 
 	private JMenuItem annuler = new JMenuItem("Annuler");
-	private JMenuItem copier =new JMenuItem("Copier");
+	private JMenuItem copier = new JMenuItem("Copier");
 	private JMenuItem couper = new JMenuItem("Couper");
 	private JMenuItem coller = new JMenuItem("Coller");
 	private JMenuItem supprimer = new JMenuItem("Supprimer");
@@ -40,9 +39,11 @@ public class UnMenu extends JMenuBar {
 	private JMenuItem quitter = new JMenuItem("Quitter");
 	private JMenuItem rotationDroite = new JMenuItem("Rotation vers la droite");
 	private JMenuItem rotationGauche = new JMenuItem("Rotation vers la gauche");
-	private JMenuItem [] tabMenu = {annuler,copier,couper,coller,supprimer,remplir,
-			rotation,dupliquer,couleurs,nouveau,exporterJPG,exporterPNG,quitter,toutSelectionner};
+	private JMenuItem[] tabMenu = { annuler, copier, couper, coller, supprimer,
+			remplir, rotation, dupliquer, couleurs, nouveau, exporterJPG,
+			exporterPNG, quitter, toutSelectionner };
 
+	// CONSTRUCTEUR
 	/**
 	 * Constructeur qui permet d'initialiser le menu
 	 * 
@@ -58,76 +59,89 @@ public class UnMenu extends JMenuBar {
 		image.setFont(new Font("Arial", Font.BOLD, 14));
 		rotation.add(rotationDroite);
 		rotation.add(rotationGauche);
-		
+
 		ActionListener menuListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (((JMenuItem)(e.getSource())).getText().equals("Quitter")) {
+				if (((JMenuItem) (e.getSource())).getText().equals("Quitter")) {
 					System.exit(0);
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Supprimer")) {
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Supprimer")) {
 					d.supprimer();
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Remplir/Vider")) {
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Remplir/Vider")) {
 					d.remplir();
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Exporter en JPG")) {
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Exporter en JPG")) {
 					d.exporter("jpg");
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Exporter en PNG")) {
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Exporter en PNG")) {
 					d.exporter("png");
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Nouveau")) {
-					//Boîte du message préventif
-					String[]choix = {"Oui","Non"};
-					int res =JOptionPane.showOptionDialog(null, "Voulez-vous vraiment tout effacer ?", "Attention !",
-							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("images/attention.png"),choix,choix[1]);	
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Nouveau")) {
+					// Boîte du message préventif
+					String[] choix = { "Oui", "Non" };
+					int res = JOptionPane.showOptionDialog(null,
+							"Voulez-vous vraiment tout effacer ?",
+							"Attention !", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE, new ImageIcon(
+									"images/attention.png"), choix, choix[1]);
 					if (res == JOptionPane.YES_OPTION) {
 						d.nouveau();
 					}
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Rotation vers la droite")) {
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Rotation vers la droite")) {
 					d.rotation(1);
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Rotation vers la gauche")) {
-					d.rotation(2);				
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Dupliquer")) {
-					d.dupliquer();				
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Tout selectionner")) {
-					d.toutSelectionner();				
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Annuler")) {
-					d.annuler();				
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Copier")) {
-					d.copier();				
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Couper")) {
-					d.couper();				
-				}
-				else if (((JMenuItem)(e.getSource())).getText().equals("Coller")) {
-					d.coller(2);				
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Rotation vers la gauche")) {
+					d.rotation(2);
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Dupliquer")) {
+					d.dupliquer();
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Tout selectionner")) {
+					d.toutSelectionner();
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Annuler")) {
+					d.annuler();
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Copier")) {
+					d.copier();
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Couper")) {
+					d.couper();
+				} else if (((JMenuItem) (e.getSource())).getText().equals(
+						"Coller")) {
+					d.coller(2);
 				}
 			}
 		};
-		for (int i=0;i<tabMenu.length;i++) {
+		for (int i = 0; i < tabMenu.length; i++) {
 			if (!tabMenu[i].getText().equals("Rotation")) {
 				tabMenu[i].addActionListener(menuListener);
 			}
-		}	
+		}
 		rotationDroite.addActionListener(menuListener);
 		rotationGauche.addActionListener(menuListener);
-		copier.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_MASK));
-		coller.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_MASK));
-		couper.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_MASK));
-		toutSelectionner.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_MASK));
-		annuler.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_MASK));
-		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_MASK));
-		supprimer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_MASK));
-		nouveau.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_MASK));
-		exporterJPG.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_MASK));
-		exporterPNG.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_MASK));
+		copier.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
+				KeyEvent.CTRL_MASK));
+		coller.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V,
+				KeyEvent.CTRL_MASK));
+		couper.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,
+				KeyEvent.CTRL_MASK));
+		toutSelectionner.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
+				KeyEvent.CTRL_MASK));
+		annuler.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,
+				KeyEvent.CTRL_MASK));
+		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
+				KeyEvent.CTRL_MASK));
+		supprimer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D,
+				KeyEvent.CTRL_MASK));
+		nouveau.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
+				KeyEvent.CTRL_MASK));
+		exporterJPG.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E,
+				KeyEvent.CTRL_MASK));
+		exporterPNG.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,
+				KeyEvent.CTRL_MASK));
 
 		edition.add(annuler);
 		edition.add(toutSelectionner);
@@ -152,6 +166,8 @@ public class UnMenu extends JMenuBar {
 		this.add(image);
 	}
 
+	// ACCESSEURS
+
 	public JMenuItem getSupprimer() {
 		return supprimer;
 	}
@@ -175,9 +191,5 @@ public class UnMenu extends JMenuBar {
 	public JMenuItem getColler() {
 		return coller;
 	}
-	
-	
-	
-	
-}
 
+}

@@ -11,19 +11,24 @@ import java.awt.event.MouseAdapter;
 
 import javax.swing.*;
 
+/**
+ * 
+ * @author Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ *
+ */
 public class BoiteOutils extends JPanel {
 
 	// ATTRIBUTS
 	private boolean select;
 	private boolean dessiner;
 	private Dessin dessin;
-	
+
 	private JToolBar formes = new JToolBar("Formes");
 	private JToolBar outils = new JToolBar("Outils");
 	private JToolBar col = new JToolBar("Couleurs");
-	
+
 	private int numFigCourante;
-	
+
 	// Creation des boutons de selection de forme et stockage dans un
 	// tableau
 	private Bouton cercle = new Bouton(1, new ImageIcon("images/cercle.png"));
@@ -39,11 +44,11 @@ public class BoiteOutils extends JPanel {
 	private Bouton trait = new Bouton(8, new ImageIcon("images/trait.png"));
 	private Bouton[] tabBoutonsFormes = { cercle, rectangle, carre, triangle,
 			ellipse, polygone, losange, trait };
-	
+
 	// tableau de boutons de couleur
 	private Bouton[] couleurs = new Bouton[30];
 	int nbCoul = 20;
-	private Bouton palette = new Bouton(1,new ImageIcon("images/palette.png"));
+	private Bouton palette = new Bouton(1, new ImageIcon("images/palette.png"));
 
 	// Boutons de la boîte à outils
 	private Bouton supprimer = new Bouton(1, new ImageIcon(
@@ -55,31 +60,33 @@ public class BoiteOutils extends JPanel {
 			"images/exporter_jpg2.png"));
 	private Bouton exporterPNG = new Bouton(5, new ImageIcon(
 			"images/exporter_png2.png"));
-	private Bouton annuler = new Bouton(6, new ImageIcon(
-			"images/annuler.png"));
+	private Bouton annuler = new Bouton(6, new ImageIcon("images/annuler.png"));
 	private Bouton[] tabBoutonsOutils = { supprimer, selectionner, remplir,
-			exporterJPG, exporterPNG,annuler };
-	
-	//Boutons rotation
-	private Bouton rotationDroite = new Bouton(1,new ImageIcon("images/rotation_d.png"));
-	private Bouton rotationGauche = new Bouton(2,new ImageIcon("images/rotation_g.png"));
-	
+			exporterJPG, exporterPNG, annuler };
+
+	// Boutons rotation
+	private Bouton rotationDroite = new Bouton(1, new ImageIcon(
+			"images/rotation_d.png"));
+	private Bouton rotationGauche = new Bouton(2, new ImageIcon(
+			"images/rotation_g.png"));
+
 	// CONSTRUCTEUR
 	/**
 	 * Constructeur initialisant le menu
 	 */
 	public BoiteOutils(Dessin d) {
-		
+
 		supprimer.setEnabled(false);
-		//JMenuBar contenant la selection de la taille
+		// JMenuBar contenant la selection de la taille
 		JMenu size = new JMenu("Taille");
 		JMenuItem[] tailles = new JMenuItem[10];
 		JMenuItem image = new JMenuItem(new ImageIcon("images/taille.png"));
-		for (int i=1;i<=10;i++) {
-			tailles[i-1] = new JMenuItem(new ImageIcon("images/epaisseur_"+i+".png"));
-			size.add(tailles[i-1]);
-			final int epaisseur= i;
-			tailles[i-1].addActionListener(new ActionListener() {
+		for (int i = 1; i <= 10; i++) {
+			tailles[i - 1] = new JMenuItem(new ImageIcon("images/epaisseur_"
+					+ i + ".png"));
+			size.add(tailles[i - 1]);
+			final int epaisseur = i;
+			tailles[i - 1].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					desactiverOutils();
 					desactiverFormes();
@@ -90,22 +97,22 @@ public class BoiteOutils extends JPanel {
 					dessiner = false;
 					dessin.changeEpaisseur((epaisseur));
 					selectionner.doClick();
-				}	
+				}
 			});
 		}
-		JMenuBar tailleBarre= new JMenuBar();
+		JMenuBar tailleBarre = new JMenuBar();
 		image.setEnabled(false);
 		image.setDisabledIcon(image.getIcon());
 		tailleBarre.add(size);
 		tailleBarre.add(image);
-		
-		//JPanel contenant les boutons de rotation
+
+		// JPanel contenant les boutons de rotation
 		JPanel rotation = new JPanel();
-		rotation.setLayout(new GridLayout(1,2));
+		rotation.setLayout(new GridLayout(1, 2));
 		rotationDroite.setFocusPainted(false);
 		rotationGauche.setFocusPainted(false);
-		
-		//ActionListener des boutons de rotation
+
+		// ActionListener des boutons de rotation
 		ActionListener rotationListener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dessiner = false;
@@ -113,22 +120,19 @@ public class BoiteOutils extends JPanel {
 				desactiverFormes();
 				desactiverCoul();
 				desactiverRotation();
-				if (((Bouton) (e.getSource())).getValeur()==1)
+				if (((Bouton) (e.getSource())).getValeur() == 1)
 					dessin.rotation(1);
 				else
 					dessin.rotation(2);
-				}
+			}
 		};
-		
+
 		rotationDroite.addActionListener(rotationListener);
 		rotationGauche.addActionListener(rotationListener);
 		rotation.add(rotationDroite);
 		rotation.add(rotationGauche);
 
-		
-		
-	
-		//Affichage des bulles d'aide
+		// Affichage des bulles d'aide
 		supprimer.setToolTipText("Supprimer une figure");
 		selectionner.setToolTipText("Selectionner une figure");
 		remplir.setToolTipText("Remplir ou vider une figure");
@@ -136,21 +140,22 @@ public class BoiteOutils extends JPanel {
 		exporterPNG.setToolTipText("Exporter l'image en .png");
 		annuler.setToolTipText("Annuler la dernière modification");
 		palette.setToolTipText("Sélectionner une couleur dans la palette");
-		
-		//On empeche les barres d'outils d'être déplacées
-		formes.setFloatable(false); 
-		outils.setFloatable(false); 
+
+		// On empeche les barres d'outils d'être déplacées
+		formes.setFloatable(false);
+		outils.setFloatable(false);
 		col.setFloatable(false);
-		
-		//Definition des layout
-		this.setLayout(new BorderLayout(4,4));
+
+		// Definition des layout
+		this.setLayout(new BorderLayout(4, 4));
 		formes.setLayout(new GridLayout(2, 5, 2, 2));
 		outils.setLayout(new GridLayout(2, 3, 2, 2));
-		col.setLayout(new BorderLayout(2,2));
-		
-		//Pour pouvoir avoir accès aux attributs et aux methodes de la classe dessin
+		col.setLayout(new BorderLayout(2, 2));
+
+		// Pour pouvoir avoir accès aux attributs et aux methodes de la classe
+		// dessin
 		dessin = d;
-		
+
 		// Creation d'un auditeur commun a tous les boutons de forme
 		ActionListener selectionForme = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -164,7 +169,8 @@ public class BoiteOutils extends JPanel {
 				if (((Bouton) (e.getSource())).isSelected()) {
 					desactiverFormes();
 					((Bouton) (e.getSource())).setSelected(true);
-					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2, false));
+					((Bouton) (e.getSource())).setBorder(BorderFactory
+							.createLineBorder(Color.black, 2, false));
 				} else
 					desactiverFormes();
 			}
@@ -192,36 +198,34 @@ public class BoiteOutils extends JPanel {
 				if (((Bouton) (e.getSource())).getValeur() == 2) {
 					select = true;
 					((Bouton) (e.getSource())).setSelected(true);
-					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
+					((Bouton) (e.getSource())).setBorder(BorderFactory
+							.createLineBorder(Color.black, 2));
 
 				} else {
 					if (((Bouton) (e.getSource())).getValeur() == 4) {
 						dessin.exporter("jpg");
-						selectionner.doClick();;
-					}
-					else if (((Bouton) (e.getSource())).getValeur() == 5) {
+						selectionner.doClick();
+						;
+					} else if (((Bouton) (e.getSource())).getValeur() == 5) {
 						dessin.exporter("png");
 						selectionner.doClick();
-					}
-					else if (((Bouton) (e.getSource())).getValeur() == 3) {
+					} else if (((Bouton) (e.getSource())).getValeur() == 3) {
 						dessin.remplir();
 						selectionner.doClick();
-					}
-					else if (((Bouton) (e.getSource())).getValeur() == 1) {
+					} else if (((Bouton) (e.getSource())).getValeur() == 1) {
 						dessin.supprimer();
 						selectionner.doClick();
-					}
-					else if (((Bouton) (e.getSource())).getValeur() == 6) {
+					} else if (((Bouton) (e.getSource())).getValeur() == 6) {
 						dessin.annuler();
 					}
 					((Bouton) (e.getSource())).setSelected(false);
 				}
 				dessin.viderPoints();
-				
+
 			}
 		};
-		
-		//Mise en formes des boutons et ajout du listenner
+
+		// Mise en formes des boutons et ajout du listenner
 		for (int i = 0; i < tabBoutonsOutils.length; i++) {
 			tabBoutonsOutils[i].setBackground(Color.white);
 			outils.add(tabBoutonsOutils[i]);
@@ -230,21 +234,23 @@ public class BoiteOutils extends JPanel {
 		}
 		// Ajout des différentes couleurs
 
-		col.setPreferredSize(new Dimension(230,70));
+		col.setPreferredSize(new Dimension(230, 70));
 		final JPanel colors = new JPanel();
-		colors.setLayout(new GridLayout(3,10,2,2));
-		Color[] tabCouleurs= {Color.black,Color.darkGray,new Color(137,0,21),Color.red,new Color(255,227,39),
-				Color.yellow,Color.green,new Color(0,162,232),Color.blue,new Color(163,73,164),Color.white,
-				Color.lightGray,new Color(185,122,87),Color.pink,Color.orange,new Color(239,228,176),
-				new Color(181,230,29),Color.cyan,new Color(112,146,190),Color.gray
-				};
-		
-		//JLabel qui représente la couleur courante utilisée pour le dessin
+		colors.setLayout(new GridLayout(3, 10, 2, 2));
+		Color[] tabCouleurs = { Color.black, Color.darkGray,
+				new Color(137, 0, 21), Color.red, new Color(255, 227, 39),
+				Color.yellow, Color.green, new Color(0, 162, 232), Color.blue,
+				new Color(163, 73, 164), Color.white, Color.lightGray,
+				new Color(185, 122, 87), Color.pink, Color.orange,
+				new Color(239, 228, 176), new Color(181, 230, 29), Color.cyan,
+				new Color(112, 146, 190), Color.gray };
+
+		// JLabel qui représente la couleur courante utilisée pour le dessin
 		final JLabel couleurCourante = new JLabel("            ");
 		couleurCourante.setBackground(Color.black);
 		couleurCourante.setOpaque(true);
-		
-		//ActionListener pour les différentes couleurs
+
+		// ActionListener pour les différentes couleurs
 		final ActionListener selectionCouleur = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dessiner = false;
@@ -253,75 +259,80 @@ public class BoiteOutils extends JPanel {
 				desactiverCoul();
 				desactiverRotation();
 				((Bouton) (e.getSource())).setSelected(true);
-				if (((Bouton) (e.getSource())).getCoul().getBlue()<150&&
-						((Bouton) (e.getSource())).getCoul().getRed()<150&&
-						((Bouton) (e.getSource())).getCoul().getGreen()<150)
-				((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(new Color(255,230,90), 2));
-				else 
-					((Bouton) (e.getSource())).setBorder(BorderFactory.createLineBorder(Color.black, 2));
-				couleurCourante.setBackground(((Bouton) (e.getSource())).getCoul());
+				if (((Bouton) (e.getSource())).getCoul().getBlue() < 150
+						&& ((Bouton) (e.getSource())).getCoul().getRed() < 150
+						&& ((Bouton) (e.getSource())).getCoul().getGreen() < 150)
+					((Bouton) (e.getSource())).setBorder(BorderFactory
+							.createLineBorder(new Color(255, 230, 90), 2));
+				else
+					((Bouton) (e.getSource())).setBorder(BorderFactory
+							.createLineBorder(Color.black, 2));
+				couleurCourante.setBackground(((Bouton) (e.getSource()))
+						.getCoul());
 				dessin.changeCouleur(((Bouton) (e.getSource())).getCoul());
 				selectionner.doClick();
-				
+
 			}
 		};
 
-		//Mise en forme des boutons
+		// Mise en forme des boutons
 		for (int i = 0; i < tabCouleurs.length; i++) {
-			couleurs[i]=new Bouton(i,tabCouleurs[i]);
+			couleurs[i] = new Bouton(i, tabCouleurs[i]);
 			couleurs[i].addActionListener(selectionCouleur);
 			colors.add(couleurs[i]);
 		}
-		for (int i=tabCouleurs.length;i<couleurs.length;i++) {
-			couleurs[i]=new Bouton(i,new Color(230,230,230));
+		for (int i = tabCouleurs.length; i < couleurs.length; i++) {
+			couleurs[i] = new Bouton(i, new Color(230, 230, 230));
 			couleurs[i].setEnabled(false);
 			colors.add(couleurs[i]);
-			
+
 		}
-		
+
 		palette.setFocusPainted(false);
-		
-		//Definition du mouseListener pour l'apparition de la palette de couleurs
+
+		// Definition du mouseListener pour l'apparition de la palette de
+		// couleurs
 		ActionListener paletteListener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	     
-	            Color background = JColorChooser.showDialog(null,
-	                    "Choix d'une couleur", null);
-	            if (background != null) {
-	            	couleurCourante.setBackground(background);
-	            	dessin.changeCouleur(background);
-	            	dessin.setCouleur(background);
-	            	if (nbCoul<30) {
-	            		couleurs[nbCoul].setEnabled(true);
-	            		couleurs[nbCoul].setBackground(background);
-	            		couleurs[nbCoul].addActionListener(selectionCouleur);
-	            		couleurs[nbCoul].setCoul(background);
-	            		nbCoul++;
-	            	}
-	            	else {
-	            		nbCoul=20;
-	            		couleurs[20].setBackground(background);
-	            	}     
-	            }
-	        }
+			public void actionPerformed(ActionEvent e) {
+				Color background = JColorChooser.showDialog(null,
+						"Choix d'une couleur", null);
+				if (background != null) {
+					couleurCourante.setBackground(background);
+					dessin.changeCouleur(background);
+					dessin.setCouleur(background);
+					if (nbCoul < 30) {
+						couleurs[nbCoul].setEnabled(true);
+						couleurs[nbCoul].setBackground(background);
+						couleurs[nbCoul].addActionListener(selectionCouleur);
+						couleurs[nbCoul].setCoul(background);
+						nbCoul++;
+					} else {
+						nbCoul = 20;
+						couleurs[20].setBackground(background);
+					}
+				}
+			}
 		};
-		
+
 		palette.addActionListener(paletteListener);
-		
-		//Mise en place des JToolBar
-		
-		col.add(colors,BorderLayout.CENTER);
-		col.add(palette,BorderLayout.WEST);
-		col.add(couleurCourante,BorderLayout.EAST);
+
+		// Mise en place des JToolBar
+
+		col.add(colors, BorderLayout.CENTER);
+		col.add(palette, BorderLayout.WEST);
+		col.add(couleurCourante, BorderLayout.EAST);
 		formes.add(tailleBarre);
 		formes.add(rotation);
-		formes.setPreferredSize(new Dimension(150,60));
-		outils.setPreferredSize(new Dimension(190,60));
-		col.setPreferredSize(new Dimension(400,60));
-		this.add(col,BorderLayout.EAST);
-		this.add(formes,BorderLayout.CENTER);
-		this.add(outils,BorderLayout.WEST);
+		formes.setPreferredSize(new Dimension(150, 60));
+		outils.setPreferredSize(new Dimension(190, 60));
+		col.setPreferredSize(new Dimension(400, 60));
+		this.add(col, BorderLayout.EAST);
+		this.add(formes, BorderLayout.CENTER);
+		this.add(outils, BorderLayout.WEST);
 	}
 
+	// ACCESSEURS
+	
 	public Bouton getPalette() {
 		return palette;
 	}
@@ -342,7 +353,6 @@ public class BoiteOutils extends JPanel {
 		return rotationGauche;
 	}
 
-	// ACCESSEURS
 	public boolean getDessiner() {
 		return this.dessiner;
 	}
@@ -354,11 +364,11 @@ public class BoiteOutils extends JPanel {
 	public boolean getSelect() {
 		return this.select;
 	}
-	
+
 	public void setSelect(boolean d) {
 		this.select = d;
 	}
-	
+
 	public int getNumFigCourante() {
 		return this.numFigCourante;
 	}
@@ -367,31 +377,38 @@ public class BoiteOutils extends JPanel {
 	public void desactiverFormes() {
 		for (int i = 0; i < tabBoutonsFormes.length; i++) {
 			tabBoutonsFormes[i].setSelected(false);
-			tabBoutonsFormes[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
-			
+			tabBoutonsFormes[i].setBorder(BorderFactory.createLineBorder(
+					Color.lightGray, 1));
+
 		}
 	}
 
 	public void desactiverOutils() {
 		for (int i = 0; i < tabBoutonsOutils.length; i++) {
 			tabBoutonsOutils[i].setSelected(false);
-			tabBoutonsOutils[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+			tabBoutonsOutils[i].setBorder(BorderFactory.createLineBorder(
+					Color.lightGray, 1));
 		}
 	}
+
 	public void desactiverCoul() {
 		for (int i = 0; i < couleurs.length; i++) {
 			couleurs[i].setSelected(false);
-			couleurs[i].setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+			couleurs[i].setBorder(BorderFactory.createLineBorder(
+					Color.lightGray, 1));
 
 		}
 	}
+
 	public void desactiverRotation() {
 		rotationDroite.setSelected(false);
 		rotationGauche.setSelected(false);
-		rotationDroite.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
-		rotationGauche.setBorder(BorderFactory.createLineBorder(Color.lightGray, 1));
+		rotationDroite.setBorder(BorderFactory.createLineBorder(
+				Color.lightGray, 1));
+		rotationGauche.setBorder(BorderFactory.createLineBorder(
+				Color.lightGray, 1));
 	}
-	
+
 	public Bouton getSupprimer() {
 		return supprimer;
 	}
@@ -407,10 +424,5 @@ public class BoiteOutils extends JPanel {
 	public Bouton getAnnuler() {
 		return annuler;
 	}
-	
-	
-	
-	
-	
-	
+
 }
