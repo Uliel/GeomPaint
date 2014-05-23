@@ -693,9 +693,12 @@ public class Dessin extends JPanel {
 							}
 						// Cas des polygones non remplis
 						} else {
-							for (int j = 0; j < nbSommets; j++)
+							for (int j = 0; j < nbSommets; j++) {
 								dessinLigne(g2d, positions[j],
 										positions[(j + 1) % nbSommets]);
+								System.out.println("test");
+							}
+
 						}
 					}
 				}
