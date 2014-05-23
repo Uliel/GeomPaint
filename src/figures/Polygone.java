@@ -1,6 +1,7 @@
 /**
  * 
  * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * Classe qui cree des polygones quelconques, elle herite de FigureGeom
  *
  */
 

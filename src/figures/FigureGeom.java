@@ -1,6 +1,8 @@
 /**
  * 
  * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * Classe qui cree des figures geometriques a partir de listes de points
+ * Une figure est tableau de points
  *
  */
 
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 public abstract class FigureGeom implements Cloneable {
 
 	// ATTRIBUTS
-	
+
 	private Color couleur;
 	protected int epaisseur = 1;
 	protected boolean plein;
@@ -21,9 +23,8 @@ public abstract class FigureGeom implements Cloneable {
 	protected UnPoint[] tabSaisie;
 	protected int nbSaisie;
 
-	
 	// CONSTRUCTEURS
-	
+
 	/**
 	 * Constructeur par copie
 	 * 
@@ -62,7 +63,6 @@ public abstract class FigureGeom implements Cloneable {
 			this.tabSaisie[i] = listePointsSaisie.get(i);
 	}
 
-	
 	// ACCESSEURS
 
 	public int getNbSaisie() {
@@ -121,7 +121,6 @@ public abstract class FigureGeom implements Cloneable {
 		this.plein = b;
 	}
 
-	
 	// METHODES
 
 	/**
@@ -153,9 +152,9 @@ public abstract class FigureGeom implements Cloneable {
 	 */
 	public FigureGeom clone() throws CloneNotSupportedException {
 		FigureGeom copie = (FigureGeom) super.clone();
-		copie.tabMemo=tabMemo.clone();
-		for (int i = 0;i<tabMemo.length;i++) {
-			copie.tabMemo[i]=tabMemo[i].clone();
+		copie.tabMemo = tabMemo.clone();
+		for (int i = 0; i < tabMemo.length; i++) {
+			copie.tabMemo[i] = tabMemo[i].clone();
 		}
 		return copie;
 	}
@@ -164,22 +163,21 @@ public abstract class FigureGeom implements Cloneable {
 	 * Methode rotation pour le polygone
 	 */
 	public void rotation(int r) {
-		if(this instanceof Polygone || this instanceof Ellipse) {
-			int graviteX=0;
-			int graviteY=0;
-			for (int i = 0;i<tabMemo.length;i++) {
+		if (this instanceof Polygone || this instanceof Ellipse) {
+			int graviteX = 0;
+			int graviteY = 0;
+			for (int i = 0; i < tabMemo.length; i++) {
 				graviteX = graviteX + tabMemo[i].x;
 				graviteY = graviteY + tabMemo[i].y;
 			}
-			graviteX=graviteX/nbMemo;
-			graviteY=graviteY/nbMemo;
-			UnPoint centreGravite = new UnPoint(graviteX,graviteY);
-			
-			for (int i = 0;i<tabMemo.length;i++) {
-				if (r==1) {
+			graviteX = graviteX / nbMemo;
+			graviteY = graviteY / nbMemo;
+			UnPoint centreGravite = new UnPoint(graviteX, graviteY);
+
+			for (int i = 0; i < tabMemo.length; i++) {
+				if (r == 1) {
 					tabMemo[i].rotatePoint(centreGravite, 90);
-				}
-				else 
+				} else
 					tabMemo[i].rotatePoint(centreGravite, -90);
 			}
 		}

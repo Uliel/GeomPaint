@@ -1,6 +1,7 @@
 /**
  * 
  * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * Classe qui permet de cree des ellipses, elle herite de Cercle
  *
  */
 
@@ -10,39 +11,44 @@ import java.util.ArrayList;
 
 public class Ellipse extends Cercle {
 
-		//CONSTRUCTEURS
-	/** 
+	// CONSTRUCTEURS
+	/**
 	 * Constructeur construisant une ellipse a partir d'une ArrayList
 	 * 
-	 * @param listePointsSaisie liste des points
+	 * @param listePointsSaisie
+	 *            liste des points
 	 */
 	public Ellipse(ArrayList<UnPoint> listePointsSaisie) {
 		super(listePointsSaisie);
 		// Remplissage du tableau de points de memorisation
 		this.nbMemo = 2;
 		this.tabMemo = new UnPoint[this.nbMemo];
-		
+
 		int longueur = listePointsSaisie.get(0).x - listePointsSaisie.get(1).x;
-		if(longueur < 0) {longueur = -longueur;}
+		if (longueur < 0) {
+			longueur = -longueur;
+		}
 		int hauteur = listePointsSaisie.get(0).y - listePointsSaisie.get(1).y;
-		if(hauteur < 0) {hauteur = -hauteur;}
-		
+		if (hauteur < 0) {
+			hauteur = -hauteur;
+		}
+
 		this.tabMemo[0] = listePointsSaisie.get(0);
 		this.tabMemo[1] = listePointsSaisie.get(1);
 	}
-	
-	/** 
+
+	/**
 	 * Constructeur par copie
 	 * 
-	 * @param e ellipse a copier 
+	 * @param e
+	 *            ellipse a copier
 	 */
 	public Ellipse(Ellipse e) {
 		super(e);
 	}
 
-
 	// METHODE
-	
+
 	/**
 	 * Deplacement specifique à l'ellipse
 	 * 

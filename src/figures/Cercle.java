@@ -1,6 +1,7 @@
 /**
  * 
  * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * Classe qui cree des cercles, elle herite de FigureGeom
  *
  */
 
@@ -38,5 +39,5 @@ public class Cercle extends FigureGeom {
 	public Cercle(Cercle c) {
 		super(c);
 	}
-	
+
 }
