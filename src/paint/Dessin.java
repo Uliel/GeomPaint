@@ -2,7 +2,6 @@ package paint;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -119,7 +118,6 @@ public class Dessin extends JPanel {
 					selectionMultiple = false;
 					repaint();
 				}
-
 			}
 
 			public void mousePressed(MouseEvent e) {
@@ -154,7 +152,6 @@ public class Dessin extends JPanel {
 							nbPoints = 2;
 							break;
 						}
-						// tabFigures[nbFigures].setCouleur(g.getColor());
 
 						// - Deselection de la figure precedente
 						listeFigSelectionnees.clear();
@@ -281,8 +278,9 @@ public class Dessin extends JPanel {
 					// (couplage avec MouseDragged)
 					else if (figVoisine(ptSouris) != null) {
 						translation = true;
-					} else {
-						// 4) Selection multiple avec le drag de la souris
+					} 
+					// 4) Selection multiple avec le drag de la souris
+					else {
 						selectionMultiple = true;
 						ptSelectionMultiple = new UnPoint(e.getX(), e.getY());
 					}
@@ -291,41 +289,36 @@ public class Dessin extends JPanel {
 				repaint();
 			}
 
-			public void mouseExited(MouseEvent e) {
-			}
-
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			public void mouseClicked(MouseEvent e) {
-			}
+			public void mouseExited(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {}
 		};
 
 		// Listener qui permet de modifier le curseur de la souris
 		MouseMotionListener apparenceSouris = new MouseMotionListener() {
 
 			@Override
-			public void mouseDragged(MouseEvent arg0) {
-				// TODO Stub de la methode genere automatiquement
-			}
+			public void mouseDragged(MouseEvent arg0) {}
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				// Changement de l'apparence de la souris pour deplacer ou pour
-				// modifier une figure
-				// TODO Stub de la methode genere automatiquement
+				// Changement de l'apparence de la souris pour deplacer une figure
 				if (figVoisine(new UnPoint(e.getX(), e.getY())) != null
 						&& boutons.getSelectionner().isSelected()
 						&& pointVoisin(new UnPoint(e.getX(), e.getY())) == null) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-				} else if (pointVoisin(new UnPoint(e.getX(), e.getY())) != null
+				} 
+				// Changement de l'apparence de la souris pour modifier une figure
+				else if (pointVoisin(new UnPoint(e.getX(), e.getY())) != null
 						&& boutons.getSelectionner().isSelected()) {
 					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				} else {
+				} 
+				// Curseur par defaut
+				else {
 					setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 				}
 
-				// pour quand on est en train de construire une figure
+				// Lorsque la figure en cours de construction
 				ptSouris.x = e.getX();
 				ptSouris.y = e.getY();
 				if (listePoints.size() > 0) {
@@ -361,11 +354,13 @@ public class Dessin extends JPanel {
 								e.getX() - ptSouris.x, e.getY() - ptSouris.y);
 					}
 					// Si le point appartient a une ellipse, il faut garder la
-					// forme rectangulaire
+					// forme rectangulaire servant a la construction de l'ellipse
 					else if (figModifiee instanceof Ellipse) {
 						((Ellipse) figModifiee).modifierTaille(ptFigure,
 								e.getX() - ptSouris.x, e.getY() - ptSouris.y);
-					} else {
+					} 
+					// Si aucun de ces cas
+					else {
 						ptFigure.deplacerPt(e.getX() - ptSouris.x, e.getY()
 								- ptSouris.y);
 					}
@@ -396,7 +391,9 @@ public class Dessin extends JPanel {
 
 	}
 
+	
 	// ACCESSEURS
+	
 	public Color getCouleur() {
 		return couleur;
 	}
@@ -413,7 +410,9 @@ public class Dessin extends JPanel {
 		this.epaisseur = e;
 	}
 
-	// AUTRES METHODES
+	
+	// METHODES
+	
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		super.paintComponent(g2d);
@@ -499,7 +498,9 @@ public class Dessin extends JPanel {
 					if (nbSommets == 2) {
 						g2d.drawLine(positions[0].x, positions[0].y,
 								positions[1].x, positions[1].y);
-					} else {
+					}
+					// Cas des autres polygones
+					else {
 						// Cas des polygones remplis
 						if (tabFigures[i].getPlein()) {
 							// Cas du rectangle
@@ -546,12 +547,11 @@ public class Dessin extends JPanel {
 								}
 								g2d.fillPolygon(tabX, tabY, nbSommets);
 							}
-							// Cas des polygones non remplis
-						} else {
-							for (int j = 0; j < nbSommets; j++) {
-								dessinLigne(g2d, positions[j],
-										positions[(j + 1) % nbSommets]);
-							}
+						} 
+						// Cas des polygones non remplis
+						else {
+							for (int j = 0; j < nbSommets; j++)
+								g2d.drawLine(positions[j].x, positions[j].y, positions[(j + 1) % nbSommets].x, positions[(j + 1) % nbSommets].y);
 						}
 					}
 				}
@@ -589,7 +589,7 @@ public class Dessin extends JPanel {
 			}
 		}
 
-		// Affichage des points d'une ArrayList si existante
+		// Affichage des points de l'arraylist de la figure en construction
 		g2d.setColor(Color.black);
 		if (!listePoints.isEmpty()) {
 			g2d.setStroke(new BasicStroke(1));
@@ -651,15 +651,15 @@ public class Dessin extends JPanel {
 			menu.getAnnuler().setEnabled(true);
 		}
 
-		// si une figure est en cours de construction
+		// Actions avec une figure en construction
 		if (listePoints.size() > 0) {
-			// recuperation de la couleur active
+			// Recuperation de la couleur active
 			g2d.setColor(couleur);
 
-			// recuperation de l'epaisseur de trait active
+			// Recuperation de l'epaisseur de trait active
 			g2d.setStroke(new BasicStroke(epaisseur));
 
-			// calcul de variables utiles pour le pre-rendu du carre, du
+			// Calcul de variables utiles pour le pre-rendu du carre, du
 			// rectangle, de l'ellipse
 			int longueur = ptSouris.x - listePoints.get(0).x;
 			if (longueur < 0) {
@@ -670,6 +670,7 @@ public class Dessin extends JPanel {
 				hauteur = -hauteur;
 			}
 
+			// Gestion de l'affichage de la figure en cours de construction
 			switch (boutons.getNumFigCourante()) {
 			case 1:// si la figure est un cercle
 				g2d.drawOval(
@@ -821,8 +822,7 @@ public class Dessin extends JPanel {
 			}
 		}
 
-		// si on est en mode selection multiple avec le drag, on dessine un
-		// rectangle en pointillés
+		// Si on drag la souris avec le clic gauche presse, dessin d'un rectangle de selection en pointille
 		if (selectionMultiple) {
 			float[] dash = { 5.0f, 4.0f };
 			g2d.setColor(Color.GRAY);
@@ -851,7 +851,7 @@ public class Dessin extends JPanel {
 	}
 
 	/**
-	 * change le booleen rempli de la figure si elle est selectionnee
+	 * Methode qui change le booleen rempli de la figure si elle est selectionnee
 	 */
 	public void remplir() {
 		ajouterEtat();
@@ -862,7 +862,7 @@ public class Dessin extends JPanel {
 	}
 
 	/**
-	 * supprime la figure si elle est selectionnee
+	 * Methode qui supprime la figure si elle est selectionnee
 	 */
 	public void supprimer() {
 		ajouterEtat();
@@ -886,13 +886,15 @@ public class Dessin extends JPanel {
 		repaint();
 	}
 
-	// Methode de dessin d'une ligne avec 2 parametres de type UnPoint
-	public void dessinLigne(Graphics2D g2d, UnPoint p1, UnPoint p2) {
-		g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
-	}
 
-	// Methode qui teste si un point se trouve a� moins d'une certaine distance
-	// d'un autre point
+	//
+	/**
+	 * Methode qui teste si un point se trouve a moins d'une certaine distance d'un autre point
+	 * @param distance distance fixee
+	 * @param p1 point de test
+	 * @param p2 point de reference
+	 * @return booleen 
+	 */
 	public boolean estVoisin(int distance, UnPoint p1, UnPoint p2) {
 		boolean res = false;
 		if (p1.dist(p2) < distance)
@@ -900,8 +902,11 @@ public class Dessin extends JPanel {
 		return res;
 	}
 
-	// Fonction qui renvoie la premiere figure situee au voisinage d'un point
-	// ou null sinon
+	/**
+	 * Methode qui renvoie la premiere figure situee au voisinage d'un point ou null sinon
+	 * @param pt point de reference
+	 * @return figure dans le voisinage
+	 */
 	public FigureGeom figVoisine(UnPoint pt) {
 		FigureGeom res = null;
 		boolean trouve = false;
@@ -915,7 +920,7 @@ public class Dessin extends JPanel {
 				int nbSommets;
 				nbSommets = tabFigures[i].getNbMemo();
 				for (int j = 0; j < tabFigures[i].getNbMemo(); j++) {
-					// Si c'est le cas, selection de cette figure
+					// Si la figure est au voisinage du point, memorisation de cette figure
 					if (pt.estVoisinSegment(MARGE_SELECTION_POLY,
 							tabFigures[i].getTabMemo()[j],
 							tabFigures[i].getTabMemo()[(j + 1) % nbSommets])) {
@@ -930,6 +935,7 @@ public class Dessin extends JPanel {
 				int rayonCercle = tabFigures[i].getTabMemo()[0]
 						.dist(tabFigures[i].getTabMemo()[1]);
 				int rayonPtCourant = pt.dist(tabFigures[i].getTabMemo()[0]);
+				// Si la figure est au voisinage du point, memorisation de cette figure
 				if (Math.abs(rayonCercle - rayonPtCourant) < MARGE_SELECTION_CERCLE) {
 					res = tabFigures[i];
 					trouve = true;
@@ -970,7 +976,7 @@ public class Dessin extends JPanel {
 				double distanceF1 = pt.distance(foyer1X, foyer1Y);
 				double distanceF2 = pt.distance(foyer2X, foyer2Y);
 				int sommeDist = (int) (distanceF1 + distanceF2);
-				// Test de voisinage
+				// Si la figure est au voisinage du point, memorisation de cette figure
 				if (rayonX > rayonY) {
 					if (Math.abs(sommeDist - rayonX * 2) < MARGE_SELECTION_ELLIPSE) {
 						trouve = true;
@@ -988,8 +994,11 @@ public class Dessin extends JPanel {
 		return res;
 	}
 
-	// Fonction qui renvoie le premier point d'une figure situee au voisinage
-	// d'un point, ou null sinon
+	/**
+	 * Fonction qui renvoie le premier point d'une figure situee au voisinage d'un point, ou null sinon
+	 * @param pt point de reference
+	 * @return point dans le voisinage
+	 */
 	public UnPoint pointVoisin(UnPoint pt) {
 		UnPoint res = null;
 		boolean trouve = false;
@@ -1002,7 +1011,7 @@ public class Dessin extends JPanel {
 			if (tabFigures[i] instanceof Polygone
 					|| tabFigures[i] instanceof Ellipse) {
 				for (int j = 0; j < tabFigures[i].getNbMemo(); j++) {
-					// Si c'est le cas, selection de cette figure
+					// Si les points sont voisins, memorisation du point
 					if (estVoisin(MARGE_SELECTION_POINT, pt,
 							tabFigures[i].getTabMemo()[j])) {
 						res = tabFigures[i].getTabMemo()[j];
@@ -1013,6 +1022,7 @@ public class Dessin extends JPanel {
 			// Si la figure est un cercle
 			if (tabFigures[i] instanceof Cercle
 					&& !(tabFigures[i] instanceof Ellipse)) {
+				// Si les points sont voisins, memorisation du point
 				if (estVoisin(MARGE_SELECTION_POINT, pt,
 						tabFigures[i].getTabMemo()[1])) {
 					res = tabFigures[i].getTabMemo()[1];
@@ -1024,7 +1034,10 @@ public class Dessin extends JPanel {
 		return res;
 	}
 
-	// Fonction qui permet d'exporter une image
+	/**
+	 * Fonction qui permet d'exporter une image
+	 * @param format format d'exportation
+	 */
 	public void exporter(String format) {
 		ArrayList<FigureGeom> tampon = new ArrayList<FigureGeom>();
 		tampon = (ArrayList<FigureGeom>) listeFigSelectionnees.clone();
@@ -1159,7 +1172,6 @@ public class Dessin extends JPanel {
 			try {
 				tmp[i] = tabFigures[i].clone();
 			} catch (CloneNotSupportedException e) {
-				// TODO Bloc catch genere automatiquement
 				e.printStackTrace();
 			}
 		}
@@ -1210,7 +1222,6 @@ public class Dessin extends JPanel {
 			try {
 				listeTampon.add(listeFigSelectionnees.get(i).clone());
 			} catch (CloneNotSupportedException e) {
-				// TODO Bloc catch genere automatiquement
 				e.printStackTrace();
 			}
 		}
@@ -1245,7 +1256,6 @@ public class Dessin extends JPanel {
 			try {
 				tabFigures[nbFigures] = listeTampon.get(i).clone();
 			} catch (CloneNotSupportedException e) {
-				// TODO Bloc catch genere automatiquement
 				e.printStackTrace();
 			}
 			nbFigures++;
