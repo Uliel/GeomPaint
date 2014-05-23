@@ -22,7 +22,7 @@ import figures.Rectangle;
 /**
  * 
  * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
- * 
+ * Classe de d'implementer le dessin des figures et creer l'interface
  */
 public class Dessin extends JPanel {
 

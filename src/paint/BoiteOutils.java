@@ -14,6 +14,7 @@ import javax.swing.*;
 /**
  * 
  * @author Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * Classe qui permet de creer le boite à outils
  * 
  */
 public class BoiteOutils extends JPanel {

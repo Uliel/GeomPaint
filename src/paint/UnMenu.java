@@ -17,7 +17,7 @@ import javax.swing.KeyStroke;
 /**
  * 
  * @author Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
- * 
+ * Classe qui permet de creer la barre de menu
  */
 public class UnMenu extends JMenuBar {
 

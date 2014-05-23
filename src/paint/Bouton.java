@@ -6,7 +6,11 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+/**
+ * 
+ * @author Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * Classe Bouton héritée de la classe JButton qui permet de créer des boutons avec des attributs différents
+ */
 public class Bouton extends JToggleButton implements MouseListener{
 	private int valeur;
 	private Border bord;

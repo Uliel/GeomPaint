@@ -12,7 +12,7 @@ import javax.swing.border.BevelBorder;
 /**
  * 
  * @author Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
- *
+ * Classe qui permet de creer le menu déroulant au clic de la souris
  */
 public class MenuDeroulant extends JPopupMenu {
 	
