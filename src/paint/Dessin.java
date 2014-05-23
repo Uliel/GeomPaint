@@ -705,9 +705,7 @@ public class Dessin extends JPanel {
 							for (int j = 0; j < nbSommets; j++) {
 								dessinLigne(g2d, positions[j],
 										positions[(j + 1) % nbSommets]);
-								System.out.println("test");
 							}
-
 						}
 					}
 				}
