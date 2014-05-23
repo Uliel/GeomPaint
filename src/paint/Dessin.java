@@ -1196,6 +1196,7 @@ public class Dessin extends JPanel {
 			listeFigSelectionnees.get(i).rotation(r);
 		}
 		repaint();
+		boutons.getSelectionner().doClick();
 	}
 
 	/**
