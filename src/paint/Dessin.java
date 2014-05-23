@@ -82,7 +82,7 @@ public class Dessin extends JPanel {
 		this.nbClics = 0;
 		this.nbPoints = 0;
 		this.control = false;
-
+		repaint();
 		MouseListener ml = new MouseListener() {
 
 			public void mouseReleased(MouseEvent e) {
@@ -117,8 +117,8 @@ public class Dessin extends JPanel {
 							listeFigSelectionnees.add(tabFigures[i]);
 					}
 					selectionMultiple = false;
+					repaint();
 				}
-				repaint();
 
 			}
 
