@@ -148,6 +148,10 @@ public class UnMenu extends JMenuBar {
 				KeyEvent.CTRL_MASK));
 		exporterPNG.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,
 				KeyEvent.CTRL_MASK));
+		rotationDroite.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,
+				KeyEvent.CTRL_MASK));
+		rotationGauche.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,
+				KeyEvent.CTRL_MASK));
 
 		//On ajoute les JMenuItem
 		edition.add(annuler);

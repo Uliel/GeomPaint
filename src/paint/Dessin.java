@@ -1001,7 +1001,7 @@ public class Dessin extends JPanel {
 			this.paint(g2);
 			try {
 				ImageIO.write(img, format,
-						new File(chemin, "Image" + tmp + "."));
+						new File(chemin, "Image" + tmp + "."+format));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
