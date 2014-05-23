@@ -1,9 +1,3 @@
-/**
- *
- * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
- *
- */
-
 package paint;
 
 import java.awt.*;
@@ -25,6 +19,11 @@ import figures.*;
 // Rq : laisser l'import de figures.Rectangle qui permet a eclipse de ne pas confondre avec une classe java existante java.awt.rectangle
 import figures.Rectangle;
 
+/**
+*
+* @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+*
+*/
 public class Dessin extends JPanel {
 
 	// ATTRIBUTS
@@ -45,7 +44,6 @@ public class Dessin extends JPanel {
 	private ArrayList<FigureGeom[]> listeEtats = new ArrayList<FigureGeom[]>();
 	private Color couleur = Color.BLACK;
 	private int epaisseur = 1;
-	private int departTranslation = 0;
 	private boolean control;
 	private UnMenu menu = new UnMenu(this);
 	private boolean translation;
@@ -62,6 +60,11 @@ public class Dessin extends JPanel {
 	private UnPoint ptSelectionMultiple; 
 
 	// CONSTRUCTEURS
+	/**
+	 * Constructeur sans paramètres de la classe Dessin
+	 * initialisation de la barre d'utils, le menu et le menu déroulant
+	 * création et ajout des différents listener
+	 */
 	public Dessin() {
 		menuD = new MenuDeroulant(this);
 		this.setFocusable(true);
@@ -85,6 +88,8 @@ public class Dessin extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 				modifFigure = false;
 				annule = true;
+				//on verifie s'il y a des figures dans le rectangle de rotation
+				//si c'est le cas on les ajoute à la liste des figures sélectionnées
 				if (selectionMultiple) {
 					int maxX=ptSelectionMultiple.x;
 					int minX=ptSouris.x;
@@ -271,6 +276,7 @@ public class Dessin extends JPanel {
 							translation = true;
 					}
 					else {
+					// 4) Selection multiple avec le drag de la souris
 						selectionMultiple=true;
 						ptSelectionMultiple = new UnPoint(e.getX(),e.getY());
 					}
@@ -296,6 +302,7 @@ public class Dessin extends JPanel {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
+				//Changement de l'apparence de la souris pour deplacer ou pour modifier une figure
 				// TODO Stub de la methode genere automatiquement
 				if (figVoisine(new UnPoint(e.getX(), e.getY())) != null
 						&& boutons.getSelectionner().isSelected()
@@ -308,7 +315,7 @@ public class Dessin extends JPanel {
 					setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 				}
 
-				// pour quand on est en train de construire une figure !
+				// pour quand on est en train de construire une figure 
 				ptSouris.x = e.getX();
 				ptSouris.y = e.getY();
 				if (listePoints.size() > 0) {
@@ -402,6 +409,7 @@ public class Dessin extends JPanel {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		super.paintComponent(g2d);
+		// si on est en mode selection multiple avec le drag, on dessine un rectangle en pointillés
 		if (selectionMultiple) {
 			float []dash = {5.0f, 4.0f};
 			g2d.setColor(Color.GRAY);
@@ -590,6 +598,7 @@ public class Dessin extends JPanel {
 		// Dessin du tableau de figures
 		if (nbFigures > 0) {
 			for (int i = 0; i < nbFigures; i++) {
+				//Modification de l'epaisseur
 				g2d.setStroke(new BasicStroke(tabFigures[i].getEpaisseur()));
 				g2d.setColor(tabFigures[i].getCouleur());
 				UnPoint[] positions = tabFigures[i].getTabMemo();
@@ -723,6 +732,7 @@ public class Dessin extends JPanel {
 					}
 					*/
 					
+					//Dessin des carres de selection
 					g2d.setStroke(new BasicStroke(1));
 					g2d.drawRect(listeFigSelectionnees.get(i).getTabMemo()[j].x
 							- 3 - listeFigSelectionnees.get(i).getEpaisseur()
@@ -752,7 +762,7 @@ public class Dessin extends JPanel {
 				}
 		}
 
-		// Activation ou non de la fonction supprimer,dupliquer et remplir
+		// Activation ou non de la fonction supprimer,dupliquer, remplir, ...
 		if (!listeFigSelectionnees.isEmpty()) {
 			menuD.getSupprimer().setEnabled(true);
 			boutons.getSupprimer().setEnabled(true);
