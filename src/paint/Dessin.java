@@ -20,10 +20,10 @@ import figures.*;
 import figures.Rectangle;
 
 /**
-*
-* @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
-*
-*/
+ * 
+ * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * 
+ */
 public class Dessin extends JPanel {
 
 	// ATTRIBUTS
@@ -56,14 +56,14 @@ public class Dessin extends JPanel {
 	private int absSouris = -1;
 	private int ordSouris = -1;
 	private JPanel entete = new JPanel();
-	private boolean selectionMultiple=false;
-	private UnPoint ptSelectionMultiple; 
+	private boolean selectionMultiple = false;
+	private UnPoint ptSelectionMultiple;
 
 	// CONSTRUCTEURS
 	/**
-	 * Constructeur sans paramètres de la classe Dessin
-	 * initialisation de la barre d'utils, le menu et le menu déroulant
-	 * création et ajout des différents listener
+	 * Constructeur sans paramètres de la classe Dessin initialisation de la
+	 * barre d'utils, le menu et le menu déroulant création et ajout des
+	 * différents listener
 	 */
 	public Dessin() {
 		menuD = new MenuDeroulant(this);
@@ -88,32 +88,35 @@ public class Dessin extends JPanel {
 			public void mouseReleased(MouseEvent e) {
 				modifFigure = false;
 				annule = true;
-				//on verifie s'il y a des figures dans le rectangle de rotation
-				//si c'est le cas on les ajoute à la liste des figures sélectionnées
+				// on verifie s'il y a des figures dans le rectangle de rotation
+				// si c'est le cas on les ajoute à la liste des figures
+				// sélectionnées
 				if (selectionMultiple) {
-					int maxX=ptSelectionMultiple.x;
-					int minX=ptSouris.x;
-					int minY=ptSouris.y;
-					int maxY=ptSelectionMultiple.y;
-					if (ptSouris.x>ptSelectionMultiple.x) {
-						minX= ptSelectionMultiple.x;
-						maxX=ptSouris.x;
+					int maxX = ptSelectionMultiple.x;
+					int minX = ptSouris.x;
+					int minY = ptSouris.y;
+					int maxY = ptSelectionMultiple.y;
+					if (ptSouris.x > ptSelectionMultiple.x) {
+						minX = ptSelectionMultiple.x;
+						maxX = ptSouris.x;
 					}
-					if (ptSouris.y>ptSelectionMultiple.y) {
-						minY= ptSelectionMultiple.y;
-						maxY=ptSouris.y;
+					if (ptSouris.y > ptSelectionMultiple.y) {
+						minY = ptSelectionMultiple.y;
+						maxY = ptSouris.y;
 					}
-					for(int i=0;i<nbFigures;i++) {
+					for (int i = 0; i < nbFigures; i++) {
 						boolean select = true;
-						for (int j=0;j<tabFigures[i].getNbMemo();j++) {
-							if(tabFigures[i].getTabMemo()[j].x>maxX||tabFigures[i].getTabMemo()[j].x<minX||
-									tabFigures[i].getTabMemo()[j].y>maxY||tabFigures[i].getTabMemo()[j].y<minY)
-								select=false;
+						for (int j = 0; j < tabFigures[i].getNbMemo(); j++) {
+							if (tabFigures[i].getTabMemo()[j].x > maxX
+									|| tabFigures[i].getTabMemo()[j].x < minX
+									|| tabFigures[i].getTabMemo()[j].y > maxY
+									|| tabFigures[i].getTabMemo()[j].y < minY)
+								select = false;
 						}
 						if (select)
 							listeFigSelectionnees.add(tabFigures[i]);
 					}
-					selectionMultiple=false;
+					selectionMultiple = false;
 				}
 				repaint();
 
@@ -135,7 +138,7 @@ public class Dessin extends JPanel {
 						case (2): // Rectangle
 							nbPoints = 2;
 							break;
-						case (3):	// Carre
+						case (3): // Carre
 							nbPoints = 2;
 							break;
 						case (4): // Triangle
@@ -144,10 +147,10 @@ public class Dessin extends JPanel {
 						case (5): // Ellipse
 							nbPoints = 2;
 							break;
-						case(7) : // Losange
+						case (7): // Losange
 							nbPoints = 2;
 							break;
-						case(8) : // Trait
+						case (8): // Trait
 							nbPoints = 2;
 							break;
 						}
@@ -172,27 +175,30 @@ public class Dessin extends JPanel {
 							listePoints.add(new UnPoint(e.getX(), e.getY()));
 							ajouterEtat();
 							switch (boutons.getNumFigCourante()) {
-							case (1):	// Cercle
+							case (1): // Cercle
 								tabFigures[nbFigures] = new Cercle(listePoints);
 								break;
 							case (2): // Rectangle
-								tabFigures[nbFigures] = new Rectangle(listePoints);
+								tabFigures[nbFigures] = new Rectangle(
+										listePoints);
 								break;
 							case (3): // Carre
 								tabFigures[nbFigures] = new Carre(listePoints);
 								break;
 							case (4): // Triangle
-								tabFigures[nbFigures] = new Triangle(listePoints);
+								tabFigures[nbFigures] = new Triangle(
+										listePoints);
 								break;
 							case (5): // Ellipse
 								tabFigures[nbFigures] = new Ellipse(listePoints);
 								break;
-												//Le cas du Polygone est traite a part
-							case(7) : // Losange
+							// Le cas du Polygone est traite a part
+							case (7): // Losange
 								tabFigures[nbFigures] = new Losange(listePoints);
 								break;
-							case(8) : // Trait
-								tabFigures[nbFigures] = new Polygone(listePoints);
+							case (8): // Trait
+								tabFigures[nbFigures] = new Polygone(
+										listePoints);
 								break;
 							}
 							nbClics = 0;
@@ -206,7 +212,8 @@ public class Dessin extends JPanel {
 					// Si on est en presence d'un polygone
 					else {
 						UnPoint nouveauPoint = new UnPoint(e.getX(), e.getY());
-						// Le premier point est automatiquement ajoute a l'ArrayList
+						// Le premier point est automatiquement ajoute a
+						// l'ArrayList
 						if (nbClics == 0) {
 							listePoints.add(nouveauPoint);
 							nbClics++;
@@ -263,8 +270,8 @@ public class Dessin extends JPanel {
 						translation = false;
 					}
 
-					// 2) Initialisation d'une modification de figure 
-					//	  (couplage avec MouseDragged)
+					// 2) Initialisation d'une modification de figure
+					// (couplage avec MouseDragged)
 					if (pointVoisin(ptSouris) != null) {
 						ptFigure = pointVoisin(ptSouris);
 						figModifiee = figVoisine(ptFigure);
@@ -273,25 +280,27 @@ public class Dessin extends JPanel {
 					// 3) Initialisation d'une translation de figure(s)
 					// (couplage avec MouseDragged)
 					else if (figVoisine(ptSouris) != null) {
-							translation = true;
-					}
-					else {
-					// 4) Selection multiple avec le drag de la souris
-						selectionMultiple=true;
-						ptSelectionMultiple = new UnPoint(e.getX(),e.getY());
+						translation = true;
+					} else {
+						// 4) Selection multiple avec le drag de la souris
+						selectionMultiple = true;
+						ptSelectionMultiple = new UnPoint(e.getX(), e.getY());
 					}
 				}
 				control = false;
 				repaint();
 			}
 
-			public void mouseExited(MouseEvent e) {		}
+			public void mouseExited(MouseEvent e) {
+			}
 
-			public void mouseEntered(MouseEvent e) {		}
+			public void mouseEntered(MouseEvent e) {
+			}
 
-			public void mouseClicked(MouseEvent e) {		}
+			public void mouseClicked(MouseEvent e) {
+			}
 		};
-		
+
 		// Listener qui permet de modifier le curseur de la souris
 		MouseMotionListener apparenceSouris = new MouseMotionListener() {
 
@@ -302,7 +311,8 @@ public class Dessin extends JPanel {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				//Changement de l'apparence de la souris pour deplacer ou pour modifier une figure
+				// Changement de l'apparence de la souris pour deplacer ou pour
+				// modifier une figure
 				// TODO Stub de la methode genere automatiquement
 				if (figVoisine(new UnPoint(e.getX(), e.getY())) != null
 						&& boutons.getSelectionner().isSelected()
@@ -315,7 +325,7 @@ public class Dessin extends JPanel {
 					setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 				}
 
-				// pour quand on est en train de construire une figure 
+				// pour quand on est en train de construire une figure
 				ptSouris.x = e.getX();
 				ptSouris.y = e.getY();
 				if (listePoints.size() > 0) {
@@ -323,7 +333,7 @@ public class Dessin extends JPanel {
 				}
 			}
 		};
-		
+
 		MouseMotionListener mml = new MouseMotionListener() {
 			public void mouseDragged(MouseEvent e) {
 				if (modifFigure) {
@@ -332,10 +342,11 @@ public class Dessin extends JPanel {
 						annule = false;
 					}
 					// Si le point appartient a un losange, il faut garder tous
-					// les cotes de la meme longueur et les angles deux a deux egaux
+					// les cotes de la meme longueur et les angles deux a deux
+					// egaux
 					if (figModifiee instanceof Losange) {
-						((Losange) figModifiee).modifierTaille(ptFigure, e.getX()
-								- ptSouris.x,  e.getY() - ptSouris.y);
+						((Losange) figModifiee).modifierTaille(ptFigure,
+								e.getX() - ptSouris.x, e.getY() - ptSouris.y);
 					}
 					// Si le point appartient a un carre, il faut garder tous
 					// les cotes de la meme longueur
@@ -348,23 +359,21 @@ public class Dessin extends JPanel {
 					else if (figModifiee instanceof Rectangle) {
 						((Rectangle) figModifiee).modifierTaille(ptFigure,
 								e.getX() - ptSouris.x, e.getY() - ptSouris.y);
-					} 
+					}
 					// Si le point appartient a une ellipse, il faut garder la
 					// forme rectangulaire
 					else if (figModifiee instanceof Ellipse) {
 						((Ellipse) figModifiee).modifierTaille(ptFigure,
 								e.getX() - ptSouris.x, e.getY() - ptSouris.y);
-					}
-					else {
+					} else {
 						ptFigure.deplacerPt(e.getX() - ptSouris.x, e.getY()
 								- ptSouris.y);
 					}
-				} 
-				else if (translation) {
-						if (annule) {
-							ajouterEtat();
-							annule = false;
-						}
+				} else if (translation) {
+					if (annule) {
+						ajouterEtat();
+						annule = false;
+					}
 					for (int i = 0; i < listeFigSelectionnees.size(); i++) {
 						listeFigSelectionnees.get(i).translater(
 								e.getX() - ptSouris.x, e.getY() - ptSouris.y);
@@ -373,7 +382,6 @@ public class Dessin extends JPanel {
 				ptSouris.move(e.getX(), e.getY());
 				repaint();
 			}
-
 
 			public void mouseMoved(MouseEvent e) {
 				absSouris = e.getX();
@@ -404,31 +412,245 @@ public class Dessin extends JPanel {
 	public void setEpaisseur(int e) {
 		this.epaisseur = e;
 	}
-	
-	//AUTRES METHODES
+
+	// AUTRES METHODES
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		super.paintComponent(g2d);
-		// si on est en mode selection multiple avec le drag, on dessine un rectangle en pointillés
-		if (selectionMultiple) {
-			float []dash = {5.0f, 4.0f};
-			g2d.setColor(Color.GRAY);
-			g2d.setStroke(new BasicStroke(1.5f,BasicStroke.CAP_SQUARE,BasicStroke.JOIN_MITER,10.0f,dash,.0f));
-			if (ptSelectionMultiple.x<ptSouris.x&&ptSelectionMultiple.y<ptSouris.y)
-				g2d.drawRect(ptSelectionMultiple.x,ptSelectionMultiple.y,ptSouris.x-ptSelectionMultiple.x , 
-						ptSouris.y-ptSelectionMultiple.y);
-			else if (ptSelectionMultiple.x<ptSouris.x&&ptSelectionMultiple.y>ptSouris.y) {
-				g2d.drawRect(ptSelectionMultiple.x,ptSouris.y,ptSouris.x-ptSelectionMultiple.x , 
-						Math.abs(ptSouris.y-ptSelectionMultiple.y));
+
+		// Dessin du tableau de figures
+		if (nbFigures > 0) {
+			for (int i = 0; i < nbFigures; i++) {
+				// Modification de l'epaisseur
+				g2d.setStroke(new BasicStroke(tabFigures[i].getEpaisseur()));
+				g2d.setColor(tabFigures[i].getCouleur());
+				UnPoint[] positions = tabFigures[i].getTabMemo();
+
+				// Cas du cercle et de l'ellipse
+				if (tabFigures[i] instanceof Cercle) {
+					// Cas de l'ellipse
+					if (tabFigures[i] instanceof Ellipse) {
+						int longueur = Math
+								.abs(positions[1].x - positions[0].x);
+						int hauteur = Math.abs(positions[1].y - positions[0].y);
+						// Si l'ellipse est pleine
+						if (tabFigures[i].getPlein())
+							if (positions[1].x > positions[0].x) {
+								// 1er point en haut a gauche, 2nd en bas a
+								// droite
+								if (positions[1].y > positions[0].y)
+									g2d.fillOval(positions[0].x,
+											positions[0].y, longueur, hauteur);
+								// 1er point en bas a gauche, 2nd en haut a
+								// droite
+								else
+									g2d.fillOval(positions[0].x,
+											positions[1].y, longueur, hauteur);
+							} else {
+								// 1er point en haut a droite, 2nd en bas a
+								// gauche
+								if (positions[1].y > positions[0].y)
+									g2d.fillOval(positions[1].x,
+											positions[0].y, longueur, hauteur);
+								// 1er point en bas a droite, 2nd en haut a
+								// gauche
+								else
+									g2d.fillOval(positions[1].x,
+											positions[1].y, longueur, hauteur);
+							}
+						// Si l'ellipse est vide
+						else if (positions[1].x > positions[0].x) {
+							// 1er point en haut a gauche, 2nd en bas a droite
+							if (positions[1].y > positions[0].y)
+								g2d.drawOval(positions[0].x, positions[0].y,
+										longueur, hauteur);
+							// 1er point en bas a gauche, 2nd en haut a droite
+							else
+								g2d.drawOval(positions[0].x, positions[1].y,
+										longueur, hauteur);
+						} // 1er point en haut a droite, 2nd en bas a gauche
+						else {
+							if (positions[1].y > positions[0].y)
+								g2d.drawOval(positions[1].x, positions[0].y,
+										longueur, hauteur);
+							// 1er point en bas a droite, 2nd en haut a gauche
+							else
+								g2d.drawOval(positions[1].x, positions[1].y,
+										longueur, hauteur);
+						}
+					}
+					// Cas du cercle
+					else {
+						// Calcul du rayon et dessin
+						int rayon = positions[0].dist(positions[1]);
+						if (tabFigures[i].getPlein())
+							g2d.fillOval(positions[0].x - rayon, positions[0].y
+									- rayon, rayon * 2, rayon * 2);
+						else
+							g2d.drawOval(positions[0].x - rayon, positions[0].y
+									- rayon, rayon * 2, rayon * 2);
+					}
+				}
+
+				// Cas des polygones
+				if (tabFigures[i] instanceof Polygone) {
+					int nbSommets = tabFigures[i].getNbMemo();
+					// Cas du trait
+					if (nbSommets == 2) {
+						g2d.drawLine(positions[0].x, positions[0].y,
+								positions[1].x, positions[1].y);
+					} else {
+						// Cas des polygones remplis
+						if (tabFigures[i].getPlein()) {
+							// Cas du rectangle
+							if (tabFigures[i] instanceof Rectangle) {
+								int longueur = Math.abs(positions[2].x
+										- positions[0].x);
+								int hauteur = Math.abs(positions[2].y
+										- positions[0].y);
+								if (positions[2].x > positions[0].x) {
+									// 1er point de saisie en haut a gauche, 2nd
+									// en bas a droite
+									if (positions[2].y > positions[0].y)
+										g2d.fillRect(positions[0].x,
+												positions[0].y, longueur,
+												hauteur);
+									// 1er point en bas a gauche, 2nd en haut a
+									// droite
+									else
+										g2d.fillRect(positions[0].x,
+												positions[2].y, longueur,
+												hauteur);
+								} // 1er point en haut a droite, 2nd en bas a
+									// gauche
+								else {
+									if (positions[2].y > positions[0].y)
+										g2d.fillRect(positions[2].x,
+												positions[0].y, longueur,
+												hauteur);
+									// 1er point en bas a droite, 2nd en haut a
+									// gauche
+									else
+										g2d.fillRect(positions[2].x,
+												positions[2].y, longueur,
+												hauteur);
+								}
+							}
+							// Cas des autres polygones
+							else {
+								int[] tabX = new int[nbSommets];
+								int[] tabY = new int[nbSommets];
+								for (int j = 0; j < nbSommets; j++) {
+									tabX[j] = positions[j].x;
+									tabY[j] = positions[j].y;
+								}
+								g2d.fillPolygon(tabX, tabY, nbSommets);
+							}
+							// Cas des polygones non remplis
+						} else {
+							for (int j = 0; j < nbSommets; j++) {
+								dessinLigne(g2d, positions[j],
+										positions[(j + 1) % nbSommets]);
+							}
+						}
+					}
+				}
 			}
-			else if (ptSelectionMultiple.x>ptSouris.x&&ptSelectionMultiple.y<ptSouris.y) {
-				g2d.drawRect(ptSouris.x,ptSelectionMultiple.y,Math.abs(ptSouris.x-ptSelectionMultiple.x) , 
-						Math.abs(ptSouris.y-ptSelectionMultiple.y));
+
+			// Si la figure est selectionnee, on dessine les points de selection
+			for (int i = 0; i < listeFigSelectionnees.size(); i++) {
+				if (listeFigSelectionnees.get(i).getPlein()
+						&& couleur.getRed() < 150 && couleur.getBlue() < 150
+						&& couleur.getGreen() < 150)
+					g2d.setColor(Color.YELLOW);
+				else
+					g2d.setColor(Color.BLACK);
+				for (int j = 0; j < listeFigSelectionnees.get(i).getNbMemo(); j++) {
+
+					// utilise a des fins de debuggages
+					// colore les points de selection des figures
+					/*
+					 * switch (j) { case 0 : g2d.setColor(Color.black);break;
+					 * case 1 : g2d.setColor(Color.red);break; case 2 :
+					 * g2d.setColor(Color.blue);break; case 3 :
+					 * g2d.setColor(Color.green);break; }
+					 */
+
+					// Dessin des carres de selection
+					g2d.setStroke(new BasicStroke(1));
+					g2d.drawRect(listeFigSelectionnees.get(i).getTabMemo()[j].x
+							- 3 - listeFigSelectionnees.get(i).getEpaisseur()
+							+ 1, listeFigSelectionnees.get(i).getTabMemo()[j].y
+							- 3 - listeFigSelectionnees.get(i).getEpaisseur()
+							+ 1, 6 + listeFigSelectionnees.get(i)
+							.getEpaisseur() - 1,
+							6 + listeFigSelectionnees.get(i).getEpaisseur() - 1);
+				}
 			}
-			else 
-				g2d.drawRect(ptSouris.x,ptSouris.y,Math.abs(ptSouris.x-ptSelectionMultiple.x) , 
-						Math.abs(ptSouris.y-ptSelectionMultiple.y));
 		}
+
+		// Affichage des points d'une ArrayList si existante
+		g2d.setColor(Color.black);
+		if (!listePoints.isEmpty()) {
+			g2d.setStroke(new BasicStroke(1));
+			if (boutons.getNumFigCourante() == 6) {
+				g2d.fillRect(listePoints.get(0).x - 3,
+						listePoints.get(0).y - 3, 6, 6);
+				for (int i = 0; i < listePoints.size(); i++)
+					g2d.drawRect(listePoints.get(i).x - 3,
+							listePoints.get(i).y - 3, 6, 6);
+			} else
+				for (int j = 0; j < listePoints.size(); j++) {
+					g2d.drawRect(listePoints.get(j).x - 3,
+							listePoints.get(j).y - 3, 6, 6);
+				}
+		}
+
+		// Activation ou non de la fonction supprimer,dupliquer, remplir, ...
+		if (!listeFigSelectionnees.isEmpty()) {
+			menuD.getSupprimer().setEnabled(true);
+			boutons.getSupprimer().setEnabled(true);
+			boutons.getRemplir().setEnabled(true);
+			menu.getDupliquer().setEnabled(true);
+			menu.getSupprimer().setEnabled(true);
+			boutons.getRotationDroite().setEnabled(true);
+			boutons.getRotationGauche().setEnabled(true);
+			menu.getCouper().setEnabled(true);
+			menu.getCopier().setEnabled(true);
+			menuD.getCouper().setEnabled(true);
+			menuD.getCopier().setEnabled(true);
+		} else {
+			menuD.getSupprimer().setEnabled(false);
+			boutons.getSupprimer().setEnabled(false);
+			boutons.getRemplir().setEnabled(false);
+			menu.getDupliquer().setEnabled(false);
+			menu.getSupprimer().setEnabled(false);
+			boutons.getRotationDroite().setEnabled(false);
+			boutons.getRotationGauche().setEnabled(false);
+			menu.getCouper().setEnabled(false);
+			menu.getCopier().setEnabled(false);
+			menuD.getCouper().setEnabled(false);
+			menuD.getCopier().setEnabled(false);
+		}
+
+		if (listeTampon.isEmpty()) {
+			menu.getColler().setEnabled(false);
+			menuD.getColler().setEnabled(false);
+		} else {
+			menu.getColler().setEnabled(true);
+			menuD.getColler().setEnabled(true);
+		}
+
+		if (listeEtats.isEmpty()) {
+			boutons.getAnnuler().setEnabled(false);
+			menuD.getAnnuler().setEnabled(false);
+			menu.getAnnuler().setEnabled(false);
+		} else {
+			boutons.getAnnuler().setEnabled(true);
+			menuD.getAnnuler().setEnabled(true);
+			menu.getAnnuler().setEnabled(true);
+		}
+
 		// si une figure est en cours de construction
 		if (listePoints.size() > 0) {
 			// recuperation de la couleur active
@@ -578,14 +800,18 @@ public class Dessin extends JPanel {
 				break;
 
 			case 7: // si la figure est un losange
-				g2d.drawLine(listePoints.get(0).x-longueur, listePoints.get(0).y,
-		 				 				 listePoints.get(0).x, listePoints.get(0).y-hauteur);
-				g2d.drawLine(listePoints.get(0).x-longueur, listePoints.get(0).y,
-						 				 listePoints.get(0).x, listePoints.get(0).y+hauteur);
-				g2d.drawLine(listePoints.get(0).x+longueur, listePoints.get(0).y,
-						 				 listePoints.get(0).x, listePoints.get(0).y-hauteur);
-				g2d.drawLine(listePoints.get(0).x+longueur, listePoints.get(0).y,
-						 				 listePoints.get(0).x, listePoints.get(0).y+hauteur);
+				g2d.drawLine(listePoints.get(0).x - longueur,
+						listePoints.get(0).y, listePoints.get(0).x,
+						listePoints.get(0).y - hauteur);
+				g2d.drawLine(listePoints.get(0).x - longueur,
+						listePoints.get(0).y, listePoints.get(0).x,
+						listePoints.get(0).y + hauteur);
+				g2d.drawLine(listePoints.get(0).x + longueur,
+						listePoints.get(0).y, listePoints.get(0).x,
+						listePoints.get(0).y - hauteur);
+				g2d.drawLine(listePoints.get(0).x + longueur,
+						listePoints.get(0).y, listePoints.get(0).x,
+						listePoints.get(0).y + hauteur);
 				break;
 
 			case 8: // si la figure est un trait
@@ -595,217 +821,32 @@ public class Dessin extends JPanel {
 			}
 		}
 
-		// Dessin du tableau de figures
-		if (nbFigures > 0) {
-			for (int i = 0; i < nbFigures; i++) {
-				//Modification de l'epaisseur
-				g2d.setStroke(new BasicStroke(tabFigures[i].getEpaisseur()));
-				g2d.setColor(tabFigures[i].getCouleur());
-				UnPoint[] positions = tabFigures[i].getTabMemo();
-
-				// Cas du cercle et de l'ellipse
-				if (tabFigures[i] instanceof Cercle) {
-					// Cas de l'ellipse
-					if (tabFigures[i] instanceof Ellipse) {
-						int longueur = Math.abs(positions[1].x - positions[0].x);
-						int hauteur = Math.abs(positions[1].y - positions[0].y);
-						// Si l'ellipse est pleine
-						if (tabFigures[i].getPlein())
-							if (positions[1].x > positions[0].x) {
-								// 1er point en haut a gauche, 2nd en bas a droite
-								if (positions[1].y > positions[0].y)
-									g2d.fillOval(positions[0].x, positions[0].y, longueur, hauteur);
-								 // 1er point en bas a gauche, 2nd en haut a droite
-								else
-									g2d.fillOval(positions[0].x, positions[1].y, longueur, hauteur);
-							} 
-							else {
-								// 1er point en haut a droite, 2nd en bas a gauche
-								if (positions[1].y > positions[0].y)
-									g2d.fillOval(positions[1].x, positions[0].y, longueur, hauteur);
-								// 1er point en bas a droite, 2nd en haut a gauche
-								else
-									g2d.fillOval(positions[1].x, positions[1].y, longueur, hauteur);
-							}
-						// Si l'ellipse est vide
-						else
-							if (positions[1].x > positions[0].x) {
-								// 1er point en haut a gauche, 2nd en bas a droite
-								if (positions[1].y > positions[0].y)
-									g2d.drawOval(positions[0].x, positions[0].y, longueur, hauteur);
-								// 1er point en bas a gauche, 2nd en haut a droite
-								else
-									g2d.drawOval(positions[0].x, positions[1].y, longueur, hauteur);
-							} // 1er point en haut a droite, 2nd en bas a gauche
-							else {
-								if (positions[1].y > positions[0].y)
-									g2d.drawOval(positions[1].x, positions[0].y, longueur, hauteur);
-								// 1er point en bas a droite, 2nd en haut a gauche
-								else
-									g2d.drawOval(positions[1].x, positions[1].y, longueur, hauteur);
-							}
-					}
-					// Cas du cercle
-					else {
-						// Calcul du rayon et dessin
-						int rayon = positions[0].dist(positions[1]);
-						if (tabFigures[i].getPlein())
-							g2d.fillOval(positions[0].x - rayon, positions[0].y
-									- rayon, rayon * 2, rayon * 2);
-						else
-							g2d.drawOval(positions[0].x - rayon, positions[0].y
-									- rayon, rayon * 2, rayon * 2);
-					}
-				}
-				
-
-
-				// Cas des polygones
-				if (tabFigures[i] instanceof Polygone) {
-					int nbSommets = tabFigures[i].getNbMemo();
-					// Cas du trait
-					if (nbSommets == 2) {
-						g2d.drawLine(positions[0].x, positions[0].y,
-								positions[1].x, positions[1].y);
-					} else {
-						// Cas des polygones remplis
-						if (tabFigures[i].getPlein()) {
-							// Cas du rectangle
-							if (tabFigures[i] instanceof Rectangle) {
-								int longueur = Math.abs(positions[2].x - positions[0].x);
-								int hauteur = Math.abs(positions[2].y - positions[0].y);
-								if (positions[2].x > positions[0].x) {
-									// 1er point de saisie en haut a gauche, 2nd en bas a droite
-									if (positions[2].y > positions[0].y)
-										g2d.fillRect(positions[0].x, positions[0].y, longueur, hauteur);
-									// 1er point en bas a gauche, 2nd en haut a droite
-									else
-										g2d.fillRect(positions[0].x, positions[2].y, longueur, hauteur);
-								} // 1er point en haut a droite, 2nd en bas a gauche
-								else {
-									if (positions[2].y > positions[0].y)
-										g2d.fillRect(positions[2].x, positions[0].y, longueur, hauteur);
-									// 1er point en bas a droite, 2nd en haut a gauche
-									else
-										g2d.fillRect(positions[2].x, positions[2].y, longueur, hauteur);
-								}		
-							} 
-							// Cas des autres polygones
-							else {
-								int[] tabX = new int[nbSommets];
-								int[] tabY = new int[nbSommets];
-								for (int j = 0; j < nbSommets; j++) {
-									tabX[j] = positions[j].x;
-									tabY[j] = positions[j].y;
-								}
-								g2d.fillPolygon(tabX, tabY, nbSommets);
-							}
-						// Cas des polygones non remplis
-						} else {
-							for (int j = 0; j < nbSommets; j++) {
-								dessinLigne(g2d, positions[j],
-										positions[(j + 1) % nbSommets]);
-							}
-						}
-					}
-				}
-			}
-			
-			// Si la figure est selectionnee, on dessine les points de selection
-			for (int i = 0; i < listeFigSelectionnees.size(); i++) {
-				if (listeFigSelectionnees.get(i).getPlein()
-						&& couleur.getRed() < 150 && couleur.getBlue() < 150
-						&& couleur.getGreen() < 150)
-					g2d.setColor(Color.YELLOW);
-				else
-					g2d.setColor(Color.BLACK);
-				for (int j = 0; j < listeFigSelectionnees.get(i).getNbMemo(); j++) {					
-					
-					//utilise a des fins de debuggages
-					//colore les points de selection des figures
-					/*
-					switch (j)
-					{
-					case 0 : g2d.setColor(Color.black);break;
-					case 1 : g2d.setColor(Color.red);break;
-					case 2 : g2d.setColor(Color.blue);break;
-					case 3 : g2d.setColor(Color.green);break;
-					}
-					*/
-					
-					//Dessin des carres de selection
-					g2d.setStroke(new BasicStroke(1));
-					g2d.drawRect(listeFigSelectionnees.get(i).getTabMemo()[j].x
-							- 3 - listeFigSelectionnees.get(i).getEpaisseur()
-							+ 1, listeFigSelectionnees.get(i).getTabMemo()[j].y
-							- 3 - listeFigSelectionnees.get(i).getEpaisseur()
-							+ 1, 6 + listeFigSelectionnees.get(i)
-							.getEpaisseur() - 1,
-							6 + listeFigSelectionnees.get(i).getEpaisseur() - 1);
-				}
-			}
-		}
-		
-		// Affichage des points d'une ArrayList si existante
-		g2d.setColor(Color.black);
-		if (!listePoints.isEmpty()) {
-			g2d.setStroke(new BasicStroke(1));
-			if (boutons.getNumFigCourante() == 6) {
-				g2d.fillRect(listePoints.get(0).x - 3,
-						listePoints.get(0).y - 3, 6, 6);
-				for (int i = 0; i < listePoints.size(); i++)
-					g2d.drawRect(listePoints.get(i).x - 3,
-							listePoints.get(i).y - 3, 6, 6);
+		// si on est en mode selection multiple avec le drag, on dessine un
+		// rectangle en pointillés
+		if (selectionMultiple) {
+			float[] dash = { 5.0f, 4.0f };
+			g2d.setColor(Color.GRAY);
+			g2d.setStroke(new BasicStroke(1.5f, BasicStroke.CAP_SQUARE,
+					BasicStroke.JOIN_MITER, 10.0f, dash, .0f));
+			if (ptSelectionMultiple.x < ptSouris.x
+					&& ptSelectionMultiple.y < ptSouris.y)
+				g2d.drawRect(ptSelectionMultiple.x, ptSelectionMultiple.y,
+						ptSouris.x - ptSelectionMultiple.x, ptSouris.y
+								- ptSelectionMultiple.y);
+			else if (ptSelectionMultiple.x < ptSouris.x
+					&& ptSelectionMultiple.y > ptSouris.y) {
+				g2d.drawRect(ptSelectionMultiple.x, ptSouris.y, ptSouris.x
+						- ptSelectionMultiple.x,
+						Math.abs(ptSouris.y - ptSelectionMultiple.y));
+			} else if (ptSelectionMultiple.x > ptSouris.x
+					&& ptSelectionMultiple.y < ptSouris.y) {
+				g2d.drawRect(ptSouris.x, ptSelectionMultiple.y,
+						Math.abs(ptSouris.x - ptSelectionMultiple.x),
+						Math.abs(ptSouris.y - ptSelectionMultiple.y));
 			} else
-				for (int j = 0; j < listePoints.size(); j++) {
-					g2d.drawRect(listePoints.get(j).x - 3,
-							listePoints.get(j).y - 3, 6, 6);
-				}
-		}
-
-		// Activation ou non de la fonction supprimer,dupliquer, remplir, ...
-		if (!listeFigSelectionnees.isEmpty()) {
-			menuD.getSupprimer().setEnabled(true);
-			boutons.getSupprimer().setEnabled(true);
-			boutons.getRemplir().setEnabled(true);
-			menu.getDupliquer().setEnabled(true);
-			menu.getSupprimer().setEnabled(true);
-			boutons.getRotationDroite().setEnabled(true);
-			boutons.getRotationGauche().setEnabled(true);
-			menu.getCouper().setEnabled(true);
-			menu.getCopier().setEnabled(true);
-			menuD.getCouper().setEnabled(true);
-			menuD.getCopier().setEnabled(true);
-		} else {
-			menuD.getSupprimer().setEnabled(false);
-			boutons.getSupprimer().setEnabled(false);
-			boutons.getRemplir().setEnabled(false);
-			menu.getDupliquer().setEnabled(false);
-			menu.getSupprimer().setEnabled(false);
-			boutons.getRotationDroite().setEnabled(false);
-			boutons.getRotationGauche().setEnabled(false);
-			menu.getCouper().setEnabled(false);
-			menu.getCopier().setEnabled(false);
-			menuD.getCouper().setEnabled(false);
-			menuD.getCopier().setEnabled(false);
-		}
-
-		if (listeTampon.isEmpty()) {
-			menu.getColler().setEnabled(false);
-			menuD.getColler().setEnabled(false);
-		}	else {
-			menu.getColler().setEnabled(true);
-			menuD.getColler().setEnabled(true);
-		}
-		
-		if (listeEtats.isEmpty()) {
-			boutons.getAnnuler().setEnabled(false);
-			menuD.getAnnuler().setEnabled(false);
-			menu.getAnnuler().setEnabled(false);
-		} else {
-			boutons.getAnnuler().setEnabled(true);
-			menuD.getAnnuler().setEnabled(true);
-			menu.getAnnuler().setEnabled(true);
+				g2d.drawRect(ptSouris.x, ptSouris.y,
+						Math.abs(ptSouris.x - ptSelectionMultiple.x),
+						Math.abs(ptSouris.y - ptSelectionMultiple.y));
 		}
 	}
 
@@ -884,7 +925,8 @@ public class Dessin extends JPanel {
 				}
 			}
 			// Si la figure est un cercle
-			if (tabFigures[i] instanceof Cercle && !(tabFigures[i] instanceof Ellipse)) {
+			if (tabFigures[i] instanceof Cercle
+					&& !(tabFigures[i] instanceof Ellipse)) {
 				int rayonCercle = tabFigures[i].getTabMemo()[0]
 						.dist(tabFigures[i].getTabMemo()[1]);
 				int rayonPtCourant = pt.dist(tabFigures[i].getTabMemo()[0]);
@@ -893,46 +935,49 @@ public class Dessin extends JPanel {
 					trouve = true;
 				}
 			}
-			
+
 			// Si la figure est une ellipse
 			if (tabFigures[i] instanceof Ellipse) {
 				// Calcul des dimensions de l'ellipse
-				int rayonX = Math.abs(tabFigures[i].getTabMemo()[0].x - tabFigures[i].getTabMemo()[1].x)/2;
-				int rayonY = Math.abs(tabFigures[i].getTabMemo()[0].y - tabFigures[i].getTabMemo()[1].y)/2;
+				int rayonX = Math.abs(tabFigures[i].getTabMemo()[0].x
+						- tabFigures[i].getTabMemo()[1].x) / 2;
+				int rayonY = Math.abs(tabFigures[i].getTabMemo()[0].y
+						- tabFigures[i].getTabMemo()[1].y) / 2;
 				// Calcul des coordonnées du centre
-				int centreX = (tabFigures[i].getTabMemo()[0].x + tabFigures[i].getTabMemo()[1].x)/2;
-				int centreY = (tabFigures[i].getTabMemo()[0].y + tabFigures[i].getTabMemo()[1].y)/2;
+				int centreX = (tabFigures[i].getTabMemo()[0].x + tabFigures[i]
+						.getTabMemo()[1].x) / 2;
+				int centreY = (tabFigures[i].getTabMemo()[0].y + tabFigures[i]
+						.getTabMemo()[1].y) / 2;
 				// Calcul des coordonnées des foyers
 				int foyer1X;
 				int foyer1Y;
 				int foyer2X;
 				int foyer2Y;
-				double c = Math.sqrt(Math.abs(rayonX*rayonX - rayonY*rayonY));
-				if(rayonX > rayonY) {
-					foyer1X = centreX - (int)c;
+				double c = Math.sqrt(Math
+						.abs(rayonX * rayonX - rayonY * rayonY));
+				if (rayonX > rayonY) {
+					foyer1X = centreX - (int) c;
 					foyer1Y = centreY;
-					foyer2X = centreX + (int)c;
+					foyer2X = centreX + (int) c;
 					foyer2Y = centreY;
-				}
-				else {
+				} else {
 					foyer1X = centreX;
-					foyer1Y = centreY - (int)c;
+					foyer1Y = centreY - (int) c;
 					foyer2X = centreX;
-					foyer2Y = centreY + (int)c;
+					foyer2Y = centreY + (int) c;
 				}
 				// Calcul de la somme des distances du point aux 2 foyers
 				double distanceF1 = pt.distance(foyer1X, foyer1Y);
 				double distanceF2 = pt.distance(foyer2X, foyer2Y);
-				int sommeDist = (int)(distanceF1 + distanceF2);
+				int sommeDist = (int) (distanceF1 + distanceF2);
 				// Test de voisinage
-				if(rayonX > rayonY) {
-					if(Math.abs(sommeDist-rayonX*2) < MARGE_SELECTION_ELLIPSE) {
+				if (rayonX > rayonY) {
+					if (Math.abs(sommeDist - rayonX * 2) < MARGE_SELECTION_ELLIPSE) {
 						trouve = true;
 						res = tabFigures[i];
 					}
-				}
-				else {
-					if(Math.abs(sommeDist-rayonY*2) < MARGE_SELECTION_ELLIPSE) {
+				} else {
+					if (Math.abs(sommeDist - rayonY * 2) < MARGE_SELECTION_ELLIPSE) {
 						trouve = true;
 						res = tabFigures[i];
 					}
@@ -954,7 +999,8 @@ public class Dessin extends JPanel {
 		// possede un segment a proximite du point courant
 		while (i < nbFigures && !trouve) {
 			// Si la figure est un polygone
-			if (tabFigures[i] instanceof Polygone || tabFigures[i] instanceof Ellipse) {
+			if (tabFigures[i] instanceof Polygone
+					|| tabFigures[i] instanceof Ellipse) {
 				for (int j = 0; j < tabFigures[i].getNbMemo(); j++) {
 					// Si c'est le cas, selection de cette figure
 					if (estVoisin(MARGE_SELECTION_POINT, pt,
@@ -965,7 +1011,8 @@ public class Dessin extends JPanel {
 				}
 			}
 			// Si la figure est un cercle
-			if (tabFigures[i] instanceof Cercle && !(tabFigures[i] instanceof Ellipse)) {
+			if (tabFigures[i] instanceof Cercle
+					&& !(tabFigures[i] instanceof Ellipse)) {
 				if (estVoisin(MARGE_SELECTION_POINT, pt,
 						tabFigures[i].getTabMemo()[1])) {
 					res = tabFigures[i].getTabMemo()[1];
@@ -985,24 +1032,26 @@ public class Dessin extends JPanel {
 		JFileChooser filechoose = new JFileChooser();
 		/* ouvrir la boite de dialogue dans repertoire courant */
 		filechoose.setCurrentDirectory(new File("."));
-		
+
 		/* nom de la boite de dialogue */
-		filechoose.setDialogTitle("Exporter une image"); 
+		filechoose.setDialogTitle("Exporter une image");
 
 		/* pour afficher seulement les repertoires */
 		filechoose.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		
+
 		/* Le bouton pour valider */
-		String approve = new String("Exporter"); 
+		String approve = new String("Exporter");
 		int resultatEnregistrer = filechoose.showDialog(filechoose, approve);
-		
+
 		/* Si l'utilisateur clique sur le bouton Exporter */
-		if (resultatEnregistrer == JFileChooser.APPROVE_OPTION) { 
+		if (resultatEnregistrer == JFileChooser.APPROVE_OPTION) {
 			/* pour avoir le chemin absolu */
-			String chemin = filechoose.getSelectedFile().getAbsolutePath(); 
-			
-			/* on enregistre le fichier dans le repertoire desire avec pour nom
-			   image + date en millisecondes */
+			String chemin = filechoose.getSelectedFile().getAbsolutePath();
+
+			/*
+			 * on enregistre le fichier dans le repertoire desire avec pour nom
+			 * image + date en millisecondes
+			 */
 			GregorianCalendar intCal = new GregorianCalendar();
 			long tmp = intCal.getTimeInMillis();
 			entete.setVisible(false);
@@ -1011,8 +1060,8 @@ public class Dessin extends JPanel {
 			Graphics2D g2 = img.createGraphics();
 			this.paint(g2);
 			try {
-				ImageIO.write(img, format,
-						new File(chemin, "Image" + tmp + "."+format));
+				ImageIO.write(img, format, new File(chemin, "Image" + tmp + "."
+						+ format));
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -1020,10 +1069,12 @@ public class Dessin extends JPanel {
 			listeFigSelectionnees = (ArrayList<FigureGeom>) tampon.clone();
 		}
 	}
-	
+
 	/**
 	 * Methode permettant de changer la couleur
-	 * @param c la nouvelle couleur
+	 * 
+	 * @param c
+	 *            la nouvelle couleur
 	 */
 	public void changeCouleur(Color c) {
 		if (!listeFigSelectionnees.isEmpty())
@@ -1037,7 +1088,9 @@ public class Dessin extends JPanel {
 
 	/**
 	 * Methode permettant de changer l'epaisseur
-	 * @param e la nouvelle epaisseur
+	 * 
+	 * @param e
+	 *            la nouvelle epaisseur
 	 */
 	public void changeEpaisseur(int e) {
 		if (!listeFigSelectionnees.isEmpty())
@@ -1048,7 +1101,7 @@ public class Dessin extends JPanel {
 		}
 		repaint();
 	}
-	
+
 	/**
 	 * Methode permettant de vider listePoints
 	 */
@@ -1060,7 +1113,7 @@ public class Dessin extends JPanel {
 			repaint();
 		}
 	}
-	
+
 	/**
 	 * Methode permettant de dupliquer une ou plusieurs figures
 	 */
@@ -1096,6 +1149,7 @@ public class Dessin extends JPanel {
 			repaint();
 		}
 	}
+
 	/**
 	 * Methode permettant d'ajouter un etat a� listeEtats
 	 */
@@ -1132,7 +1186,9 @@ public class Dessin extends JPanel {
 
 	/**
 	 * Methode permettant d'effectuer la rotation d'une ou plusieurs figures
-	 * @param r 1 pour la droite, 2 pour la gauche
+	 * 
+	 * @param r
+	 *            1 pour la droite, 2 pour la gauche
 	 */
 	public void rotation(int r) {
 		ajouterEtat();
@@ -1158,7 +1214,7 @@ public class Dessin extends JPanel {
 			}
 		}
 	}
-	
+
 	/**
 	 * Methode permettant de couper une ou plusieurs figures
 	 */
@@ -1167,11 +1223,12 @@ public class Dessin extends JPanel {
 		copier();
 		supprimer();
 	}
-	
+
 	/**
-	 * Methode qui permet de coller une figure copiee soit a� l'emplacement de la souris 
-	 * soit a� proximite de la figure copiee
-	 * @param a 
+	 * Methode qui permet de coller une figure copiee soit a� l'emplacement de
+	 * la souris soit a� proximite de la figure copiee
+	 * 
+	 * @param a
 	 */
 	public void coller(int a) {
 		viderPoints();
@@ -1194,6 +1251,7 @@ public class Dessin extends JPanel {
 		}
 		repaint();
 	}
+
 	/**
 	 * Methode qui permet de reinitiliser un nouveau dessin
 	 */
