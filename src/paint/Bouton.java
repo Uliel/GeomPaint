@@ -12,10 +12,14 @@ import java.awt.event.MouseListener;
  * Classe Bouton héritée de la classe JButton qui permet de créer des boutons avec des attributs différents
  */
 public class Bouton extends JToggleButton implements MouseListener{
+	
+	// ATTRIBUTS
 	private int valeur;
 	private Border bord;
 	private Color coul;
 	
+	
+	// CONSTRUCTEURS
 	/**
 	 * Constructeur à partir de 
 	 * @param n un entier
@@ -40,6 +44,7 @@ public class Bouton extends JToggleButton implements MouseListener{
 		this.addMouseListener(this);
 	}
 	
+	
 	/**
 	 * Constructeur à partir de
 	 * @param n un entier
@@ -56,13 +61,14 @@ public class Bouton extends JToggleButton implements MouseListener{
 		this.setBackground(c);
 		bord=this.getBorder();
 	}
-
+	
+	
+	// ACCESSEURS
+	
 	public int getValeur() {
 		return valeur;
 	}
 	
-	
-
 	public Color getCoul() {
 		return coul;
 	}
@@ -71,15 +77,16 @@ public class Bouton extends JToggleButton implements MouseListener{
 		this.coul=c;
 	}
 
+	
+	// METHODES
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Stub de la méthode généré automatiquement
+	public void mouseClicked(MouseEvent arg0) {}
 
-	}
-
+	/**
+	 * Methode qui gere l'aspect du bouton lorsque la souris passe dessus
+	 */
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Stub de la méthode généré automatiquement
 		if (this.isEnabled()){
 			if (coul.getBlue()<150&&
 					coul.getRed()<150&&
@@ -89,10 +96,12 @@ public class Bouton extends JToggleButton implements MouseListener{
 				this.setBorder(BorderFactory.createLineBorder(Color.blue, 2));
 		}
 	}
-
+	
+	/**
+	 * Methode qui gere l'aspect du bouton lorsque la souris sort du bouton
+	 */
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Stub de la méthode généré automatiquement
 		if (!this.isSelected())
 			this.setBorder(bord);
 		else 
@@ -105,14 +114,8 @@ public class Bouton extends JToggleButton implements MouseListener{
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Stub de la méthode généré automatiquement
-
-	}
+	public void mousePressed(MouseEvent arg0) {}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Stub de la méthode généré automatiquement
-		
-	}
+	public void mouseReleased(MouseEvent arg0) {}
 }

@@ -15,13 +15,12 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import figures.*;
-// Rq : laisser l'import de figures.Rectangle qui permet a eclipse de ne pas confondre avec une classe java existante java.awt.rectangle
 import figures.Rectangle;
 
 /**
  * 
  * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
- * Classe de d'implementer le dessin des figures et creer l'interface
+ * Classe Dessin permettant d'implementer le dessin des figures et de creer l'interface
  */
 public class Dessin extends JPanel {
 
@@ -886,8 +885,6 @@ public class Dessin extends JPanel {
 		repaint();
 	}
 
-
-	//
 	/**
 	 * Methode qui teste si un point se trouve a moins d'une certaine distance d'un autre point
 	 * @param distance distance fixee
@@ -1164,7 +1161,7 @@ public class Dessin extends JPanel {
 	}
 
 	/**
-	 * Methode permettant d'ajouter un etat a� listeEtats
+	 * Methode permettant d'ajouter un etat a listeEtats
 	 */
 	public void ajouterEtat() {
 		FigureGeom tmp[] = new FigureGeom[nbFigures];
@@ -1237,8 +1234,8 @@ public class Dessin extends JPanel {
 	}
 
 	/**
-	 * Methode qui permet de coller une figure copiee soit a� l'emplacement de
-	 * la souris soit a� proximite de la figure copiee
+	 * Methode qui permet de coller une figure copiee soit a l'emplacement de
+	 * la souris soit a proximite de la figure copiee
 	 * 
 	 * @param a
 	 */
@@ -1264,7 +1261,7 @@ public class Dessin extends JPanel {
 	}
 
 	/**
-	 * Methode qui permet de reinitiliser un nouveau dessin
+	 * Methode qui permet de reinitialiser un nouveau dessin
 	 */
 	public void nouveau() {
 		tabFigures = new FigureGeom[MAXTAILLE];

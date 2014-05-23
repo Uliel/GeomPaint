@@ -2,7 +2,7 @@
  * 
  * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
  * Classe qui cree des figures geometriques a partir de listes de points
- * Une figure est tableau de points
+ * Une figure est constituee d'un tableau de points
  *
  */
 

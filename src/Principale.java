@@ -1,6 +1,7 @@
 /**
  * 
- * @authors Nicolas Gambarini, Sarah Lequeuvre
+ * @authors Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
+ * Classe principale
  *
  */
 
@@ -9,8 +10,6 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 import paint.Dessin;
-import paint.MenuDeroulant;
-import figures.*;
 
 public class Principale {
 	

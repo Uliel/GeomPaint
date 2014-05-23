@@ -3,18 +3,16 @@ package paint;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 
 import javax.swing.*;
 
 /**
  * 
  * @author Frederic Euriot, Nicolas Gambarini, Sarah Lequeuvre, Sylvain Riess
- * Classe qui permet de creer le boite à outils
+ * Classe qui permet de creer la boite à outils
  * 
  */
 public class BoiteOutils extends JPanel {
